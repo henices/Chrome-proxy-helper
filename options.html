@@ -1,0 +1,147 @@
+
+<html>
+<head>
+<title>My Proxy - Options</title>
+<style>
+body {
+  font-family:helvetica, arial, sans-serif;
+  font-size:80%;
+  margin:10px;
+}
+
+ul { padding:0;margin:0; }
+ul li{ list-style:none; }
+
+#header {
+  padding-bottom:1.5em;
+  padding-top:1.5em;
+}
+
+#header h1 {
+  font-size: 156%;
+  display:inline;
+  padding-bottom:43px;
+  padding-left:75px;
+  padding-top:40px;
+  background:url(images/on.png) no-repeat;
+  background-size:67px;
+  background-position:1px 18px;
+}
+
+.section-header {
+  background:#ebeff9;
+  border-top:1px solid #b5c7de;
+  font-size:99%;
+  padding:3px 0 2px 5px;
+  font-weight:bold;
+  margin-bottom:1em;
+  margin-top:4em;
+}
+
+.section-header.first {
+  margin-top:1em;
+}
+
+.proxy-info {
+  margin-right:10px;
+  margin-left:8px;
+}
+
+#footer {
+  margin-top:4em;
+}
+</style>
+</head>
+<body>
+
+<div id="header"><h1>My Proxy Options</h1></div>
+
+<div class="section-header first">Pac Script Settings</div>
+<p>To use automatic proxy, enter the pac script file path. 
+<p>
+  Path <input type="text" id="pac-path" size="50" oninput="markDirty()" /> 
+  <em>( eg. file:////c:/proxy.pac )</em>
+<br/><br/>
+
+<div class="section-header first">Socks5 Proxy Settings</div>
+<ul><li>
+  <label>
+	Host: 
+  </label>
+  <input type="text" id="socks5-host" class="proxy-info" size="15" oninput="markDirty()" />
+  <label>
+    Port: 
+  </label>
+  <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
+</li></ul>
+<br/>
+
+<div class="section-header first">Http Proxy Settings</div>
+<ul><li>
+  <label>
+    Host:
+  </label>
+  <input type="text" id="http-host" class="proxy-info" size="15" oninput="markDirty()" /> 
+  <label>
+    Port: 
+  </label>
+  <input type="text" id="http-port" class="proxy-info" size="5" oninput="markDirty()" /> 
+</li></ul>
+<br/>
+
+<div id="footer">
+  <button id="save-button" style="font-weight:bold" onclick="save()"
+    >Save</button>
+  <button onclick="init()">Cancel</button>
+</div>
+
+<script>
+var pacPathTextbox;
+var socks5HostTextbox;
+var socks5PortTextbox;
+var httpHostTextbox;
+var httpPortTextbox;
+var saveButton;
+
+init();
+
+function init() {
+  pacPathTextbox = document.getElementById("pac-path");
+  socks5HostTextbox = document.getElementById("socks5-host");
+  socks5PortTextbox = document.getElementById("socks5-port");
+  httpHostTextbox = document.getElementById("http-host");
+  httpPortTextbox = document.getElementById("http-port");
+  saveButton = document.getElementById("save-button");
+
+  pacPathTextbox.value = localStorage.pacPath || "";
+  socks5HostTextbox.value = localStorage.socks5Host || "";
+  socks5PortTextbox.value = localStorage.socks5Port || "";
+  httpHostTextbox.value = localStorage.httpHost || "";
+  httpPortTextbox.value = localStorage.httpPort || "";
+  
+  markClean();
+}
+
+function save() {
+  localStorage.pacPath = pacPathTextbox.value;
+  localStorage.socks5Host = socks5HostTextbox.value;
+  localStorage.socks5Port = socks5PortTextbox.value;
+  localStorage.httpHost = httpHostTextbox.value;
+  localStorage.httpPort = httpPortTextbox.value;
+  
+  
+  markClean();
+  chrome.extension.getBackgroundPage().sysProxy();
+  alert("Please restart oow pac proxy");
+}
+
+function markDirty() {
+  saveButton.disabled = false;
+}
+
+function markClean() {
+  saveButton.disabled = true;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+<head>
+<script>
+
+function init() {
+	var icon = {
+		path: "images/off.png",
+	}
+	
+	chrome.proxy.settings.get(
+                {'incognito': false},
+		function(config) { 
+			if (config["value"]["mode"] == "system") {
+				chrome.browserAction.setIcon(icon);
+			} 
+			else {
+				icon["path"] = "images/on.png";
+				chrome.browserAction.setIcon(icon);
+			}
+		}
+	);
+}
+
+init();
+
+</script>
+</head>
+</html>

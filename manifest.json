@@ -1,0 +1,22 @@
+{
+	"name": "My Proxy",
+	"version": "1.0.0",
+	"description": "Set proxy for Google Chrome browser",
+	"icons": {
+		"128": "images/on.png",
+		"48":  "images/on48.png",
+		"16":  "images/on16.png"
+	},
+	"permissions": [
+		"proxy",
+		"http://u.qiangtoucao.com/*",
+		"https://u.qiangtoucao.com/*"
+	],
+	"background_page": "background.html",
+	"options_page": "options.html",
+	"browser_action": {
+		"default_icon": "images/off.png",
+		"default_title": "My proxy",
+		"popup": "popup.html"
+	}
+}
