@@ -127,8 +127,7 @@ function sysProxy() {
     var config = {
         mode: "system",
     };
-	
-	var icon = {
+    var icon = {
         path: "images/off.png",
     }
 
@@ -145,11 +144,10 @@ function save() {
   localStorage.socks5Port = socks5PortTextbox.value;
   localStorage.httpHost = httpHostTextbox.value;
   localStorage.httpPort = httpPortTextbox.value;
-  
-  
+
   markClean();
   sysProxy();
-  alert("Please restart oow pac proxy");
+  alert("Please restart proxy on popup page");
 }
 
 function markDirty() {
