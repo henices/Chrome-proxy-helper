@@ -122,6 +122,23 @@ function init() {
   markClean();
 }
 
+function sysProxy() {
+
+    var config = {
+        mode: "system",
+    };
+	
+	var icon = {
+        path: "images/off.png",
+    }
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    chrome.browserAction.setIcon(icon);
+}
+
 function save() {
   localStorage.pacPath = pacPathTextbox.value;
   localStorage.socks5Host = socks5HostTextbox.value;
@@ -131,6 +148,7 @@ function save() {
   
   
   markClean();
+  sysProxy();
   alert("Please restart oow pac proxy");
 }
 
