@@ -2,4 +2,4 @@ Google Chrome proxy extension. Enjoy it
 
 == To run
 
-First set proxy in popup.html page
+First set proxy information in options.html page, and then choose the proxy in popup.html , That 's ALL
