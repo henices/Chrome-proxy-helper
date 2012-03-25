@@ -1,7 +1,7 @@
 body { 
-    width:150px;
+    width:130px;
     color:#000; 
-    font-family: arial, Verdana;
+    font-family: arial, sans-serif;
     font-size: 12px;
     padding: 3px;
     margin: 0;
@@ -18,7 +18,7 @@ body {
 }
 .text {
   float: left;
-  margin-left: 26px;
+  margin-left: 20px;
 }
 
 ul {
@@ -53,7 +53,7 @@ ul li:hover {
 
 .selected {
   float: left;
-  margin-left: 26px;
+  margin-left: 20px;
   color: blue;
   font-weight: bolder;
 }

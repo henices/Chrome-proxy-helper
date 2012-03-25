@@ -9,9 +9,7 @@
 	},
 	"permissions": [
 		"proxy",
-		"tabs",
-		"http://u.qiangtoucao.com/*",
-		"https://u.qiangtoucao.com/*"
+		"tabs"
 	],
 	"background_page": "background.html",
 	"options_page": "options.html",
