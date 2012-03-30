@@ -72,12 +72,25 @@ function sysProxy() {
 }
 
 function socks5Proxy() {
+    var type = '';
+
+    if (localStorage.socks5 == 'true')
+        type = 'socks5';
+
+    if (localStorage.socks4 == 'true')
+        type = 'socks4';
+
+    if (localStorage.socks4 == 'false' &&
+        localStorage.socks5 == 'false')
+        return;
+
+    if ( !type ) return;
 
     var config = {
         mode: "fixed_servers",
         rules: {
             singleProxy: {
-                             scheme: "socks5",
+                             scheme: type,
                              host: localStorage.socks5Host,
                              port: parseInt(localStorage.socks5Port)
                          },

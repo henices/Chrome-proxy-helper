@@ -1,7 +1,7 @@
-
 <html>
 <head>
-<title>My Proxy - Options</title>
+<title>Proxy Helper - Options</title>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <style>
 body {
   font-family:helvetica, arial, sans-serif;
@@ -54,7 +54,7 @@ ul li{ list-style:none; }
 </head>
 <body>
 
-<div id="header"><h1>My Proxy Options</h1></div>
+<div id="header"><h1>Proxy Helper Options</h1></div>
 
 <div class="section-header first">Pac Script Settings</div>
 <p>To use automatic proxy, enter the pac script file path. 
@@ -63,30 +63,30 @@ ul li{ list-style:none; }
   <em>( eg. file:////c:/proxy.pac )</em>
 <br/><br/>
 
-<div class="section-header first">Socks5 Proxy Settings</div>
-<ul><li>
-  <label>
-	Host: 
-  </label>
-  <input type="text" id="socks5-host" class="proxy-info" size="15" oninput="markDirty()" />
-  <label>
-    Port: 
-  </label>
-  <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
-</li></ul>
+<div class="section-header first">Socks Proxy Settings</div>
+<ul>
+<li>
+    <label>Host:</label>
+    <input type="text" id="socks5-host" class="proxy-info" size="15" oninput="markDirty()" />
+    <label>Port:</label>
+    <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
+</li>
+<li>
+    <input type="checkbox" id="socks4" onchange="markDirty()" /><span>socks4</span>
+    <input type="checkbox" id="socks5" onchange="markDirty()" /><span>socks5</span>
+</li>
+</ul>
 <br/>
 
 <div class="section-header first">Http Proxy Settings</div>
-<ul><li>
-  <label>
-    Host:
-  </label>
-  <input type="text" id="http-host" class="proxy-info" size="15" oninput="markDirty()" /> 
-  <label>
-    Port: 
-  </label>
-  <input type="text" id="http-port" class="proxy-info" size="5" oninput="markDirty()" /> 
-</li></ul>
+<ul>
+<li>
+    <label>Host:</label>
+    <input type="text" id="http-host" class="proxy-info" size="15" oninput="markDirty()" /> 
+    <label>Port:</label>
+    <input type="text" id="http-port" class="proxy-info" size="5" oninput="markDirty()" /> 
+</li>
+</ul>
 <br/>
 
 <div id="footer">
@@ -96,29 +96,24 @@ ul li{ list-style:none; }
 </div>
 
 <script>
-var pacPathTextbox;
-var socks5HostTextbox;
-var socks5PortTextbox;
-var httpHostTextbox;
-var httpPortTextbox;
-var saveButton;
 
 init();
 
 function init() {
-  pacPathTextbox = document.getElementById("pac-path");
-  socks5HostTextbox = document.getElementById("socks5-host");
-  socks5PortTextbox = document.getElementById("socks5-port");
-  httpHostTextbox = document.getElementById("http-host");
-  httpPortTextbox = document.getElementById("http-port");
-  saveButton = document.getElementById("save-button");
 
-  pacPathTextbox.value = localStorage.pacPath || "";
-  socks5HostTextbox.value = localStorage.socks5Host || "";
-  socks5PortTextbox.value = localStorage.socks5Port || "";
-  httpHostTextbox.value = localStorage.httpHost || "";
-  httpPortTextbox.value = localStorage.httpPort || "";
-  
+  $('#pac-path').val(localStorage.pacPath || "" );
+  $('#socks5-host').val(localStorage.socks5Host || "");
+  $('#socks5-port').val(localStorage.socks5Port || "");
+  $('#http-host').val(localStorage.httpHost || "");
+  $('#http-port').val(localStorage.httpPort || "");
+
+  if (localStorage.socks5 == 'true') {
+      $('#socks5').attr('checked', true);
+  }
+
+  if (localStorage.socks4 == 'true')
+    $('#socks4').attr('checked', true);
+
   markClean();
 }
 
@@ -139,11 +134,31 @@ function sysProxy() {
 }
 
 function save() {
-  localStorage.pacPath = pacPathTextbox.value;
-  localStorage.socks5Host = socks5HostTextbox.value;
-  localStorage.socks5Port = socks5PortTextbox.value;
-  localStorage.httpHost = httpHostTextbox.value;
-  localStorage.httpPort = httpPortTextbox.value;
+  localStorage.pacPath = $('#pac-path').val();
+  localStorage.socks5Host = $('#socks5-host').val();
+  localStorage.socks5Port = $('#socks5-port').val();
+  localStorage.httpHost = $('#http-host').val();
+  localStorage.httpPort = $('#http-port').val();
+
+  if ($('#socks5').is(':checked') && $('#socks4').is(':checked')) {
+      alert("Please check socks5 OR socks4");
+      return;
+  }
+
+
+  if ($('#socks5').is(':checked')) {
+      localStorage.socks5 = 'true';
+  }
+  else {
+      localStorage.socks5 = 'false';
+  }
+
+  if ($('#socks4').is(':checked')) {
+      localStorage.socks4 = 'true';
+  }
+  else {
+      localStorage.socks4 = 'false';
+  }
 
   markClean();
   sysProxy();
@@ -151,11 +166,11 @@ function save() {
 }
 
 function markDirty() {
-  saveButton.disabled = false;
+  $('#save-button').attr("disabled", false);
 }
 
 function markClean() {
-  saveButton.disabled = true;
+  $('#save-button').attr("disabled", true);
 }
 </script>
 </body>
