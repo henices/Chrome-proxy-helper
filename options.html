@@ -89,6 +89,17 @@ ul li{ list-style:none; }
 </ul>
 <br/>
 
+<div class="section-header first">Https Proxy Settings</div>
+<ul>
+<li>
+    <label>Host:</label>
+    <input type="text" id="https-host" class="proxy-info" size="15" oninput="markDirty()" /> 
+    <label>Port:</label>
+    <input type="text" id="https-port" class="proxy-info" size="5" oninput="markDirty()" /> 
+</li>
+</ul>
+<br/>
+
 <div id="footer">
   <button id="save-button" style="font-weight:bold" onclick="save()"
     >Save</button>
@@ -106,6 +117,8 @@ function init() {
   $('#socks5-port').val(localStorage.socks5Port || "");
   $('#http-host').val(localStorage.httpHost || "");
   $('#http-port').val(localStorage.httpPort || "");
+  $('#https-host').val(localStorage.httpsHost || "");
+  $('#https-port').val(localStorage.httpsPort || "");
 
   if (localStorage.socks5 == 'true') {
       $('#socks5').attr('checked', true);
@@ -139,6 +152,8 @@ function save() {
   localStorage.socks5Port = $('#socks5-port').val();
   localStorage.httpHost = $('#http-host').val();
   localStorage.httpPort = $('#http-port').val();
+  localStorage.httpsHost = $('#https-host').val();
+  localStorage.httpsPort = $('#https-port').val();
 
   if ($('#socks5').is(':checked') && $('#socks4').is(':checked')) {
       alert("Please check socks5 OR socks4");

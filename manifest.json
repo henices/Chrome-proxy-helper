@@ -1,6 +1,6 @@
 {
     "name": "Proxy Helper",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "description": "Set proxy for Google Chrome browser",
     "icons": {
         "128": "images/on.png",

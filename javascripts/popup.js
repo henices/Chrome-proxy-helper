@@ -133,3 +133,28 @@ function httpProxy() {
     iconSet("on");
     proxySelected("http");
 }
+
+function httpsProxy() {
+
+    var config = {
+        mode: "fixed_servers",
+        rules: {
+            singleProxy: {
+                             scheme: "https",
+                             host: localStorage.httpsHost,
+                             port: parseInt(localStorage.httpsPort)
+                         },
+        }
+    };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    var icon = {
+        path: "images/on.png",
+    }
+
+    iconSet("on");
+    proxySelected("https");
+}
