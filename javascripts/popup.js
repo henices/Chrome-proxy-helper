@@ -15,6 +15,9 @@ function init() {
             if (config["value"]["rules"]["singleProxy"]["scheme"] == "http") {
                 $("#http").addClass("selected");
             }
+            if (config["value"]["rules"]["singleProxy"]["scheme"] == "https") {
+                $("#https").addClass("selected");
+            }
             if (config["value"]["rules"]["singleProxy"]["scheme"] == "socks5") {
                 $("#socks5").addClass("selected");
             }

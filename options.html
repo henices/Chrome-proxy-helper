@@ -9,8 +9,13 @@ body {
   margin:10px;
 }
 
-ul { padding:0;margin:0; }
-ul li{ list-style:none; }
+td label {
+    font-size:80%;
+    padding:0;
+    margin:0;
+    text-align:right
+}
+
 
 #header {
   padding-bottom:1.5em;
@@ -56,53 +61,86 @@ ul li{ list-style:none; }
 
 <div id="header"><h1>Proxy Helper Options</h1></div>
 
-<div class="section-header first">Pac Script Settings</div>
-<p>To use automatic proxy, enter the pac script file path. 
+<div class="section-header first"><input type="radio" id="auto"/>Automatically configure proxy</div>
+<p/>
 <p>
-  Path <input type="text" id="pac-path" size="50" oninput="markDirty()" /> 
-  <em>( eg. file:////c:/proxy.pac )</em>
+  PATH (URL) <input type="text" id="pac-path" size="50" oninput="markDirty()" /> 
+  <em>( use pac script, eg. file:////c:/proxy.pac )</em>
 <br/><br/>
 
-<div class="section-header first">Socks Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="socks5-host" class="proxy-info" size="15" oninput="markDirty()" />
-    <label>Port:</label>
-    <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
-</li>
-<li>
-    <input type="checkbox" id="socks4" onchange="markDirty()" /><span>socks4</span>
-    <input type="checkbox" id="socks5" onchange="markDirty()" /><span>socks5</span>
-</li>
-</ul>
-<br/>
-
-<div class="section-header first">Http Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="http-host" class="proxy-info" size="15" oninput="markDirty()" /> 
-    <label>Port:</label>
+<div class="section-header first"><input type="radio" id="manual"/>Manually configure proxy</div>
+<table>
+<tr>
+    <td align="right"><label>HTTP PROXY:<label></td>
+    <td>
+    <input type="text" id="http-host" class="proxy-info" size="18" oninput="markDirty()" /> 
+    </td>
+    <td>
+    <label>PORT:</label>
     <input type="text" id="http-port" class="proxy-info" size="5" oninput="markDirty()" /> 
-</li>
-</ul>
-<br/>
-
-<div class="section-header first">Https Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="https-host" class="proxy-info" size="15" oninput="markDirty()" /> 
-    <label>Port:</label>
+    </td>
+</tr>
+<tr>
+    <td align="right"><label>HTTPS PROXY:</label></td>
+    <td>
+    <input type="text" id="https-host" class="proxy-info" size="18" oninput="markDirty()" /> 
+    </td>
+    <td>
+    <label>PORT:</label>
     <input type="text" id="https-port" class="proxy-info" size="5" oninput="markDirty()" /> 
-</li>
-</ul>
-<br/>
+    </td>
+</tr>
+<tr>
+    <td align="right"><label>SOCKS HOST:</label></td>
+    <td>
+    <input type="text" id="socks5-host" class="proxy-info" size="18" oninput="markDirty()" />
+    </td>
+    <td>
+    <label>PORT:</label>
+    <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td>
+    <input type="radio" id="socks4" onchange="markDirty()" /><span style="font-size:80%;">SOCKS4</span>
+    <input type="radio" id="socks5" onchange="markDirty()" /><span style="font-size:80%;">SOCKS5</span>
+    </td>
+</tr>
+</table>
+
+<div class="section-header first"><input type="radio" id="system"/>System proxy</div>
+<br/><br/>
+
+<input type="checkbox" onchange="show_adv();"/><span>Show advanced settings </span>
+<br/><br/>
+<table id="adv_settings" hidden>
+    <tr>
+    <td>
+        <label>Proxy Rules</label> 
+    </td>
+    <td>
+    <select>
+        <option value="">singleProxy</option>
+        <option value="">proxyForHttp</option>
+        <option value="">proxyForHttps</option>
+        <option value="">proxyForFtp</option>
+        <option value="">fallbackProxy</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <label>Bypass</label>
+    </td>
+    <td>
+    <input type=text size="50"></input>
+    </td>
+    </tr>
+</table>
 
 <div id="footer">
-  <button id="save-button" style="font-weight:bold" onclick="save()"
-    >Save</button>
+  <button id="save-button" style="font-weight:bold" onclick="save()">Save</button>
   <button onclick="init()">Cancel</button>
 </div>
 
@@ -128,6 +166,16 @@ function init() {
     $('#socks4').attr('checked', true);
 
   markClean();
+}
+
+function get_proxy_info() {
+}
+
+function show_adv() {
+    if($('#adv_settings').is(':hidden'))
+        $("#adv_settings").show();
+    else
+        $("#adv_settings").hide();
 }
 
 function sysProxy() {
