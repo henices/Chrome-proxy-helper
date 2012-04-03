@@ -2,107 +2,96 @@
 <head>
 <title>Proxy Helper - Options</title>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
-<style>
-body {
-  font-family:helvetica, arial, sans-serif;
-  font-size:80%;
-  margin:10px;
-}
-
-ul { padding:0;margin:0; }
-ul li{ list-style:none; }
-
-#header {
-  padding-bottom:1.5em;
-  padding-top:1.5em;
-}
-
-#header h1 {
-  font-size: 156%;
-  display:inline;
-  padding-bottom:43px;
-  padding-left:75px;
-  padding-top:40px;
-  background:url(images/on.png) no-repeat;
-  background-size:67px;
-  background-position:1px 18px;
-}
-
-.section-header {
-  background:#ebeff9;
-  border-top:1px solid #b5c7de;
-  font-size:99%;
-  padding:3px 0 2px 5px;
-  font-weight:bold;
-  margin-bottom:1em;
-  margin-top:4em;
-}
-
-.section-header.first {
-  margin-top:1em;
-}
-
-.proxy-info {
-  margin-right:10px;
-  margin-left:8px;
-}
-
-#footer {
-  margin-top:4em;
-}
-</style>
+<link href="stylesheets/options.css" type="text/css" rel="stylesheet">
 </head>
-<body>
+<body onload="get_proxy_info();">
 
 <div id="header"><h1>Proxy Helper Options</h1></div>
 
-<div class="section-header first">Pac Script Settings</div>
-<p>To use automatic proxy, enter the pac script file path. 
+<div class="section-header first">Proxy Information</div>
+<span id="info" ></span>
+
+<div class="section-header first">
+    Automatically configure proxy</div>
+<p/>
 <p>
-  Path <input type="text" id="pac-path" size="50" oninput="markDirty()" /> 
-  <em>( eg. file:////c:/proxy.pac )</em>
-<br/><br/>
+  PATH (URL) <input type="text" id="pac-path" size="50" oninput="markDirty()" /> 
+  <em>( use pac script, eg. file:////c:/proxy.pac )</em>
 
-<div class="section-header first">Socks Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="socks5-host" class="proxy-info" size="15" oninput="markDirty()" />
-    <label>Port:</label>
-    <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
-</li>
-<li>
-    <input type="checkbox" id="socks4" onchange="markDirty()" /><span>socks4</span>
-    <input type="checkbox" id="socks5" onchange="markDirty()" /><span>socks5</span>
-</li>
-</ul>
-<br/>
-
-<div class="section-header first">Http Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="http-host" class="proxy-info" size="15" oninput="markDirty()" /> 
-    <label>Port:</label>
+<div class="section-header first">
+    Manually configure proxy</div>
+<table id="manual_settings">
+<tr>
+    <td align="right"><label>HTTP PROXY:<label></td>
+    <td>
+    <input type="text" id="http-host" class="proxy-info" size="18" oninput="markDirty()" /> 
+    </td>
+    <td>
+    <label>PORT:</label>
     <input type="text" id="http-port" class="proxy-info" size="5" oninput="markDirty()" /> 
-</li>
-</ul>
-<br/>
-
-<div class="section-header first">Https Proxy Settings</div>
-<ul>
-<li>
-    <label>Host:</label>
-    <input type="text" id="https-host" class="proxy-info" size="15" oninput="markDirty()" /> 
-    <label>Port:</label>
+    </td>
+</tr>
+<tr>
+    <td align="right"><label>HTTPS PROXY:</label></td>
+    <td>
+    <input type="text" id="https-host" class="proxy-info" size="18" oninput="markDirty()" /> 
+    </td>
+    <td>
+    <label>PORT:</label>
     <input type="text" id="https-port" class="proxy-info" size="5" oninput="markDirty()" /> 
-</li>
-</ul>
-<br/>
+    </td>
+</tr>
+<tr>
+    <td align="right"><label>SOCKS HOST:</label></td>
+    <td>
+    <input type="text" id="socks5-host" class="proxy-info" size="18" oninput="markDirty()" />
+    </td>
+    <td>
+    <label>PORT:</label>
+    <input type="text" id="socks5-port" class="proxy-info" size="5" oninput="markDirty()" />
+    </td>
+</tr>
+<tr>
+    <td></td>
+    <td>
+        <input type="radio" id="socks4" onclick="radio_unchecked('#socks5');" />
+        <span style="font-size:80%;">SOCKS4</span>
+        <input type="radio" id="socks5" onclick="radio_unchecked('#socks4');" />
+        <span style="font-size:80%;">SOCKS5</span>
+    </td>
+</tr>
+</table>
+
+<input type="checkbox" style="margin-top:2em;" onchange="show_adv();"/><span>Show advanced settings </span>
+<br/><br/>
+<table id="adv_settings" hidden>
+    <tr>
+    <td>
+        <label>Proxy Rules</label> 
+    </td>
+    <td>
+    <select id="rule" onchange="markDirty();">
+        <option value="singleProxy">singleProxy</option>
+        <option value="proxyForHttp">proxyForHttp</option>
+        <option value="proxyForHttps">proxyForHttps</option>
+        <option value="proxyForFtp">proxyForFtp</option>
+        <option value="fallbackproxy">fallbackProxy</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <label>Bypass List</label>
+    </td>
+    <td>
+        <input id="bypasslist" type=text size="50" oninput="markDirty();"/> 
+        <em style="font-size:80%;"> (split by ,) </em>
+    </td>
+    </tr>
+</table>
 
 <div id="footer">
-  <button id="save-button" style="font-weight:bold" onclick="save()"
-    >Save</button>
+  <button id="save-button" style="font-weight:bold" onclick="save()">Save</button>
   <button onclick="init()">Cancel</button>
 </div>
 
@@ -111,7 +100,6 @@ ul li{ list-style:none; }
 init();
 
 function init() {
-
   $('#pac-path').val(localStorage.pacPath || "" );
   $('#socks5-host').val(localStorage.socks5Host || "");
   $('#socks5-port').val(localStorage.socks5Port || "");
@@ -119,6 +107,8 @@ function init() {
   $('#http-port').val(localStorage.httpPort || "");
   $('#https-host').val(localStorage.httpsHost || "");
   $('#https-port').val(localStorage.httpsPort || "");
+  $('#rule').val(localStorage.rule || "");
+  $('#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
 
   if (localStorage.socks5 == 'true') {
       $('#socks5').attr('checked', true);
@@ -128,6 +118,50 @@ function init() {
     $('#socks4').attr('checked', true);
 
   markClean();
+}
+
+function get_proxy_info() {
+
+    var methods = ['singleProxy', 'proxyForHttp', 'proxyForFtp', 'ProxyForHttps',
+    'fallbackProxy'];
+
+    var info, host, port;
+
+    chrome.proxy.settings.get(
+    {'incognito': false},
+        function(config) {
+            //alert(JSON.stringify(config));
+            if (config["value"]["mode"] == "system") {
+                info =  "Use DIRECT connections.";
+            }
+            else if (config["value"]["mode"] == "pac_script") {
+                info = "PAC script: " + config["value"]["pacScript"]["url"];
+            }
+            else {
+                for (var i in methods) {
+                    host = config["value"]["rules"][methods[i]]["host"];
+                    port = config["value"]["rules"][methods[i]]["port"];
+                    info = "Proxy server: " + 
+                    config["value"]["rules"][methods[i]]["scheme"] + 
+                    '://' + host + ':' + port.toString();
+                    $("#info").text(info);
+                }
+            }
+            $("#info").text(info);
+        }
+    );
+}
+
+function radio_unchecked(id) {
+    $(id).attr('checked', false);
+    markDirty();
+}
+
+function show_adv() {
+    if($('#adv_settings').is(':hidden'))
+        $("#adv_settings").show();
+    else
+        $("#adv_settings").hide();
 }
 
 function sysProxy() {
@@ -147,28 +181,26 @@ function sysProxy() {
 }
 
 function save() {
-  localStorage.pacPath = $('#pac-path').val();
-  localStorage.socks5Host = $('#socks5-host').val();
-  localStorage.socks5Port = $('#socks5-port').val();
-  localStorage.httpHost = $('#http-host').val();
-  localStorage.httpPort = $('#http-port').val();
-  localStorage.httpsHost = $('#https-host').val();
-  localStorage.httpsPort = $('#https-port').val();
 
-  if ($('#socks5').is(':checked') && $('#socks4').is(':checked')) {
-      alert("Please check socks5 OR socks4");
-      return;
-  }
+  localStorage.pacPath = $('#pac-path').val()||"";
+  localStorage.socks5Host = $('#socks5-host').val()||"";
+  localStorage.socks5Port = $('#socks5-port').val()||"";
+  localStorage.httpHost = $('#http-host').val()||"";
+  localStorage.httpPort = $('#http-port').val()||"";
+  localStorage.httpsHost = $('#https-host').val()||"";
+  localStorage.httpsPort = $('#https-port').val()||"";
+  localStorage.rule = $("#rule").val()||"";
+  localStorage.bypass = $("#bypasslist").val()||"";
+  localStorage.bypasslist = $("#bypasslist").val().split(',');
 
-
-  if ($('#socks5').is(':checked')) {
+  if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
   }
   else {
       localStorage.socks5 = 'false';
   }
 
-  if ($('#socks4').is(':checked')) {
+  if ($('#socks4').attr('checked')) {
       localStorage.socks4 = 'true';
   }
   else {
