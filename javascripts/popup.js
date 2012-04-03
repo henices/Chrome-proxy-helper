@@ -1,3 +1,6 @@
+var rule = localStorage.rule;
+var bypasslist = localStorage.bypasslist;
+
 function init() {
 
     chrome.proxy.settings.get(
@@ -12,13 +15,13 @@ function init() {
 
         }
         else {
-            if (config["value"]["rules"]["singleProxy"]["scheme"] == "http") {
+            if (config["value"]["rules"][rule]["scheme"] == "http") {
                 $("#http").addClass("selected");
             }
-            if (config["value"]["rules"]["singleProxy"]["scheme"] == "https") {
+            if (config["value"]["rules"][rule]["scheme"] == "https") {
                 $("#https").addClass("selected");
             }
-            if (config["value"]["rules"]["singleProxy"]["scheme"] == "socks5") {
+            if (config["value"]["rules"][rule]["scheme"] == "socks5") {
                 $("#socks5").addClass("selected");
             }
         }
@@ -92,13 +95,15 @@ function socks5Proxy() {
     var config = {
         mode: "fixed_servers",
         rules: {
-            singleProxy: {
+            bypassList:bypasslist
+        }
+    };
+
+    config["rules"][rule] = {
                              scheme: type,
                              host: localStorage.socks5Host,
                              port: parseInt(localStorage.socks5Port)
-                         },
-        }
-    };
+                         };
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
@@ -117,13 +122,15 @@ function httpProxy() {
     var config = {
         mode: "fixed_servers",
         rules: {
-            singleProxy: {
+            bypassList: bypasslist
+        },
+    };
+
+    config["rules"][rule] = {
                              scheme: "http",
                              host: localStorage.httpHost,
                              port: parseInt(localStorage.httpPort)
-                         },
-        }
-    };
+                         };
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
@@ -142,13 +149,15 @@ function httpsProxy() {
     var config = {
         mode: "fixed_servers",
         rules: {
-            singleProxy: {
+            bypassList:bypasslist
+        }
+    };
+
+    config["rules"][rule] = {
                              scheme: "https",
                              host: localStorage.httpsHost,
                              port: parseInt(localStorage.httpsPort)
-                         },
-        }
-    };
+                         };
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
