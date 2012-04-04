@@ -1,5 +1,5 @@
 var rule = localStorage.rule;
-var bypasslist = localStorage.bypasslist;
+var bypasslist = (localStorage.bypass).split(',');
 
 function init() {
 

@@ -190,8 +190,7 @@ function save() {
   localStorage.httpsHost = $('#https-host').val()||"";
   localStorage.httpsPort = $('#https-port').val()||"";
   localStorage.rule = $("#rule").val()||"";
-  localStorage.bypass = $("#bypasslist").val()||"";
-  localStorage.bypasslist = $("#bypasslist").val().split(',');
+  localStorage.bypass = $("#bypasslist").val()||"localhost,127.0.0.1";
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
