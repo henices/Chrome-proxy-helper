@@ -1,7 +1,3 @@
-<html>
-<head>
-<script>
-
 function init() {
     var icon = {
         path: "images/off.png",
@@ -44,10 +40,8 @@ function gotoOptPage() {
 }
 
 init();
+
 if ( !localStorage.first ) {
     gotoOptPage();
 }
 
-</script>
-</head>
-</html>

@@ -1,6 +1,7 @@
 {
     "name": "Proxy Helper",
-    "version": "1.1.0",
+    "version": "1.1.1",
+    "manifest_version": 2,
     "description": "Set proxy for Google Chrome browser",
     "icons": {
         "128": "images/on.png",
@@ -9,13 +10,16 @@
     },
     "permissions": [
         "proxy",
-        "tabs"
+        "tabs",
+        "unlimitedStorage"
     ],
-    "background_page": "background.html",
+    "background": {
+        "scripts": ["background.js"]
+    },
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "images/off.png",
         "default_title": "Proxy Helper",
-        "popup": "popup.html"
+        "default_popup": "popup.html"
     }
 }
