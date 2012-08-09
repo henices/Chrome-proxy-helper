@@ -24,8 +24,8 @@ function init() {
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
 
-        markClean();
-    });
+    markClean();
+  });
 
   get_proxy_info();
 
