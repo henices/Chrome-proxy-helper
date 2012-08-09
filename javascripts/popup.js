@@ -1,6 +1,19 @@
 var rule = localStorage.rule;
 var bypasslist = (localStorage.bypass).split(',');
 
+
+$(document).ready(function() {
+    init();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('#pac-script').addEventListener('click', pacProxy);
+    document.querySelector('#socks5-proxy').addEventListener('click', socks5Proxy);
+    document.querySelector('#http-proxy').addEventListener('click', httpProxy);
+    document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
+    document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
+});
+
 function init() {
 
     chrome.proxy.settings.get(
