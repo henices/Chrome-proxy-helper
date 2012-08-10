@@ -1,5 +1,6 @@
 // Chrome Proxy helper
 // by zhouzhenster@gmail.com
+// https://raw.github.com/henices/Chrome-proxy-helper/master/javascripts/options.js
 
 
 init();
@@ -23,6 +24,7 @@ function init() {
     document.querySelector('#bypasslist').addEventListener('change', markDirty);
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
+    document.querySelector('#cancel-button').addEventListener('click', load_proxy_info);
 
     markClean();
   });
