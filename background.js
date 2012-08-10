@@ -18,7 +18,7 @@ function init() {
 }
 
 function gotoOptPage() {
-    localStorage.first = 1;
+    localStorage.firstime = 1;
 
     var opturl = "options.html";
     var fulurl = chrome.extension.getURL(opturl);
@@ -41,7 +41,9 @@ function gotoOptPage() {
 
 init();
 
-if ( !localStorage.first ) {
+if ( !localStorage.firstime ) {
+    localStorage.socks5 = true;
+    localStorage.socks4 = false;
     gotoOptPage();
 }
 
