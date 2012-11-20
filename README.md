@@ -18,8 +18,9 @@ and then choose the proxy type on the popup page. That is ALL.
 To do
 ---------
 
-1. Support rule list
-2. QuickAdd and and AutoAdd patterns
-3. Proxy switching by URL
-4. And more
+1. Support multiple profile
+2. Support rule list
+3. QuickAdd and and AutoAdd patterns
+4. Proxy switching by URL
+5. And more
 
