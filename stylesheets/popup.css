@@ -1,24 +1,23 @@
 body { 
-    width:130px;
-    color:#000; 
-    font-family: arial, sans-serif;
-    font-size: 12px;
+    width: 130px;
+    font-family: 'Helvetica Neue', 'Hiragino Sans GB', sans-serif;
+    font-size: 14px;
+    line-height: 30px;
     padding: 3px;
     margin: 0;
 } 
 
 .menu {
-  color: #3d5d6a;
   line-height: 26px;
   text-indent: .5em;
-  float: left;
   white-space: nowrap;
   background-repeat: no-repeat no-repeat;
   background-position: 6px 5px;
 }
+
 .text {
-  float: left;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-right:10px;
 }
 
 ul {
@@ -52,8 +51,7 @@ ul li:hover {
 }
 
 .selected {
-  float: left;
-  margin-left: 20px;
+  margin-left: 10px;
   color: blue;
   font-weight: bolder;
 }

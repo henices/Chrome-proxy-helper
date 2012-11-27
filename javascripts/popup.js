@@ -1,9 +1,12 @@
+// popup.js
+
 var rule = localStorage.rule;
 var bypasslist = (localStorage.bypass).split(',');
 
 
 $(document).ready(function() {
-    init();
+    color_proxy_item();
+    add_li_title();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -14,7 +17,39 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
 });
 
-function init() {
+
+function add_li_title() {
+    var _http, _https, _socks, _pac;
+
+    if (localStorage.httpHost && localStorage.httpPort) {
+        _http = "http://" + localStorage.httpHost +
+                 ":" + localStorage.httpPort;
+        $("#http-proxy").attr("title", _http);
+    }
+    if (localStorage.pacPath) {
+        _pac = localStorage.pacPath;
+        $("#pac-script").attr("title", _pac);
+    }
+    if (localStorage.httpsHost && localStorage.httpsPort) {
+        _https = "https://" + localStorage.httpsHost +
+                  ":" + localStorage.httpsPort;
+        $("#https-proxy").attr("title", _https);
+    }
+    if (localStorage.socks5Host && localStorage.socks5Port) {
+        if (localStorage.socks5 === 'true') {
+            _socks = "socks5://" + localStorage.socks5Host +
+                      ":" + localStorage.socks5Port;
+            $("#socks5-proxy").attr("title", _socks);
+        }
+        else {
+            _socks = "socks4://" + localStorage.socks5Host +
+                      ":" + localStorage.socks5Port;
+            $("#socks5-proxy").attr("title", _socks);
+        }
+    }
+}
+
+function color_proxy_item() {
 
     chrome.proxy.settings.get(
     {'incognito': false},
@@ -31,11 +66,17 @@ function init() {
             if (config["value"]["rules"][rule]["scheme"] == "http") {
                 $("#http").addClass("selected");
             }
-            if (config["value"]["rules"][rule]["scheme"] == "https") {
+            else if (config["value"]["rules"][rule]["scheme"] == "https") {
                 $("#https").addClass("selected");
             }
-            if (config["value"]["rules"][rule]["scheme"] == "socks5") {
+            else if (config["value"]["rules"][rule]["scheme"] == "socks5") {
                 $("#socks5").addClass("selected");
+            }
+            else if (config["value"]["rules"][rule]["scheme"] == "socks4") {
+                $("#socks5").addClass("selected");
+            }
+            else {
+                ;
             }
         }
     }
