@@ -21,7 +21,7 @@ function init() {
     document.querySelector('#socks5-host').addEventListener('input', markDirty);
     document.querySelector('#socks5-port').addEventListener('input', markDirty);
     document.querySelector('#rule').addEventListener('change', markDirty);
-    document.querySelector('#bypasslist').addEventListener('change', markDirty);
+    document.querySelector('#bypasslist').addEventListener('input', markDirty);
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
     document.querySelector('#cancel-button').addEventListener('click', load_proxy_info);
