@@ -39,7 +39,7 @@ li {
 .separator {
   display: none;
   width: 100%;
-  border-top: 1px solid #ddd;
+  border-top: 2px solid #ddd;
 }
 
 ul li:hover {

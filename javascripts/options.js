@@ -155,10 +155,12 @@ function save() {
 
 function markDirty() {
   $('#save-button').attr("disabled", false);
+  $('#save-button').attr("class", "btn solid red");
 }
 
 function markClean() {
   $('#save-button').attr("disabled", true);
+  $('#save-button').attr("class", "btn solid grey");
 }
 
 
