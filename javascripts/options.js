@@ -21,7 +21,7 @@ function init() {
     document.querySelector('#socks5-host').addEventListener('input', markDirty);
     document.querySelector('#socks5-port').addEventListener('input', markDirty);
     document.querySelector('#rule').addEventListener('change', markDirty);
-    document.querySelector('#bypasslist').addEventListener('change', markDirty);
+    document.querySelector('textarea#bypasslist').addEventListener('input', markDirty);
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
     document.querySelector('#cancel-button').addEventListener('click', load_proxy_info);
@@ -45,7 +45,7 @@ function load_proxy_info() {
       $('#https-host').val(localStorage.httpsHost || "");
       $('#https-port').val(localStorage.httpsPort || "");
       $('#rule').val(localStorage.rule || "");
-      $('#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
+      $('textarea#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
 
       if (localStorage.socks5 == 'true') 
         $('#socks5').attr('checked', true);
@@ -132,7 +132,7 @@ function save() {
   localStorage.httpsHost = $('#https-host').val()||"";
   localStorage.httpsPort = $('#https-port').val()||"";
   localStorage.rule = $("#rule").val()||"singleProxy";
-  localStorage.bypass = $("#bypasslist").val()||"localhost,127.0.0.1";
+  localStorage.bypass = $("textarea#bypasslist").val()||"localhost,127.0.0.1";
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
