@@ -22,5 +22,6 @@ To do
 2. Support rule list
 3. QuickAdd and and AutoAdd patterns
 4. Proxy switching by URL
-5. And more
+5. Support g*W*li*st 
+6. And more
 
