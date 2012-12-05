@@ -10,7 +10,8 @@
 <div id="header"><h1>Proxy Helper Options</h1></div>
 
 <div class="section-header first">Proxy Information</div>
-<span id="info" ></span>
+<span id="proxy-info" style="display:block;"></span>
+<span id="control-info" style="display:block;"></span>
 
 <div class="section-header first">
     Automatically configure proxy</div>
@@ -21,6 +22,7 @@
 
 <div class="section-header first">
     Manually configure proxy</div>
+
 <table id="manual_settings">
 <tr>
     <td align="right"><label>HTTP PROXY:<label></td>
@@ -29,7 +31,7 @@
     </td>
     <td>
     <label>PORT:</label>
-    <input type="text" id="http-port" class="proxy-info" size="5" /> 
+    <input type="number" min="1" max="65535" step="1" id="http-port" class="proxy-info" /> 
     </td>
 </tr>
 <tr>
@@ -39,7 +41,7 @@
     </td>
     <td>
     <label>PORT:</label>
-    <input type="text" id="https-port" class="proxy-info" size="5"  /> 
+    <input type="number" min="1" max="65535" step="1" id="https-port" class="proxy-info" /> 
     </td>
 </tr>
 <tr>
@@ -49,7 +51,7 @@
     </td>
     <td>
     <label>PORT:</label>
-    <input type="text" id="socks5-port" class="proxy-info" size="5" />
+    <input type="number" min="1" max="65535" step="1" id="socks5-port" class="proxy-info" />
     </td>
 </tr>
 <tr>
@@ -85,11 +87,13 @@
     <label>Bypass List</label>
     </td>
     <td>
-        <textarea  id="bypasslist" cols="35" rows="5"></textarea>
+        <textarea  id="bypasslist" placeholder="192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99)" cols="40" rows="5"></textarea>
     </td>
+    <!--
     <td>
         <em style="vertical-align: middle;font-size:80%;"> (split by ,  example: 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99) </em>
     </td>
+    -->
     </tr>
 </table>
 

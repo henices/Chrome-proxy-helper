@@ -59,32 +59,38 @@ function load_proxy_info() {
 
 function get_proxy_info() {
 
-    var methods = ['singleProxy', 'proxyForHttp', 'proxyForFtp', 'ProxyForHttps',
-    'fallbackProxy'];
-
-    var info, host, port;
+    var proxyInfo, controlInfo, host, port;
 
     chrome.proxy.settings.get(
     {'incognito': false},
         function(config) {
             //alert(JSON.stringify(config));
-            if (config["value"]["mode"] == "system") {
-                info =  "Use DIRECT connections.";
+            if (config["value"]["mode"] == "direct") {
+                controlInfo = "levelOfControl: " + config["levelOfControl"];
+                proxyInfo =  "Use DIRECT connections.";
+            }
+            else if (config["value"]["mode"] == "system" ) {
+                controlInfo = "levelOfControl: " + config["levelOfControl"];
+                proxyInfo =  "Use System proxy settings.";
             }
             else if (config["value"]["mode"] == "pac_script") {
-                info = "PAC script: " + config["value"]["pacScript"]["url"];
+                controlInfo = "levelOfControl: " + config["levelOfControl"];
+                proxyInfo = "PAC script: " + config["value"]["pacScript"]["url"];
+            }
+            else if (config["value"]["mode"] == "auto_detect") {
+                controlInfo = "levelOfControl: " + config["levelOfControl"];
+                proxyInfo = "Auto detect mode";
             }
             else {
-                for (var i in methods) {
-                    host = config["value"]["rules"][methods[i]]["host"];
-                    port = config["value"]["rules"][methods[i]]["port"];
-                    info = "Proxy server: " + 
-                    config["value"]["rules"][methods[i]]["scheme"] + 
-                    '://' + host + ':' + port.toString();
-                    $("#info").text(info);
-                }
+                host = config["value"]["rules"][localStorage.rule]["host"];
+                port = config["value"]["rules"][localStorage.rule]["port"];
+                controlInfo = "levelOfControl: " + config["levelOfControl"];
+                proxyInfo = "Proxy server  : " +
+                config["value"]["rules"][localStorage.rule]["scheme"] +
+                '://' + host + ':' + port.toString();
             }
-            $("#info").text(info);
+            $("#proxy-info").text(proxyInfo);
+            $("#control-info").text(controlInfo);
         }
     );
 }
@@ -164,3 +170,5 @@ function markClean() {
 }
 
 
+function getpacwork() {
+}
