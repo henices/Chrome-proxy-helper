@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#http-proxy').addEventListener('click', httpProxy);
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
+    document.querySelector('#direct-proxy').addEventListener('click', directProxy);
 });
 
 
@@ -163,10 +164,6 @@ function socks5Proxy() {
             {value: config, scope: 'regular'},
             function() {});
 
-    var icon = {
-        path: "images/on.png",
-    }
-
     iconSet("on");
     proxySelected("socks5");
 }
@@ -189,10 +186,6 @@ function httpProxy() {
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
             function() {});
-
-    var icon = {
-        path: "images/on.png",
-    }
 
     iconSet("on");
     proxySelected("http");
@@ -217,10 +210,18 @@ function httpsProxy() {
             {value: config, scope: 'regular'},
             function() {});
 
-    var icon = {
-        path: "images/on.png",
-    }
-
     iconSet("on");
     proxySelected("https");
+}
+
+function directProxy() {
+    var config = {
+        mode: "direct",
+    };
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet("off");
+    proxySelected("direct");
 }

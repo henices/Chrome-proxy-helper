@@ -55,6 +55,8 @@ function load_proxy_info() {
 
   });
 
+  markClean();
+
 }
 
 function get_proxy_info() {
@@ -90,7 +92,7 @@ function get_proxy_info() {
                 '://' + host + ':' + port.toString();
             }
             $("#proxy-info").text(proxyInfo);
-            $("#control-info").text(controlInfo);
+            // $("#control-info").text(controlInfo);
         }
     );
 }
