@@ -59,6 +59,9 @@ function color_proxy_item() {
         if (config["value"]["mode"] == "system") {
             $("#system").addClass("selected");
         } 
+        else if (config["value"]["mode"] == "direct") {
+            $("#direct").addClass("selected");
+        }
         else if (config["value"]["mode"] == "pac_script") {
             $("#pac").addClass("selected");
 
