@@ -47,11 +47,15 @@ function load_proxy_info() {
       $('#rule').val(localStorage.rule || "");
       $('textarea#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
 
-      if (localStorage.socks5 == 'true') 
+      if (localStorage.socks5 == 'true') {
         $('#socks5').attr('checked', true);
+        $('#socks4').attr('checked', false);
+      }
 
-      if (localStorage.socks4 == 'true')
+      if (localStorage.socks4 == 'true') {
         $('#socks4').attr('checked', true);
+        $('#socks5').attr('checked', false);
+      }
 
   });
 
