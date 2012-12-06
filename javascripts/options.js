@@ -73,7 +73,7 @@ function get_proxy_info() {
             }
             else if (config["value"]["mode"] == "system" ) {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo =  "Use System proxy settings.";
+                proxyInfo =  "Use System's proxy settings.";
             }
             else if (config["value"]["mode"] == "pac_script") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
