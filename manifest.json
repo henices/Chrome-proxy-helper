@@ -12,8 +12,7 @@
         "proxy",
         "tabs",
         "unlimitedStorage",
-        "http://*/*",
-        "https://*/*"
+        "<all_urls>"
     ],
     "background": {
         "scripts": ["background.js"]
@@ -23,5 +22,6 @@
         "default_icon": "images/off.png",
         "default_title": "Proxy Helper",
         "default_popup": "popup.html"
-    }
+    },
+    "minimum_chrome_version":"18.0.0"
 }
