@@ -11,7 +11,9 @@
     "permissions": [
         "proxy",
         "tabs",
-        "unlimitedStorage"
+        "unlimitedStorage",
+        "http://*/*",
+        "https://*/*"
     ],
     "background": {
         "scripts": ["background.js"]

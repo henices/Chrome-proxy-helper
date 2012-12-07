@@ -2,6 +2,7 @@
 <head>
 <title>Proxy Helper - Options</title>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/jquery.base64.js"></script>
 <script type="text/javascript" src="javascripts/options.js"></script>
 <link href="stylesheets/options.css" type="text/css" rel="stylesheet">
 </head>
@@ -20,8 +21,11 @@
 <p/>
 <p>
   PATH (URL) <input type="text" id="pac-path" size="50" /> 
-  <img src="images/help.gif" style="cursor:pointer;" title="use pac script, eg. file:////c:/proxy.pac"/>
-
+  <img src="images/help.gif" style="cursor:pointer;" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
+<p>
+  <input type="checkbox" id="memory-data"/><span style="font-size:15px;">Use pac data in memory</span>
+  <img src="images/help.gif" style="cursor:pointer;" title="Check it will load pac data into memory and then use it"/>
+ 
 <div class="section-header first">
     Manually configure proxy</div>
 
@@ -97,7 +101,7 @@
     </tr>
 </table>
 
-<div style="margin-left:50px;margin-top:25px;" id="footer">
+<div style="margin-left:70px;margin-top:25px;" id="footer">
   <button id="save-button" class="btn solid grey">Save</button>
   <button id="cancel-button" class="btn solid grey">Cancel</button>
 </div>

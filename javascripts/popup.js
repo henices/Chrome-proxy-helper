@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
 });
 
-
 function add_li_title() {
     var _http, _https, _socks, _pac;
 
@@ -109,9 +108,17 @@ function pacProxy() {
     var config = {
         mode: "pac_script",
         pacScript: {
-            url: localStorage.pacPath,
-        }
+        },
     };
+
+    if (localStorage.useMemory == 'true') {
+        config["pacScript"]["data"] = localStorage.pacData;
+        config["pacScript"]["url"] = "";
+    }
+    else {
+        config["pacScript"]["url"] = localStorage.pacPath;
+        config["pacScript"]["data"] = "";
+    }
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
@@ -218,9 +225,11 @@ function httpsProxy() {
 }
 
 function directProxy() {
+
     var config = {
         mode: "direct",
     };
+
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
             function() {});

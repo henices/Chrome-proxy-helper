@@ -1,4 +1,7 @@
-function init() {
+
+
+function setProxyIcon() {
+
     var icon = {
         path: "images/off.png",
     }
@@ -7,6 +10,9 @@ function init() {
                 {'incognito': false},
         function(config) {
             if (config["value"]["mode"] == "system") {
+                chrome.browserAction.setIcon(icon);
+            }
+            else if (config["value"]["mode"] == "direct") {
                 chrome.browserAction.setIcon(icon);
             }
             else {
@@ -39,9 +45,10 @@ function gotoOptPage() {
     });
 }
 
-init();
+setProxyIcon();
+var first = localStorage.firstime;
 
-if ( !localStorage.firstime ) {
+if (!first) {
     localStorage.socks5 = true;
     localStorage.socks4 = false;
     gotoOptPage();
