@@ -3,13 +3,9 @@
 // https://raw.github.com/henices/Chrome-proxy-helper/master/javascripts/options.js
 
 
-init();
-load_proxy_info();
+loadProxyData();
 
-
-function init() {
-
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelector('#save-button').addEventListener('click', save);
     document.querySelector('#adv_checkbox').addEventListener('change', showAdv);
@@ -24,17 +20,17 @@ function init() {
     document.querySelector('textarea#bypasslist').addEventListener('input', markDirty);
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
-    document.querySelector('#cancel-button').addEventListener('click', load_proxy_info);
+    document.querySelector('#cancel-button').addEventListener('click', loadProxyData);
     document.querySelector('#memory-data').addEventListener('change', markDirty);
+    document.querySelector('#load-pac').addEventListener('click', memoryData);
 
     markClean();
-  });
+});
 
-  get_proxy_info();
+getProxyInfo();
 
-}
 
-function load_proxy_info() {
+function loadProxyData() {
 
   $(document).ready(function() {
 
@@ -68,7 +64,7 @@ function load_proxy_info() {
 
 }
 
-function get_proxy_info() {
+function getProxyInfo() {
 
     var proxyInfo, controlInfo, host, port;
 
@@ -179,11 +175,8 @@ function save() {
       localStorage.socks4 = 'false';
   }
 
-  var ret = memoryData();
-  if (!ret) {
     markClean();
     sysProxy();
-  }
 
   alert("Please restart proxy on popup page");
 }
@@ -198,7 +191,9 @@ function markClean() {
   $('#save-button').attr("class", "btn solid grey");
 }
 
-
+/**
+ * get pac script data from url
+ */
 function getPac() {
 
     var req = new XMLHttpRequest();
@@ -210,20 +205,29 @@ function getPac() {
         return 1;
     }
 
+    // async
     req.open("GET", url, true);
 
-    req.onload = function() {
-        result = req.responseText;
-        /* autoproxy2pac */
-        if (result.indexOf('decode64') != -1) {
-            var regx = /decode64\("(.*)"\)/;
-            if (regx.test(result))
-                localStorage.pacData = $.base64Decode(RegExp.$1);
-            else
-                localStorage.pacData = result;
+    req.onreadystatechange = function() {
+
+        if (req.readyState == 4 ) {
+            if (req.status == 200) {
+                result = req.responseText;
+                /* autoproxy2pac */
+                if (result.indexOf('decode64') != -1) {
+                    var regx = /decode64\("(.*)"\)/i;
+                    match = regx.test(result)
+                    if (match)
+                        localStorage.pacData = $.base64Decode(RegExp.$1);
+                    else
+                        localStorage.pacData = result;
+                }
+                /* plain text */
+                else {
+                    localStorage.pacData = result;
+                }
+            }
         }
-        else 
-            localStorage.pacData = result;
     }
 
     req.onerror = function() {

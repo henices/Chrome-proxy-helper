@@ -12,7 +12,8 @@
         "proxy",
         "tabs",
         "unlimitedStorage",
-        "<all_urls>"
+        "http://*/*",
+        "https://*/*"
     ],
     "background": {
         "scripts": ["background.js"]
