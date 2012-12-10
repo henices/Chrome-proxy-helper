@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
     document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
     document.querySelector('#cancel-button').addEventListener('click', loadProxyData);
-    document.querySelector('#memory-data').addEventListener('change', markDirty);
+    document.querySelector('#memory-data').addEventListener('change', enableInput);
     document.querySelector('#load-pac').addEventListener('click', memoryData);
 
     markClean();
@@ -43,6 +43,8 @@ function loadProxyData() {
       $('#https-port').val(localStorage.httpsPort || "");
       $('#rule').val(localStorage.rule || "");
       $('textarea#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
+      $('#pac-via-proxy').val(localStorage.pacViaProxy || "");
+      $('#pac-proxy-host').val(localStorage.pacProxyHost || "");
 
       if (localStorage.socks5 == 'true') {
         $('#socks5').attr('checked', true);
@@ -56,6 +58,8 @@ function loadProxyData() {
 
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
+        $('#pac-via-proxy').attr('disabled', false);
+        $('#pac-proxy-host').attr('disabled', false);
       }
 
   });
@@ -121,12 +125,8 @@ function showAdv() {
 
 function memoryData() {
 
-    localStorage.useMemory = false;
-
     if ($('#memory-data').attr('checked')) {
-        if (!getPac())
-            localStorage.useMemory = true;
-        else
+        if (getPac())
             return 1;
     }
 
@@ -160,6 +160,8 @@ function save() {
   localStorage.httpsPort = $('#https-port').val()||"";
   localStorage.rule = $("#rule").val()||"singleProxy";
   localStorage.bypass = $("textarea#bypasslist").val()||"localhost,127.0.0.1";
+  localStorage.pacViaProxy = $('#pac-via-proxy').val()||"";
+  localStorage.pacProxyHost = $('#pac-proxy-host').val()||"";
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
@@ -175,6 +177,12 @@ function save() {
       localStorage.socks4 = 'false';
   }
 
+  if ($('#memory-data').is(':checked')) {
+      localStorage.useMemory = true;
+  }
+  else {
+      localStorage.useMemory = false;
+  }
     markClean();
     sysProxy();
 
@@ -191,6 +199,56 @@ function markClean() {
   $('#save-button').attr("class", "btn solid grey");
 }
 
+
+/**
+ * memory-data click handle
+ *
+ */
+
+function enableInput() {
+    if ($('#memory-data').is(':checked')) {
+        $("#pac-via-proxy").attr("disabled", false);
+        $("#pac-proxy-host").attr("disabled", false);
+    }
+    else {
+        $("#pac-via-proxy").attr("disabled", true);
+        $("#pac-proxy-host").attr("disabled", true);
+    }
+    markDirty();
+}
+
+/**
+ * set proxy for get pac data
+ *
+ */
+function setPacProxy() {
+
+    var proxy = {type:'', host:'', port:''};
+    var pacPorxyHost;
+
+    pacProxyHost = $('#pac-proxy-host').val().split(':');
+    pacViaProxy = $('#pac-via-proxy').val().split(':');
+
+    proxy.type = pacViaProxy[0];
+    proxy.host = pacProxyHost[0];
+    proxy.port = parseInt(pacProxyHost[1]);
+
+    var config = {
+        mode: "fixed_servers",
+        rules: {
+            singleProxy: {
+                scheme: proxy.type,
+                host: proxy.host,
+                port: proxy.port
+            }
+        }
+    };
+
+    chrome.proxy.settings.set(
+        {value: config, scope: 'regular'}, function() {});
+
+}
+
 /**
  * get pac script data from url
  */
@@ -199,10 +257,26 @@ function getPac() {
     var req = new XMLHttpRequest();
     var url = $('#pac-path').val();
     var result;
+    var pacViaProxy;
+    var oldConfig;
 
     if ( url.indexOf("file") != -1) {
-        alert("local file are not supported");
+        alert("Local file are not supported. :(");
         return 1;
+    }
+
+    chrome.proxy.settings.get(
+        {'incognito': false},
+        function(config) {
+            oldConfig = config.value;
+        }
+    );
+
+    pacViaProxy = $('#pac-via-proxy').val();
+
+    // via proxy
+    if (pacViaProxy.indexOf('None') == -1) {
+        setPacProxy();
     }
 
     // async
@@ -226,6 +300,14 @@ function getPac() {
                 else {
                     localStorage.pacData = result;
                 }
+                alert('Load pac data OK');
+            }
+
+            // recovery old proxy settings
+            if (pacViaProxy.indexOf('None') == -1) {
+                chrome.proxy.settings.set(
+                    {value: oldConfig, scope: 'regular'},
+                    function() {});
             }
         }
     }
