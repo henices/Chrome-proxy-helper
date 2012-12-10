@@ -26,7 +26,7 @@ To do
 6. And more
 
 
-COPYRIGHT
+COPYLEFT
 ----------
 
 This program is free software: you can redistribute it and/or modify
