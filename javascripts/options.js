@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#cancel-button').addEventListener('click', loadProxyData);
     document.querySelector('#memory-data').addEventListener('change', enableInput);
     document.querySelector('#load-pac').addEventListener('click', memoryData);
+    document.querySelector('#pac-via-proxy').addEventListener('change', disableInput);
+
 
     markClean();
 });
@@ -206,15 +208,28 @@ function markClean() {
  */
 
 function enableInput() {
+
     if ($('#memory-data').is(':checked')) {
+
         $("#pac-via-proxy").attr("disabled", false);
-        $("#pac-proxy-host").attr("disabled", false);
+        if ($('#pac-via-proxy').val() !== 'None')
+            $("#pac-proxy-host").attr("disabled", false);
     }
     else {
         $("#pac-via-proxy").attr("disabled", true);
         $("#pac-proxy-host").attr("disabled", true);
     }
     markDirty();
+}
+
+function disableInput() {
+    if ($('#pac-via-proxy').val() === 'None') {
+        $('#pac-proxy-host').attr('disabled', true);
+        $('#pac-proxy-host').val("");
+    }
+    else {
+        $('#pac-proxy-host').attr('disabled', false);
+    }
 }
 
 /**
