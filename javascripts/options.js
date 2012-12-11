@@ -45,6 +45,7 @@ function loadProxyData() {
       $('#https-port').val(localStorage.httpsPort || "");
       $('#rule').val(localStorage.rule || "");
       $('textarea#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
+      $('textarea#pac-data').val(localStorage.pacData || "");
       $('#pac-via-proxy').val(localStorage.pacViaProxy || "");
       $('#pac-proxy-host').val(localStorage.pacProxyHost || "");
 
@@ -132,6 +133,8 @@ function memoryData() {
             return 1;
     }
 
+    $('#pac-data').val(localStorage.pacData);
+
     return 0;
 }
 
@@ -164,6 +167,7 @@ function save() {
   localStorage.bypass = $("textarea#bypasslist").val()||"localhost,127.0.0.1";
   localStorage.pacViaProxy = $('#pac-via-proxy').val()||"";
   localStorage.pacProxyHost = $('#pac-proxy-host').val()||"";
+  localStorage.pacData = $('#pac-data').val()||"";
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';

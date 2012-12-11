@@ -12,17 +12,14 @@
 
 <div class="section-header first">Proxy Information</div>
 <span id="proxy-info" style="display:block;"></span>
-<!--
-<span id="control-info" style="display:block;"></span>
--->
 
 <div class="section-header first">
     Configure your proxy settings automatically</div>
-<p/>
-<p>
+<div class="section-data">
   URL (PAC file) <input type="text" id="pac-path" size="65" /> 
   <img src="images/help.gif" style="cursor:pointer;" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
-<p>
+</div>
+<div class="section-data">
   <input type="checkbox" id="memory-data"/><span style="font-size:15px;">Use pac data, load pac data via proxy</span>
   <select disabled="disabled" id="pac-via-proxy">
       <option value="None">None</option>
@@ -34,6 +31,11 @@
   <input type="text" disabled="disabled" id="pac-proxy-host"></input>
   <button id="load-pac" >Load</button>
   <img src="images/help.gif" style="cursor:pointer;" title="this will load pac data into memory and then use it"/>
+</div>
+<div class="section-data">
+  <label for="">PAC DATA</label> <textarea id="pac-data" placeholder="" cols="80" rows="10"></textarea>
+</div>
+
 <div class="section-header first">
     Configure your proxy settings manually</div>
 
@@ -80,8 +82,7 @@
 </table>
 
 <input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/><span>Show advanced settings </span>
-<br/><br/>
-<table id="adv_settings" hidden>
+<table style="margin-top:1em;" id="adv_settings" hidden>
     <tr>
     <td>
         <label>Proxy Rules</label> 
@@ -102,8 +103,6 @@
     </td>
     <td>
         <textarea  id="bypasslist" placeholder="192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99)" cols="40" rows="5"></textarea>
-    </td>
-    <td>
         <img src="images/help.gif" style="cursor:pointer" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
     </td>
     </tr>

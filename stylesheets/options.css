@@ -4,13 +4,21 @@ body {
   margin:10px;
 }
 
-td label {
+td {
     font-size:80%;
     padding:0;
     margin:0;
-    text-align:right
 }
 
+.section-data {
+  margin-top:8px;
+}
+
+#pac-data {
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:1.5em;
+}
 
 #header {
   padding-bottom:1.5em;
