@@ -14,10 +14,23 @@ td {
   margin-top:8px;
 }
 
-#pac-data {
-  display:inline-block;
-  vertical-align:middle;
-  margin-left:1.5em;
+.link-button {
+  background: transparent none;
+  border: none;
+  color: #15C;
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  padding: 0 4px;
+}
+
+.link-button:active {
+ color: #052577;
+ text-decoration: underline;
+}
+
+.link-button:hover {
+  text-decoration: underline;
 }
 
 #header {

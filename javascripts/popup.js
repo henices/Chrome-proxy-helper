@@ -103,6 +103,26 @@ function proxySelected(str) {
     $(id).addClass("selected");
 }
 
+/**
+ * merge pac data
+ *
+ *
+ */
+
+function mergePacData() {
+    var pacData;
+    var mergeData;
+
+    pacData = localStorage.pacData;
+    if (pacData.indexOf('//-- END OF AUTO-GENERATED RULES') !== -1)
+        mergeData = pacData.replace('//-- END OF AUTO-GENERATED RULES', localStorage.pacRules);
+    else
+        mergeData = localStorage.pacRules;
+
+    return mergeData;
+}
+
+
 function pacProxy() {
 
     var config = {
@@ -111,8 +131,11 @@ function pacProxy() {
         },
     };
 
+    var mergeData = mergePacData();
+
+
     if (localStorage.useMemory == 'true') {
-        config["pacScript"]["data"] = localStorage.pacData;
+        config["pacScript"]["data"] = mergeData;
         config["pacScript"]["url"] = "";
     }
     else {

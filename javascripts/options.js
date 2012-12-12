@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#memory-data').addEventListener('change', enableInput);
     document.querySelector('#load-pac').addEventListener('click', memoryData);
     document.querySelector('#pac-via-proxy').addEventListener('change', disableInput);
+    document.querySelector('textarea#pac-rules').addEventListener('input', markDirty);
+    document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
 
 
     markClean();
@@ -48,6 +50,7 @@ function loadProxyData() {
       $('textarea#pac-data').val(localStorage.pacData || "");
       $('#pac-via-proxy').val(localStorage.pacViaProxy || "");
       $('#pac-proxy-host').val(localStorage.pacProxyHost || "");
+      $('textarea#pac-rules').val(localStorage.pacRules || "");
 
       if (localStorage.socks5 == 'true') {
         $('#socks5').attr('checked', true);
@@ -62,7 +65,9 @@ function loadProxyData() {
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
         $('#pac-via-proxy').attr('disabled', false);
-        $('#pac-proxy-host').attr('disabled', false);
+        $('textarea#pac-rules').attr('disabled', false);
+        if (('#pac-via-proxy').val() !== 'None')
+            $('#pac-proxy-host').attr('disabled', false);
       }
 
   });
@@ -168,6 +173,7 @@ function save() {
   localStorage.pacViaProxy = $('#pac-via-proxy').val()||"";
   localStorage.pacProxyHost = $('#pac-proxy-host').val()||"";
   localStorage.pacData = $('#pac-data').val()||"";
+  localStorage.pacRules = $('textarea#pac-rules').val()||"";
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
@@ -188,9 +194,15 @@ function save() {
   }
   else {
       localStorage.useMemory = false;
+      localStorage.pacData = "";
   }
-    markClean();
-    sysProxy();
+
+  markClean();
+  sysProxy();
+
+
+  loadProxyData();
+  getProxyInfo();
 
   alert("Please restart proxy on popup page");
 }
@@ -216,14 +228,22 @@ function enableInput() {
     if ($('#memory-data').is(':checked')) {
 
         $("#pac-via-proxy").attr("disabled", false);
+        $("#pac-rules").attr("disabled", false);
+
         if ($('#pac-via-proxy').val() !== 'None')
             $("#pac-proxy-host").attr("disabled", false);
     }
     else {
+        $('#pac-data-info').hide();
         $("#pac-via-proxy").attr("disabled", true);
+        $("#pac-rules").attr("disabled", true);
         $("#pac-proxy-host").attr("disabled", true);
     }
     markDirty();
+}
+
+function showPacData() {
+    $('#pac-data-info').show();
 }
 
 function disableInput() {
@@ -320,6 +340,7 @@ function getPac() {
                     localStorage.pacData = result;
                 }
                 alert('Load pac data OK');
+                $('textarea#pac-data').val(localStorage.pacData);
             }
 
             // recovery old proxy settings
