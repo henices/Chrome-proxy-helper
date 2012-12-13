@@ -65,8 +65,8 @@ function loadProxyData() {
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
         $('#pac-via-proxy').attr('disabled', false);
-        $('textarea#pac-rules').attr('disabled', false);
-        if (('#pac-via-proxy').val() !== 'None')
+        //$('textarea#pac-rules').attr('disabled', false);
+        if ($('#pac-via-proxy').val() !== 'None')
             $('#pac-proxy-host').attr('disabled', false);
       }
 
@@ -228,15 +228,16 @@ function enableInput() {
     if ($('#memory-data').is(':checked')) {
 
         $("#pac-via-proxy").attr("disabled", false);
-        $("#pac-rules").attr("disabled", false);
 
-        if ($('#pac-via-proxy').val() !== 'None')
-            $("#pac-proxy-host").attr("disabled", false);
+        $('#pac-data-settings').show();
+
+        if ($('#pac-via-proxy').val() !== 'None') {
+            $("#pac-proxy-host").show();
+        }
     }
     else {
         $('#pac-data-info').hide();
         $("#pac-via-proxy").attr("disabled", true);
-        $("#pac-rules").attr("disabled", true);
         $("#pac-proxy-host").attr("disabled", true);
     }
     markDirty();
@@ -244,15 +245,18 @@ function enableInput() {
 
 function showPacData() {
     $('#pac-data-info').show();
+    $('#pac-data-settings').hide();
 }
 
 function disableInput() {
     if ($('#pac-via-proxy').val() === 'None') {
         $('#pac-proxy-host').attr('disabled', true);
         $('#pac-proxy-host').val("");
+        $('#pac-proxy-host').hide();
     }
     else {
         $('#pac-proxy-host').attr('disabled', false);
+        $('#pac-proxy-host').show();
     }
 }
 

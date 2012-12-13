@@ -20,42 +20,52 @@
   <img src="images/help.gif" style="cursor:pointer;" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
 </div>
 <div class="section-data">
-    <input type="checkbox" id="memory-data"/><span style="font-size:16px;">Use pac data</span>
+    <input type="checkbox" id="memory-data"/><span style="font-size:14px;">Use pac data</span>
 </div>
-<div>
-  <span style="font-size:15px;margin-left:25px;">Load pac data via proxy</span>
-  <select disabled="disabled" id="pac-via-proxy">
-      <option value="None">None</option>
-      <option value="http://">http://</option>
-      <option value="socks5://">socks5://</option>
-      <option value="socks4://">socks4://</option>
-      <option value="https://">https://</option>
-  </select>
-  <input type="text" disabled="disabled" id="pac-proxy-host"></input>
-  <button id="load-pac" >Load</button>
-  <img src="images/help.gif" style="cursor:pointer;" title="this will load pac data into memory and then use it"/>
-</div>
-<div class="section-data">
-    <button id="edit-pac-data" class="link-button">Edit PAC DATA</button>
-</div>
-<table id="pac-data-info" style="margin-top:1em;" hidden>
+
+<table id="pac-data-settings" style="margin-top:0em;" hidden>
     <tr>
     <td>
-        <label for="">PAC RULES</label>
+        <span style="font-size:15px;margin-left:15px;margin-top:20px;">Load pac data via proxy</span>
     </td>
     <td>
-        <textarea disabled="disabled" id="pac-rules" cols="65" rows="5"></textarea>
+        <select disabled="disabled" id="pac-via-proxy">
+            <option value="None">None</option>
+            <option value="http://">http://</option>
+            <option value="socks5://">socks5://</option>
+            <option value="socks4://">socks4://</option>
+            <option value="https://">https://</option>
+        </select>
+        <input type="text" hidden disabled="disabled" id="pac-proxy-host"></input>
+        <button id="load-pac">Load</button>
+        <img src="images/help.gif" style="cursor:pointer;" title="this will load pac data into memory and then use it"/>
     </td>
     </tr>
+    <tr>
+    <td>
+        <button id="edit-pac-data" class="link-button">Edit PAC DATA</button>
+    </td>
+    </tr>
+</table>
+
+<table id="pac-data-info" style="margin-top:1em;" hidden>
     <tr>
     <td>
         <label for="">PAC DATA</label> 
     </td>
     <td>
-        <textarea id="pac-data"  disabled="disabled" placeholder="" cols="65" rows="2"></textarea>
+        <textarea id="pac-data" style="margin-left:20px;" cols="65" rows="5"></textarea>
     </td>
     </tr>
-<table>
+    <tr>
+    <td>
+        <label for="">PAC RULES</label>
+    </td>
+    <td>
+        <textarea id="pac-rules" style="margin-left:20px;" cols="65" rows="5"></textarea>
+    </td>
+    </tr>
+</table>
 
 <div class="section-header first">
     Configure your proxy settings manually</div>
