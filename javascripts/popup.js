@@ -1,4 +1,12 @@
+// Chrome Proxy helper
 // popup.js
+// https://raw.github.com/henices/Chrome-proxy-helper/master/javascripts/popup.js
+
+/**
+ * @fileoverview
+ *
+ * @author: zhouzhenster@gmail.com
+ */
 
 var rule = localStorage.rule;
 var bypasslist = (localStorage.bypass).split(',');
@@ -18,6 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
 });
 
+/**
+ * set help message for popup page
+ *
+ */
 function add_li_title() {
     var _http, _https, _socks, _pac;
 
@@ -49,6 +61,10 @@ function add_li_title() {
     }
 }
 
+/**
+ * set popup page item blue color
+ *
+ */
 function color_proxy_item() {
 
     chrome.proxy.settings.get(
@@ -57,28 +73,20 @@ function color_proxy_item() {
         //alert(JSON.stringify(config));
         if (config["value"]["mode"] == "system") {
             $("#system").addClass("selected");
-        } 
-        else if (config["value"]["mode"] == "direct") {
+        } else if (config["value"]["mode"] == "direct") {
             $("#direct").addClass("selected");
-        }
-        else if (config["value"]["mode"] == "pac_script") {
+        } else if (config["value"]["mode"] == "pac_script") {
             $("#pac").addClass("selected");
-
-        }
-        else {
+        } else {
             if (config["value"]["rules"][rule]["scheme"] == "http") {
                 $("#http").addClass("selected");
-            }
-            else if (config["value"]["rules"][rule]["scheme"] == "https") {
+            } else if (config["value"]["rules"][rule]["scheme"] == "https") {
                 $("#https").addClass("selected");
-            }
-            else if (config["value"]["rules"][rule]["scheme"] == "socks5") {
+            } else if (config["value"]["rules"][rule]["scheme"] == "socks5") {
                 $("#socks5").addClass("selected");
-            }
-            else if (config["value"]["rules"][rule]["scheme"] == "socks4") {
+            } else if (config["value"]["rules"][rule]["scheme"] == "socks4") {
                 $("#socks5").addClass("selected");
-            }
-            else {
+            }else {
                 ;
             }
         }
@@ -86,6 +94,10 @@ function color_proxy_item() {
     );
 }
 
+/**
+ * set the icon on or off
+ *
+ */
 function iconSet(str) {
 
     var icon = {
@@ -122,7 +134,10 @@ function mergePacData() {
     return mergeData;
 }
 
-
+/**
+ * set pac script proxy
+ *
+ */
 function pacProxy() {
 
     var config = {
@@ -137,8 +152,7 @@ function pacProxy() {
     if (localStorage.useMemory == 'true') {
         config["pacScript"]["data"] = mergeData;
         config["pacScript"]["url"] = "";
-    }
-    else {
+    } else {
         config["pacScript"]["url"] = localStorage.pacPath;
         config["pacScript"]["data"] = "";
     }
@@ -151,6 +165,10 @@ function pacProxy() {
     proxySelected("pac");
 }
 
+/**
+ * set system proxy
+ *
+ */
 function sysProxy() {
 
     var config = {
@@ -165,6 +183,10 @@ function sysProxy() {
     proxySelected("system")
 }
 
+/**
+ * set socks proxy (socks4 or socks5)
+ *
+ */
 function socks5Proxy() {
     var type = '';
 

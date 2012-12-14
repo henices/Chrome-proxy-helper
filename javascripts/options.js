@@ -2,9 +2,6 @@
 // by zhouzhenster@gmail.com
 // https://raw.github.com/henices/Chrome-proxy-helper/master/javascripts/options.js
 
-
-loadProxyData();
-
 document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelector('#save-button').addEventListener('click', save);
@@ -28,13 +25,17 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
     document.querySelector('#ret-pac-data').addEventListener('click', retPacData);
 
-
     markClean();
 });
 
+loadProxyData();
 getProxyInfo();
 
-
+/**
+ * load data in local database and 
+ * display it on the options page
+ *
+ */
 function loadProxyData() {
 
   $(document).ready(function() {
@@ -78,6 +79,11 @@ function loadProxyData() {
 
 }
 
+/**
+ * get chrome browser proxy settings 
+ * and display on the options page
+ *
+ */
 function getProxyInfo() {
 
     var proxyInfo, controlInfo, host, port;
@@ -89,20 +95,16 @@ function getProxyInfo() {
             if (config["value"]["mode"] == "direct") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo =  "Use DIRECT connections.";
-            }
-            else if (config["value"]["mode"] == "system" ) {
+            } else if (config["value"]["mode"] == "system" ) {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo =  "Use System's proxy settings.";
-            }
-            else if (config["value"]["mode"] == "pac_script") {
+            } else if (config["value"]["mode"] == "pac_script") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo = "PAC script: " + config["value"]["pacScript"]["url"];
-            }
-            else if (config["value"]["mode"] == "auto_detect") {
+            } else if (config["value"]["mode"] == "auto_detect") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo = "Auto detect mode";
-            }
-            else {
+            } else {
                 host = config["value"]["rules"][localStorage.rule]["host"];
                 port = config["value"]["rules"][localStorage.rule]["port"];
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
@@ -116,16 +118,28 @@ function getProxyInfo() {
     );
 }
 
+/**
+ * event handler
+ *
+ */
 function socks5_unchecked() {
     $('#socks5').attr('checked', false);
     markDirty();
 }
 
+/**
+ * event handler
+ *
+ */
 function socks4_unchecked() {
     $('#socks4').attr('checked', false);
     markDirty();
 }
 
+/**
+ * event handler
+ *
+ */
 function showAdv() {
     if($('#adv_settings').is(':hidden'))
         $("#adv_settings").show();
@@ -133,6 +147,10 @@ function showAdv() {
         $("#adv_settings").hide();
 }
 
+/**
+ * input id memory-data handler
+ *
+ */
 function memoryData() {
 
     if ($('#memory-data').attr('checked')) {
@@ -145,6 +163,10 @@ function memoryData() {
     return 0;
 }
 
+/**
+ * set system proxy
+ *
+ */
 function sysProxy() {
 
     var config = {
@@ -161,6 +183,10 @@ function sysProxy() {
     chrome.browserAction.setIcon(icon);
 }
 
+/**
+ * button id save click handler
+ *
+ */
 function save() {
 
   localStorage.pacPath = $('#pac-path').val()||"";
@@ -179,22 +205,19 @@ function save() {
 
   if ($('#socks5').attr('checked')) {
       localStorage.socks5 = 'true';
-  }
-  else {
+  } else {
       localStorage.socks5 = 'false';
   }
 
   if ($('#socks4').attr('checked')) {
       localStorage.socks4 = 'true';
-  }
-  else {
+  } else {
       localStorage.socks4 = 'false';
   }
 
   if ($('#memory-data').is(':checked')) {
       localStorage.useMemory = true;
-  }
-  else {
+  } else {
       localStorage.useMemory = false;
       localStorage.pacData = "";
   }
@@ -240,8 +263,7 @@ function enableInput() {
         if ($('#pac-via-proxy').val() !== 'None') {
             $("#pac-proxy-host").show();
         }
-    }
-    else {
+    } else {
         $('#pac-data-settings').hide();
         $('#pac-data-info').hide();
         $("#pac-via-proxy").attr("disabled", true);
@@ -260,8 +282,7 @@ function disableInput() {
         $('#pac-proxy-host').attr('disabled', true);
         $('#pac-proxy-host').val("");
         $('#pac-proxy-host').hide();
-    }
-    else {
+    } else {
         $('#pac-proxy-host').attr('disabled', false);
         $('#pac-proxy-host').show();
     }
@@ -309,10 +330,12 @@ function getPac() {
     var result;
     var pacViaProxy;
     var oldConfig;
+    var useProxy;
+    var pacData;
 
     if ( url.indexOf("file") != -1) {
         alert("Local file are not supported. :(");
-        return 1;
+        return;
     }
 
     chrome.proxy.settings.get(
@@ -325,50 +348,74 @@ function getPac() {
     pacViaProxy = $('#pac-via-proxy').val();
 
     // via proxy
-    if (pacViaProxy.indexOf('None') == -1) {
+    useProxy = pacViaProxy.indexOf('None');
+
+    if (useProxy) {
         setPacProxy();
     }
 
-    // async
+    // async request
     req.open("GET", url, true);
+    req.onreadystatechange = processResponse;
+    req.send(null);
 
-    req.onreadystatechange = function() {
+    /**
+     *  decode pac data and set it to local database
+     *  @param {string} ret the response text
+     *
+     *  @return {string}
+     */
+    function processPacData(ret) {
+        var regx_dbase64 = /decode64\("(.*)"\)/i;
+        var regx_find = /FindProxyForURL/i;
+
+        // autoproxy2pac
+        if (ret.indexOf('decode64') != -1) {
+            match = regx_dbase64.test(ret);
+            if (match) {
+                var decodePacData = $.base64Decode(RegExp.$1);
+                if (regx_find.test(decodePacData)) 
+                    localStorage.pacData = decodePacData;
+                else
+                    localStorage.pacData = "";
+            } else 
+                localStorage.pacData = "";
+        }
+        // plain text
+        else {
+            if (regx_find.test(ret))
+                localStorage.pacData = ret;
+            else
+                localStorage.pacData = "";
+        }
+
+        return localStorage.pacData;
+    }
+
+    /**
+     *  process the reponse text, tell user the result
+     *
+     */
+    function processResponse() {
 
         if (req.readyState == 4 ) {
             if (req.status == 200) {
                 result = req.responseText;
-                /* autoproxy2pac */
-                if (result.indexOf('decode64') != -1) {
-                    var regx = /decode64\("(.*)"\)/i;
-                    match = regx.test(result)
-                    if (match)
-                        localStorage.pacData = $.base64Decode(RegExp.$1);
-                    else
-                        localStorage.pacData = result;
+                pacData = processPacData(result);
+                if (pacData !== "") {
+                    alert('Load pac data OK');
+                    $('textarea#pac-data').val(pacData);
+                } else {
+                    alert('Error pac script, check it again :(');
                 }
-                /* plain text */
-                else {
-                    localStorage.pacData = result;
-                }
-                alert('Load pac data OK');
-                $('textarea#pac-data').val(localStorage.pacData);
-            }
+            } else
+                alert('Failed to open the pac url :(');
 
-            // recovery old proxy settings
-            if (pacViaProxy.indexOf('None') == -1) {
+            // if set proxy, recovery old proxy settings
+            if (useProxy)
                 chrome.proxy.settings.set(
                     {value: oldConfig, scope: 'regular'},
                     function() {});
-            }
         }
     }
-
-    req.onerror = function() {
-        alert('Load pac script data failed, check proxy settings :(');
-        return 2;
-    }
-
-    req.send(null);
-
-    return 0;
 }
