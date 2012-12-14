@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#pac-via-proxy').addEventListener('change', disableInput);
     document.querySelector('textarea#pac-rules').addEventListener('input', markDirty);
     document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
+    document.querySelector('#ret-pac-data').addEventListener('click', retPacData);
 
 
     markClean();
@@ -65,6 +66,7 @@ function loadProxyData() {
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
         $('#pac-via-proxy').attr('disabled', false);
+        $('#pac-data-settings').show();
         //$('textarea#pac-rules').attr('disabled', false);
         if ($('#pac-via-proxy').val() !== 'None')
             $('#pac-proxy-host').attr('disabled', false);
@@ -217,6 +219,11 @@ function markClean() {
   $('#save-button').attr("class", "btn solid grey");
 }
 
+function retPacData() {
+    enableInput();
+    $('#pac-data-info').hide();
+}
+
 
 /**
  * memory-data click handle
@@ -228,7 +235,6 @@ function enableInput() {
     if ($('#memory-data').is(':checked')) {
 
         $("#pac-via-proxy").attr("disabled", false);
-
         $('#pac-data-settings').show();
 
         if ($('#pac-via-proxy').val() !== 'None') {
@@ -236,6 +242,7 @@ function enableInput() {
         }
     }
     else {
+        $('#pac-data-settings').hide();
         $('#pac-data-info').hide();
         $("#pac-via-proxy").attr("disabled", true);
         $("#pac-proxy-host").attr("disabled", true);

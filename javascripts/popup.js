@@ -201,6 +201,10 @@ function socks5Proxy() {
     proxySelected("socks5");
 }
 
+/**
+ * set http proxy
+ *
+ */
 function httpProxy() {
 
     var config = {
@@ -224,6 +228,10 @@ function httpProxy() {
     proxySelected("http");
 }
 
+/**
+ * set https proxy
+ *
+ */
 function httpsProxy() {
 
     var config = {
@@ -247,6 +255,10 @@ function httpsProxy() {
     proxySelected("https");
 }
 
+/**
+ * set direct proxy
+ *
+ */
 function directProxy() {
 
     var config = {
