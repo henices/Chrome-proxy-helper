@@ -9,19 +9,15 @@ body {
 
 .menu {
   line-height: 26px;
-  text-indent: .5em;
   white-space: nowrap;
   background-repeat: no-repeat no-repeat;
   background-position: 6px 5px;
 }
 
-.text {
-  margin-left: 10px;
-  margin-right:10px;
-}
-
 ul {
+  text-align:center;
   list-style: none;
+  display: block;
   margin: 0px;
   padding: 0px;
 }
@@ -36,12 +32,6 @@ li {
   border: 1px solid white;
 }
 
-.separator {
-  display: none;
-  width: 100%;
-  border-top: 2px solid #ddd;
-}
-
 ul li:hover {
   border-radius: 3px 3px;
   background: -webkit-gradient(linear, left top, left bottom,
@@ -50,10 +40,14 @@ ul li:hover {
   border: solid 1px #c5cdd3;
 }
 
-.selected {
-  margin-left: 10px;
-  color: blue;
-  font-weight: bolder;
+.separator {
+  display: none;
+  width: 100%;
+  border-top: 2px solid #ddd;
 }
 
+.selected {
+  color: #15C;
+  font-weight: bolder;
+}
 
