@@ -4,16 +4,24 @@ but sometime we want to set proxy *ONLY* for chrome, not the whole system. Chrom
 helper extension use Chrome native proxy API to set proxy, support  socks5, socks4, http 
 and https protocol and pac script, Fast And Simple.
 
+# FEATURES
+* support socks4, socks5, http, https proxy settings
+* support bypass list
+* support online pac script
+* support customer proxy rules
+
+
+
 # INSTALL
 * Install the stable version on Chrome web store (see below)
-<https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic>
+ <https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic>
 * Install the unstable version zip file format
-<https://github.com/henices/Chrome-proxy-helper/archive/master.zip>
+ <https://github.com/henices/Chrome-proxy-helper/archive/master.zip>
 
-# How TO USE
+# HOW TO USE
 set proxy server information on the options page first,and then choose the proxy type on the popup page. That is ALL.
 
-# Todo LIST
+# TODO LIST
 1. Support multiple profile  
 2. Support rule list                  (done)
 3. QuickAdd and and AutoAdd patterns
