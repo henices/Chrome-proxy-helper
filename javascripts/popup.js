@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
 });
 
+chrome.proxy.onProxyError.addListener( function(details) {
+        console.log(JSON.stringify(details));
+});
+
 /**
  * set help message for popup page
  *
@@ -118,7 +122,6 @@ function proxySelected(str) {
 /**
  * merge pac data
  *
- *
  */
 
 function mergePacData() {
@@ -126,10 +129,10 @@ function mergePacData() {
     var mergeData;
 
     pacData = localStorage.pacData;
-    if (pacData.indexOf('//-- END OF AUTO-GENERATED RULES') !== -1)
-        mergeData = pacData.replace('//-- END OF AUTO-GENERATED RULES', localStorage.pacRules);
+    if (pacData.indexOf('${pac_rules}') !== -1)
+        mergeData = pacData.replace('${pac_rules}', localStorage.pacRules);
     else
-        mergeData = localStorage.pacRules;
+        mergeData = pacData;
 
     return mergeData;
 }
@@ -145,6 +148,7 @@ function pacProxy() {
         pacScript: {
         },
     };
+
 
     var mergeData = mergePacData();
 

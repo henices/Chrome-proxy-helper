@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('textarea#pac-rules').addEventListener('input', markDirty);
     document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
     document.querySelector('#ret-pac-data').addEventListener('click', retPacData);
+    document.querySelector('#pac-data').addEventListener('input', markDirty);
 
     markClean();
 });
@@ -100,7 +101,13 @@ function getProxyInfo() {
                 proxyInfo =  "Use System's proxy settings.";
             } else if (config["value"]["mode"] == "pac_script") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo = "PAC script: " + config["value"]["pacScript"]["url"];
+                var url = config["value"]["pacScript"]["url"];
+                if (url)
+                    proxyInfo = "PAC script: " + url;
+                else {
+                    proxyInfo = "PAC script: data:application/x-ns-proxy-autoconfig;"
+                }
+
             } else if (config["value"]["mode"] == "auto_detect") {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo = "Auto detect mode";
@@ -113,7 +120,7 @@ function getProxyInfo() {
                 '://' + host + ':' + port.toString();
             }
             $("#proxy-info").text(proxyInfo);
-            // $("#control-info").text(controlInfo);
+            $("#control-info").text(controlInfo);
         }
     );
 }

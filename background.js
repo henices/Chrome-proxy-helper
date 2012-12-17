@@ -11,11 +11,9 @@ function setProxyIcon() {
         function(config) {
             if (config["value"]["mode"] == "system") {
                 chrome.browserAction.setIcon(icon);
-            }
-            else if (config["value"]["mode"] == "direct") {
+            } else if (config["value"]["mode"] == "direct") {
                 chrome.browserAction.setIcon(icon);
-            }
-            else {
+            } else {
                 icon["path"] = "images/on.png";
                 chrome.browserAction.setIcon(icon);
             }
@@ -36,11 +34,8 @@ function gotoOptPage() {
                 return;
             }
         }
-        chrome.tabs.getSelected(null, function(tab) { 
-                    chrome.tabs.create({
-                            url: opturl,
-                            index: tab.index + 1
-                    });
+        chrome.tabs.getSelected(null, function(tab) {
+                    chrome.tabs.create({url: opturl,index: tab.index + 1});
         });
     });
 }
@@ -53,4 +48,3 @@ if (!first) {
     localStorage.socks4 = false;
     gotoOptPage();
 }
-
