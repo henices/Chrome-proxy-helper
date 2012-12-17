@@ -1,10 +1,10 @@
-# DESCRIPTION
+# Introduction
 By default, Chrome use the system proxy setting (IE proxy settings on Windows platform ),
 but sometime we want to set proxy *ONLY* for chrome, not the whole system. Chrome proxy 
 helper extension use Chrome native proxy API to set proxy, support  socks5, socks4, http 
 and https protocol and pac script, Fast And Simple.
 
-# FEATURES
+# Features
 * support socks4, socks5, http, https proxy settings
 * support bypass list
 * support online pac script
@@ -12,21 +12,20 @@ and https protocol and pac script, Fast And Simple.
 
 
 
-# INSTALL
-* Install the stable version on Chrome web store
+# Install
+* Install the latest stable version on chrome web store by click [here](https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic).
+* Install the unstable version by cloning the [Git](https://github.com/henices/Chrome-proxy-helper.git) repository:
 
-    <https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic>
-* Install the unstable version zip file format
+```
+    git clone https://github.com/henices/Chrome-proxy-helper.git
+```
 
-    <https://github.com/henices/Chrome-proxy-helper/archive/master.zip>
-
-# TODO LIST
-1. Support multiple profile  
-2. Support rule list                  (done)
-3. QuickAdd and and AutoAdd patterns
-4. Proxy switching by URL
-5. Support online pac script          (done) 
-6. And more
+# TODO list
+* Support multiple profile  
+* Support rule list                  (done)
+* QuickAdd and and AutoAdd patterns
+* Proxy switching by URL
+* Support online pac script          (done) 
 
 # LICENSE
 This program is free software: you can redistribute it and/or modify
