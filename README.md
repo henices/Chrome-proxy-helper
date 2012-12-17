@@ -13,13 +13,12 @@ and https protocol and pac script, Fast And Simple.
 
 
 # INSTALL
-* Install the stable version on Chrome web store (see below)
- <https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic>
-* Install the unstable version zip file format
- <https://github.com/henices/Chrome-proxy-helper/archive/master.zip>
+* Install the stable version on Chrome web store
 
-# HOW TO USE
-set proxy server information on the options page first,and then choose the proxy type on the popup page. That is ALL.
+    <https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic>
+* Install the unstable version zip file format
+
+    <https://github.com/henices/Chrome-proxy-helper/archive/master.zip>
 
 # TODO LIST
 1. Support multiple profile  
