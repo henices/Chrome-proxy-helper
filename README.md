@@ -20,13 +20,6 @@ and https protocol and pac script, Fast And Simple.
     git clone https://github.com/henices/Chrome-proxy-helper.git
 ```
 
-# TODO list
-* Support multiple profile  
-* Support rule list                  (done)
-* QuickAdd and and AutoAdd patterns
-* Proxy switching by URL
-* Support online pac script          (done) 
-
 # LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
