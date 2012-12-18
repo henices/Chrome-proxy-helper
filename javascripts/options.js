@@ -226,7 +226,6 @@ function save() {
       localStorage.useMemory = true;
   } else {
       localStorage.useMemory = false;
-      localStorage.pacData = "";
   }
 
   markClean();
