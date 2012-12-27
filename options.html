@@ -18,7 +18,7 @@
     Configure your proxy settings automatically</div>
 <div class="section-data">
   URL (PAC PATH) <input type="text" id="pac-path" size="65" /> 
-  <img src="images/help.gif" style="cursor:pointer;" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
+  <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
 </div>
 <div class="section-data">
     <input type="checkbox" id="memory-data"/><span style="font-size:14px;">Use pac data</span>
@@ -39,7 +39,9 @@
         </select>
         <input type="text" hidden disabled="disabled" id="pac-proxy-host"></input>
         <button id="load-pac">Load</button>
-        <img src="images/help.gif" style="cursor:pointer;" title="this will load pac data into memory and then use it"/>
+    </td>
+    <td>
+        <img src="images/help.gif" class="tip" title="this will load pac data into memory and then use it"/>
     </td>
     </tr>
     <tr>
@@ -110,10 +112,12 @@
 <tr>
     <td></td>
     <td>
-        <input type="radio" id="socks4"/>
-        <span style="font-size:80%;">SOCKS4</span>
-        <input type="radio" id="socks5"/>
-        <span style="font-size:80%;">SOCKS5</span>
+        <div style="margin-top:0.5em;">
+            <input type="radio" id="socks4"/>
+            <span style="font-size:80%;">SOCKS4</span>
+            <input type="radio" id="socks5"/>
+            <span style="font-size:80%;">SOCKS5</span>
+        </div>
     </td>
 </tr>
 </table>
@@ -140,7 +144,7 @@
     </td>
     <td>
         <textarea  id="bypasslist" placeholder="192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99)" cols="40" rows="5"></textarea>
-        <img src="images/help.gif" style="cursor:pointer" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
+        <img src="images/help.gif" class="tip" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
     </td>
     </tr>
 </table>

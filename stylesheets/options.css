@@ -1,6 +1,6 @@
 body {
   font-family:helvetica, arial, sans-serif;
-  font-size:80%;
+  font-size: 90%;
   margin:10px;
 }
 
@@ -62,6 +62,8 @@ td {
 
 .section-header.first {
   margin-top:2em;
+  line-height: 28px;
+  height: 28px;
 }
 
 .proxy-info {
@@ -130,4 +132,18 @@ td {
    opacity: 1;
    color:rgba(0,0,0,0.2);
 
+}
+
+.tip {
+    display: inline-block;
+    cursor:pointer;
+    background-color:#FFFFFF;
+}
+
+input {
+    background: #f6f6f6;
+    border: 1px solid #d1cfcf;
+    line-height: 25px;
+    margin: 0;
+    padding-left: 4px;
 }
