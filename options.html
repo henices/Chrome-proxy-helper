@@ -21,16 +21,17 @@
   <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
 </div>
 <div class="section-data">
-    <input type="checkbox" id="memory-data"/><span style="font-size:14px;">Use pac data</span>
+    <input type="checkbox" id="memory-data"/><span>Download pac script</span>
+    <img src="images/help.gif" class="tip" title="load pac data into memory and then use it"/>
 </div>
 
-<table id="pac-data-settings" style="margin-top:0em;" hidden>
+<table id="pac-data-settings" style="margin-top:0.5em;" hidden>
     <tr>
     <td>
-        <span style="font-size:15px;margin-left:15px;margin-top:20px;">Load pac data via proxy</span>
+        <span style="font-size:15px;margin-left:30px;margin-top:20px;">via proxy</span>
     </td>
     <td>
-        <select disabled="disabled" id="pac-via-proxy">
+        <select disabled="disabled" id="pac-via-proxy" style="height:28px;">
             <option value="None">None</option>
             <option value="http://">http://</option>
             <option value="socks5://">socks5://</option>
@@ -38,10 +39,7 @@
             <option value="https://">https://</option>
         </select>
         <input type="text" hidden disabled="disabled" id="pac-proxy-host"></input>
-        <button id="load-pac">Load</button>
-    </td>
-    <td>
-        <img src="images/help.gif" class="tip" title="this will load pac data into memory and then use it"/>
+        <button id="load-pac" style="width:80px;height:28px;">Download</button>
     </td>
     </tr>
     <tr>
