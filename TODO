@@ -1,7 +1,7 @@
 1. Support multiple profile
 2. Support rule list (done)
 3. QuickAdd and and AutoAdd patterns
-4. Proxy switching by URL
+4. Proxy switching by URL (done)
 5. Support online pac script (done)
 6. Multiple language support
 7. automaticly reload proxy after save proxy settings (done)
