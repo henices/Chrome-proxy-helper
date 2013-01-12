@@ -68,6 +68,7 @@ function loadProxyData() {
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
         $('#pac-via-proxy').attr('disabled', false);
+        $('#pac-proxy-host').show();
         $('#pac-data-settings').show();
         //$('textarea#pac-rules').attr('disabled', false);
         if ($('#pac-via-proxy').val() !== 'None')
@@ -121,8 +122,100 @@ function getProxyInfo() {
             }
             $("#proxy-info").text(proxyInfo);
             $("#control-info").text(controlInfo);
+
+            localStorage.proxyInfo = proxyInfo;
         }
     );
+
+}
+
+/**
+ * @brief merge pac data
+ *
+ */
+function mergePacData() {
+    var pacData;
+    var mergeData;
+
+    pacData = localStorage.pacData;
+    if (pacData.indexOf('${pac_rules}') !== -1)
+        mergeData = pacData.replace('${pac_rules}', localStorage.pacRules);
+    else
+        mergeData = pacData;
+
+    return mergeData;
+}
+
+/**
+ * @brief use proxy info to set proxy
+ *
+ */
+function reloadProxy(info) {
+
+    var type, auto, arrayString;
+    var proxy = {type: '', host: '', port: ''};
+    var config = {
+        mode: '',
+        pacScript: {},
+        rules: {}
+    };
+
+    if (info.indexOf('DIRECT') != -1 || info.indexOf('System') != -1 )
+        return;
+
+    arrayString = info.split(':');
+    auto = arrayString[0];
+    type = arrayString[1];
+
+    if (auto.indexOf('PAC') != -1) {
+        var mergeData = mergePacData();
+        config.mode = 'pac_script';
+        if (localStorage.useMemory === "true") {
+            config.pacScript.data = mergeData;
+            config.pacScript.url = "";
+        } else {
+            config.pacScript.data = "";
+            config.pacScript.url = localStorage.pacPath;
+        }
+        chrome.proxy.settings.set(
+        {value: config, scope: 'regular'},
+        function() {})
+    } else {
+        if (type.indexOf('http') != -1) {
+            proxy.type = 'http';
+            proxy.host = localStorage.httpHost;
+            proxy.port = parseInt(localStorage.httpPort);
+        }
+        if (type.indexOf('https') != -1) {
+            proxy.type = 'https';
+            proxy.host = localStorage.httpsHost;
+            proxy.port = parseInt(localStorage.httpsPort);
+        }
+        if (type.indexOf('socks4') != -1) {
+            proxy.type = 'socks4';
+            proxy.host = localStorage.socks5Host;
+            proxy.port = parseInt(localStorage.socks5Port);
+        }
+        if (type.indexOf('socks5') != -1) {
+            proxy.type = 'socks5';
+            proxy.host = localStorage.socks5Host;
+            proxy.port = parseInt(localStorage.socks5Port);
+        }
+
+        var rule = localStorage.rule;
+        var bypasslist = (localStorage.bypass).split(',');
+        config.mode = "fixed_servers";
+        config.rules.bypassList = bypasslist;
+        config["rules"][rule] = {
+            scheme: proxy.type,
+            host: proxy.host,
+            port: proxy.port
+        };
+
+        chrome.proxy.settings.set(
+        {value: config, scope: 'regular'},
+        function() {});
+    }
 }
 
 /**
@@ -229,22 +322,17 @@ function save() {
   }
 
   markClean();
-  sysProxy();
-
-
   loadProxyData();
-  getProxyInfo();
 
-  alert("Please restart proxy on popup page");
+  reloadProxy(localStorage.proxyInfo);
+  getProxyInfo();
 }
 
 function markDirty() {
-  $('#save-button').attr("disabled", false);
   $('#save-button').attr("class", "btn solid red");
 }
 
 function markClean() {
-  $('#save-button').attr("disabled", true);
   $('#save-button').attr("class", "btn solid grey");
 }
 
@@ -268,6 +356,7 @@ function enableInput() {
 
         if ($('#pac-via-proxy').val() !== 'None') {
             $("#pac-proxy-host").show();
+            $("#pac-proxy-host").attr("disabled", false);
         }
     } else {
         $('#pac-data-settings').hide();
@@ -301,7 +390,6 @@ function disableInput() {
 function setPacProxy() {
 
     var proxy = {type:'', host:'', port:''};
-    var pacPorxyHost;
 
     pacProxyHost = $('#pac-proxy-host').val().split(':');
     pacViaProxy = $('#pac-via-proxy').val().split(':');
