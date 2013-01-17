@@ -71,10 +71,6 @@ td {
   margin-left:8px;
 }
 
-#footer {
-  margin-top:4em;
-}
-
 .btn{
    display:inline-block;
    text-decoration:none;
@@ -147,3 +143,25 @@ input {
     margin: 0;
     padding-left: 4px;
 }
+
+.footer-divider {
+    margin: 5 0 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+a:link {
+    text-decoration:none;
+    color:#6666FF
+}
+
+a:visited {
+    text-decoration:none;
+    color:#6666FF
+}
+
+a:hover {
+    color: #FF3333;
+    text-decoration: underline;
+}
+
