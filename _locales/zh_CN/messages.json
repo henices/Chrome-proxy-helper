@@ -38,26 +38,35 @@
     "proxy": {
         "message": "代理"
     },
+    "pac_script" : {
+        "message": "PAC 脚本"
+    },
     "http_proxy" : {
-        "message": "HTTP 代理"
+        "message": "HTTP代理"
     },
     "https_proxy" : {
-        "message": "HTTPS 代理"
+        "message": "HTTPS代理"
     },
     "socks_proxy" : {
-        "message": "SOCKS 代理"
+        "message": "SOCKS代理"
+    },
+    "system_proxy" : {
+        "message": "系统代理"
+    },
+    "direct_proxy" : {
+        "message": "直接连接"
     },
     "port" : {
-        "message" : "端口"
+        "message": "端口"
     },
     "pac_path" : {
-        "message" : "PAC文件路径"
+        "message": "PAC文件路径"
     },
     "edit_pac_data" : {
         "message" : "编辑PAC脚本"
     },
     "bypass_list" : {
-        "message" : "BYPASS 列表"
+        "message": "BYPASS 列表"
     },
     "proxy_rules" : {
         "message" : "PROXY 规则"
@@ -67,5 +76,4 @@
     }
 
 }
-
 
