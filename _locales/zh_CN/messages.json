@@ -1,9 +1,71 @@
 {
-  "appName": {
-    "message": "代理助手"
-  },
-  "appDesc": {
-    "message": "为Google Chrome 浏览器设置代理"
-  }
+    "appName": {
+        "message": "代理助手"
+    },
+    "appDesc": {
+        "message": "为Google Chrome 浏览器设置代理"
+    },
+    "proxy_helper_options" : {
+        "message": "代理助手选项"
+    },
+    "proxy_information" : {
+        "message": "浏览器代理设置"
+    },
+    "config_auto": {
+        "message": "自动设置代理"
+    },
+    "config_manual": {
+        "message": "手动设置代理"
+    },
+    "show_adv" : {
+        "message": "显示高级设置"
+    },
+    "download" : {
+        "message" : "下载"
+    },
+    "online_pac_script_url": {
+        "message": "在线PAC脚本URL"
+    },
+    "online_pac_script" : {
+        "message": "在线PAC脚本"
+    },
+    "save" : {
+        "message": "保存"
+    },
+    "cancel" : {
+        "message": "取消"
+    },
+    "proxy": {
+        "message": "代理"
+    },
+    "http_proxy" : {
+        "message": "HTTP 代理"
+    },
+    "https_proxy" : {
+        "message": "HTTPS 代理"
+    },
+    "socks_proxy" : {
+        "message": "SOCKS 代理"
+    },
+    "port" : {
+        "message" : "端口"
+    },
+    "pac_path" : {
+        "message" : "PAC文件路径"
+    },
+    "edit_pac_data" : {
+        "message" : "编辑PAC脚本"
+    },
+    "bypass_list" : {
+        "message" : "BYPASS 列表"
+    },
+    "proxy_rules" : {
+        "message" : "PROXY 规则"
+    },
+    "return" : {
+        "message" : "返回"
+    }
+
 }
+
 
