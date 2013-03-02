@@ -5,6 +5,9 @@
     "appDesc": {
         "message": "为Google Chrome 浏览器设置代理"
     },
+    "title" : {
+        "message": "代理助手"
+    },
     "proxy_helper_options" : {
         "message": "代理助手选项"
     },
