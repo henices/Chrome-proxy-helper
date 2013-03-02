@@ -21,8 +21,9 @@
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "images/off.png",
-        "default_title": "Proxy Helper",
+        "default_title": "__MSG_title__",
         "default_popup": "popup.html"
     },
     "minimum_chrome_version":"18.0.0"
 }
+
