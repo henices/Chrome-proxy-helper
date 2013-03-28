@@ -20,17 +20,24 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#cancel-button').addEventListener('click', loadProxyData);
     document.querySelector('#memory-data').addEventListener('change', enableInput);
     document.querySelector('#load-pac').addEventListener('click', memoryData);
-    document.querySelector('#pac-via-proxy').addEventListener('change', disableInput);
     document.querySelector('textarea#pac-rules').addEventListener('input', markDirty);
     document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
     document.querySelector('#ret-pac-data').addEventListener('click', retPacData);
     document.querySelector('#pac-data').addEventListener('input', markDirty);
+    
+    $('[data-i18n-content]').each(function() {
+        var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
+        if (message)
+            $(this).html(message);
+    }); 
 
     markClean();
 });
 
 loadProxyData();
 getProxyInfo();
+
+
 
 /**
  * load data in local database and 
@@ -42,6 +49,7 @@ function loadProxyData() {
   $(document).ready(function() {
 
       $('#pac-path').val(localStorage.pacPath || "") ;
+      $('#pac-url').val(localStorage.pacUrl || "") ;
       $('#socks5-host').val(localStorage.socks5Host || "");
       $('#socks5-port').val(localStorage.socks5Port || "");
       $('#http-host').val(localStorage.httpHost || "");
@@ -67,6 +75,7 @@ function loadProxyData() {
 
       if (localStorage.useMemory == 'true') {
         $('#memory-data').attr('checked', true);
+        $('#pac-path').attr("disabled", true);
         $('#pac-via-proxy').attr('disabled', false);
         $('#pac-proxy-host').show();
         $('#pac-data-settings').show();
@@ -290,6 +299,7 @@ function sysProxy() {
 function save() {
 
   localStorage.pacPath = $('#pac-path').val()||"";
+  localStorage.pacUrl = $('#pac-url').val()||"";
   localStorage.socks5Host = $('#socks5-host').val()||"";
   localStorage.socks5Port = $('#socks5-port').val()||"";
   localStorage.httpHost = $('#http-host').val()||"";
@@ -353,12 +363,14 @@ function enableInput() {
 
         $("#pac-via-proxy").attr("disabled", false);
         $('#pac-data-settings').show();
+        $('#pac-path').attr("disabled", true);
 
         if ($('#pac-via-proxy').val() !== 'None') {
             $("#pac-proxy-host").show();
             $("#pac-proxy-host").attr("disabled", false);
         }
     } else {
+        $('#pac-path').attr("disabled", false);
         $('#pac-data-settings').hide();
         $('#pac-data-info').hide();
         $("#pac-via-proxy").attr("disabled", true);
@@ -420,7 +432,7 @@ function setPacProxy() {
 function getPac() {
 
     var req = new XMLHttpRequest();
-    var url = $('#pac-path').val();
+    var url = $('#pac-url').val();
     var result;
     var pacViaProxy;
     var oldConfig;

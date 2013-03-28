@@ -8,45 +8,53 @@
 </head>
 <body>
 
-<div id="header"><h1>Proxy Helper Options</h1></div>
+<div id="header"><h1 data-i18n-content="proxy_helper_options">Proxy Helper Options</h1></div>
 
-<div class="section-header first">Proxy Information</div>
+<div class="section-header first" data-i18n-content="proxy_information">Proxy Information</div>
 <span id="proxy-info" style="display:block;"></span>
 <span id="control-info" style="display:block;"></span>
 
-<div class="section-header first">
+<div class="section-header first" data-i18n-content="config_auto">
     Configure your proxy settings automatically</div>
 <div class="section-data">
-  URL (PAC PATH) <input type="text" id="pac-path" size="65" /> 
-  <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac or http://example.com/wpad.dat"/>
+    <label data-i18n-content="pac_path">PAC PATH</label> <input type="text" id="pac-path" size="65" /> 
+    <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac"/>
 </div>
 <div class="section-data">
-    <input type="checkbox" id="memory-data"/><span>Download pac script</span>
+    <input type="checkbox" id="memory-data"/><span data-i18n-content="online_pac_script">Online pac script</span>
     <img src="images/help.gif" class="tip" title="load pac data into memory and then use it"/>
 </div>
 
 <table id="pac-data-settings" style="margin-top:0.5em;" hidden>
+    <tbody>
+    <tr>
+        <th scope="col" data-i18n-content="online_pac_script_url">online pac script url</th>
+        <th scope="col" data-i18n-content="proxy">proxy</th>
+    </tr>
     <tr>
     <td>
-        <span style="font-size:15px;margin-left:30px;margin-top:20px;">via proxy</span>
+        <input id="pac-url" type="text" size="65"></input>
     </td>
     <td>
-        <select disabled="disabled" id="pac-via-proxy" style="height:28px;">
-            <option value="None">None</option>
-            <option value="http://">http://</option>
-            <option value="socks5://">socks5://</option>
-            <option value="socks4://">socks4://</option>
-            <option value="https://">https://</option>
+        <select style="height:30px;" id="pac-via-proxy">
+            <option>None</option>
+            <option>http://</option>
+            <option>socks5://</option>
+            <option>https://</option>
+            <option>socks4://</option>
         </select>
-        <input type="text" hidden disabled="disabled" id="pac-proxy-host"></input>
-        <button id="load-pac" style="width:80px;height:28px;">Download</button>
+        <input type="text" size="20" id="pac-proxy-host"></input>
+    </td>
+    <td>
+        <button id="load-pac" class="down-button" data-i18n-content="download">Download</button>
     </td>
     </tr>
     <tr>
     <td>
-        <button id="edit-pac-data" class="link-button">Edit PAC DATA</button>
+        <button id="edit-pac-data" class="link-button" data-i18n-content="edit_pac_data">Edit PAC DATA</button>
     </td>
     </tr>
+    </tbody>
 </table>
 
 <table id="pac-data-info" style="margin-top:1em;" hidden>
@@ -68,42 +76,42 @@
     </tr>
     <tr>
     <td>
-        <button style="margin-left:10px;" id="ret-pac-data" class="link-button">RETURN</button>
+        <button style="margin-left:10px;" id="ret-pac-data" class="link-button" data-i18n-content="return">RETURN</button>
     </td>
     </tr>
 </table>
 
-<div class="section-header first">
+<div class="section-header first" data-i18n-content="config_manual">
     Configure your proxy settings manually</div>
 
 <table id="manual_settings">
 <tr>
-    <td align="right"><label>HTTP PROXY:<label></td>
+    <td align="right"><label data-i18n-content="http_proxy">HTTP PROXY:<label></td>
     <td>
     <input type="text" id="http-host" class="proxy-info" size="18" /> 
     </td>
     <td>
-    <label>PORT:</label>
+    <label data-i18n-content="port">PORT:</label>
     <input type="number" min="1" max="65535" step="1" id="http-port" class="proxy-info" /> 
     </td>
 </tr>
 <tr>
-    <td align="right"><label>HTTPS PROXY:</label></td>
+    <td align="right"><label data-i18n-content="https_proxy">HTTPS PROXY:</label></td>
     <td>
     <input type="text" id="https-host" class="proxy-info" size="18"  /> 
     </td>
     <td>
-    <label>PORT:</label>
+    <label data-i18n-content="port">PORT:</label>
     <input type="number" min="1" max="65535" step="1" id="https-port" class="proxy-info" /> 
     </td>
 </tr>
 <tr>
-    <td align="right"><label>SOCKS HOST:</label></td>
+    <td align="right"><label data-i18n-content="socks_proxy">SOCKS PROXY:</label></td>
     <td>
     <input type="text" id="socks5-host" class="proxy-info" size="18"  />
     </td>
     <td>
-    <label>PORT:</label>
+    <label data-i18n-content="port">PORT:</label>
     <input type="number" min="1" max="65535" step="1" id="socks5-port" class="proxy-info" />
     </td>
 </tr>
@@ -120,11 +128,11 @@
 </tr>
 </table>
 
-<input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/><span>Show advanced settings </span>
+<input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/><span data-i18n-content="show_adv">Show advanced settings </span>
 <table style="margin-top:1em;" id="adv_settings" hidden>
     <tr>
     <td>
-        <label>Proxy Rules</label> 
+        <label data-i18n-content="proxy_rules">Proxy Rules</label> 
     </td>
     <td>
     <select id="rule" >
@@ -138,7 +146,7 @@
     </tr>
     <tr>
     <td>
-    <label>Bypass List</label>
+    <label data-i18n-content="bypass_list">Bypass List</label>
     </td>
     <td>
         <textarea  id="bypasslist" placeholder="192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99)" cols="40" rows="5"></textarea>
@@ -148,8 +156,8 @@
 </table>
 
 <div style="margin-left:70px;margin-top:25px;">
-  <button id="save-button" class="btn solid grey">Save</button>
-  <button id="cancel-button" class="btn solid grey">Cancel</button>
+  <button id="save-button" class="btn solid grey" data-i18n-content="save">Save</button>
+  <button id="cancel-button" class="btn solid grey" data-i18n-content="cancel">Cancel</button>
 </div>
 
 <hr class="footer-divider">

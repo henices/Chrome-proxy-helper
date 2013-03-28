@@ -17,6 +17,7 @@ $(document).ready(function() {
     add_li_title();
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#pac-script').addEventListener('click', pacProxy);
     document.querySelector('#socks5-proxy').addEventListener('click', socks5Proxy);
@@ -24,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
+
+    $('[data-i18n-content]').each(function() {
+        var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
+        if (message)
+            $(this).html(message);
+    });
+
 });
 
 chrome.proxy.onProxyError.addListener( function(details) {

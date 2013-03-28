@@ -1,8 +1,7 @@
 body { 
-    width: 130px;
-    font-family: 'Helvetica Neue', 'Hiragino Sans GB', sans-serif;
-    font-size: 14px;
-    line-height: 30px;
+    width: 125px;
+    font: 14px/18px 'Open Sans',arial,sans-serif;
+    font-weight: 400;
     padding: 3px;
     margin: 0;
 } 
