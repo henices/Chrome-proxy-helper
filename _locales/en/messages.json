@@ -7,6 +7,8 @@
     },
     "title": {
         "message": "Proxy Helper"
+    },
+    "proxy_helper_options" : {
+        "message": "Proxy Helper Options"
     }
 }
-
