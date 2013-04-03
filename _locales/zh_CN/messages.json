@@ -69,10 +69,10 @@
         "message" : "编辑PAC脚本"
     },
     "bypass_list" : {
-        "message": "BYPASS 列表"
+        "message": "BYPASS列表"
     },
     "proxy_rules" : {
-        "message" : "PROXY 规则"
+        "message" : "PROXY规则"
     },
     "return" : {
         "message" : "返回"
