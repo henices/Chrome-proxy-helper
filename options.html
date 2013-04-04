@@ -21,7 +21,8 @@
     <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac"/>
 </div>
 <div class="section-data">
-    <input type="checkbox" id="memory-data"/><span data-i18n-content="online_pac_script">Online pac script</span>
+    <input type="checkbox" id="memory-data"/>
+    <span class="option" data-i18n-content="online_pac_script">Online pac script</span>
     <img src="images/help.gif" class="tip" title="load pac data into memory and then use it"/>
 </div>
 
@@ -37,13 +38,15 @@
     </td>
     <td>
         <select style="height:28px;" id="pac-via-proxy">
-            <option>None</option>
-            <option>http://</option>
-            <option>socks5://</option>
-            <option>https://</option>
-            <option>socks4://</option>
+            <option>DIRECT</option>
+            <option>HTTP</option>
+            <option>SOCKS5</option>
+            <option>HTTPS</option>
+            <option>SOCKS4</option>
         </select>
+        <!--
         <input type="text" size="20" id="pac-proxy-host"></input>
+        -->
     </td>
     <td>
         <button id="load-pac" class="down-button" data-i18n-content="download">Download</button>
@@ -63,7 +66,7 @@
         <label for="">PAC DATA</label> 
     </td>
     <td>
-        <textarea id="pac-data" style="margin-left:25px;" cols="65" rows="5"></textarea>
+        <textarea id="pac-data" cols="65" rows="10"></textarea>
     </td>
     </tr>
     <tr>
@@ -71,7 +74,7 @@
         <label for="">PAC RULES</label>
     </td>
     <td>
-        <textarea id="pac-rules" style="margin-left:25px;" cols="65" rows="5"></textarea>
+        <textarea id="pac-rules" cols="65" rows="5"></textarea>
     </td>
     </tr>
     <tr>
@@ -92,7 +95,7 @@
     </td>
     <td>
     <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="http-port" class="proxy-info" /> 
+    <input type="number" min="1" max="65535" step="1" id="http-port" />
     </td>
 </tr>
 <tr>
@@ -102,7 +105,7 @@
     </td>
     <td>
     <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="https-port" class="proxy-info" /> 
+    <input type="number" min="1" max="65535" step="1" id="https-port" /> 
     </td>
 </tr>
 <tr>
@@ -112,7 +115,7 @@
     </td>
     <td>
     <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="socks5-port" class="proxy-info" />
+    <input type="number" min="1" max="65535" step="1" id="socks5-port" />
     </td>
 </tr>
 <tr>
@@ -128,7 +131,8 @@
 </tr>
 </table>
 
-<input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/><span data-i18n-content="show_adv">Show advanced settings </span>
+<input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/>
+<span data-i18n-content="show_adv" class="option">Show advanced settings </span>
 <table style="margin-top:1em;" id="adv_settings" hidden>
     <tr>
     <td>

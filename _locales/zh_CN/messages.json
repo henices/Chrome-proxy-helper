@@ -30,7 +30,7 @@
         "message": "在线PAC脚本URL"
     },
     "online_pac_script" : {
-        "message": "在线PAC脚本"
+        "message": "使用在线PAC脚本"
     },
     "save" : {
         "message": "保存"

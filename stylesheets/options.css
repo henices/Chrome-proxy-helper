@@ -4,18 +4,12 @@ body {
     margin:10px;
 }
 
-
-td {
-    padding:0;
-    margin:0;
-}
-
 #pac-data-settings th {
     font-size: 11px;
     border:1px solid #A5B6C8;
     background:#EEF3F7;
     color:#101010;
-    padding: 6px 6px 6px 12px;
+    padding: 6px 6px 6px 12px; 
 }
 
 .down-button {
@@ -142,7 +136,6 @@ td {
     box-shadow:0px 0px 6px 0px rgba(0,0,0,0.1) inset;
     opacity: 1;
     color:rgba(0,0,0,0.2);
-
 }
 
 .tip {
@@ -156,6 +149,14 @@ input {
     line-height: 25px;
     margin: 0;
     padding-left: 4px;
+}
+
+label {
+    font-size: 15px;
+}
+
+.option {
+    font-size: 9px;
 }
 
 .footer-divider {
