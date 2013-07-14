@@ -4,172 +4,99 @@
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/jquery.base64.js"></script>
 <script type="text/javascript" src="javascripts/options.js"></script>
-<link href="stylesheets/options.css" type="text/css" rel="stylesheet">
+<link href="stylesheets\options.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 
+<div class="contentbox">
 <div id="header"><h1 data-i18n-content="proxy_helper_options">Proxy Helper Options</h1></div>
-
-<div class="section-header first" data-i18n-content="proxy_information">Proxy Information</div>
-<span id="proxy-info" style="display:block;"></span>
-<span id="control-info" style="display:block;"></span>
 
 <div class="section-header first" data-i18n-content="config_auto">
     Configure your proxy settings automatically</div>
-<div class="section-data">
-    <label data-i18n-content="pac_path">PAC PATH</label> <input type="text" id="pac-path" size="65" /> 
-    <img src="images/help.gif" class="tip" title="use pac script, eg. file:////c:/proxy.pac"/>
-</div>
-<div class="section-data">
-    <input type="checkbox" id="memory-data"/>
-    <span class="option" data-i18n-content="online_pac_script">Online pac script</span>
-    <img src="images/help.gif" class="tip" title="load pac data into memory and then use it"/>
-</div>
 
-<table id="pac-data-settings" style="margin-top:0.5em;" hidden>
-    <tbody>
-    <tr>
-        <th scope="col" data-i18n-content="online_pac_script_url">online pac script url</th>
-        <th scope="col" data-i18n-content="proxy">proxy</th>
-    </tr>
-    <tr>
-    <td>
-        <input id="pac-url" type="text" size="65"></input>
-    </td>
-    <td>
-        <select style="height:28px;" id="pac-via-proxy">
-            <option>DIRECT</option>
-            <option>HTTP</option>
-            <option>SOCKS5</option>
-            <option>HTTPS</option>
-            <option>SOCKS4</option>
-        </select>
-        <!--
-        <input type="text" size="20" id="pac-proxy-host"></input>
-        -->
-    </td>
-    <td>
-        <button id="load-pac" class="down-button" data-i18n-content="download">Download</button>
-    </td>
-    </tr>
-    <tr>
-    <td>
-        <button id="edit-pac-data" class="link-button" data-i18n-content="edit_pac_data">Edit PAC DATA</button>
-    </td>
-    </tr>
-    </tbody>
-</table>
-
-<table id="pac-data-info" style="margin-top:1em;" hidden>
-    <tr>
-    <td>
-        <label for="">PAC DATA</label> 
-    </td>
-    <td>
-        <textarea id="pac-data" cols="65" rows="10"></textarea>
-    </td>
-    </tr>
-    <tr>
-    <td>
-        <label for="">PAC RULES</label>
-    </td>
-    <td>
-        <textarea id="pac-rules" cols="65" rows="5"></textarea>
-    </td>
-    </tr>
-    <tr>
-    <td>
-        <button style="margin-left:10px;" id="ret-pac-data" class="link-button" data-i18n-content="return">RETURN</button>
-    </td>
-    </tr>
-</table>
+<div class="section-data">
+    <label data-i18n-content="pac_path">PAC PATH :</label>
+    <select id="pac-type">
+        <option>file:///</option>
+        <option>http://</option>
+        <option>https://</option>
+    </select>
+    <input type="text" size="40" id="pac-script-url"></input>
+</div>
 
 <div class="section-header first" data-i18n-content="config_manual">
     Configure your proxy settings manually</div>
 
-<table id="manual_settings">
-<tr>
-    <td align="right"><label data-i18n-content="http_proxy">HTTP PROXY:<label></td>
-    <td>
-    <input type="text" id="http-host" class="proxy-info" size="18" /> 
-    </td>
-    <td>
-    <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="http-port" />
-    </td>
-</tr>
-<tr>
-    <td align="right"><label data-i18n-content="https_proxy">HTTPS PROXY:</label></td>
-    <td>
-    <input type="text" id="https-host" class="proxy-info" size="18"  /> 
-    </td>
-    <td>
-    <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="https-port" /> 
-    </td>
-</tr>
-<tr>
-    <td align="right"><label data-i18n-content="socks_proxy">SOCKS PROXY:</label></td>
-    <td>
-    <input type="text" id="socks5-host" class="proxy-info" size="18"  />
-    </td>
-    <td>
-    <label data-i18n-content="port">PORT:</label>
-    <input type="number" min="1" max="65535" step="1" id="socks5-port" />
-    </td>
-</tr>
-<tr>
-    <td></td>
-    <td>
-        <div style="margin-top:0.5em;">
-            <input type="radio" id="socks4"/>
-            <span style="font-size:80%;">SOCKS4</span>
-            <input type="radio" id="socks5"/>
-            <span style="font-size:80%;">SOCKS5</span>
-        </div>
-    </td>
-</tr>
-</table>
+<div class="section-data">
+    <label data-i18n-content="http_proxy">HTTP PROXY  : </label>
+    <input type="text" id="http-host" size="15"/>
+    <label data-i18n-content="port">PORT</label>
+    <input type="number" min="1" max="65535" step="1" id="http-port"/>
+</div>
+<div class="section-data">
+    <label data-i18n-content="https_proxy">HTTPS PROXY:</label>
+    <input type="text" id="https-host" size="15"/>
+    <label data-i18n-content="port">PORT</label>
+    <input type="number" min="1" max="65535" step="1" id="https-port"/>
+</div>
+<div class="section-data">
+    <label data-i18n-content="socks_proxy">SOCKS PROXY:</label>
+    <input type="text" id="socks-host" size="15"/>
+    <label data-i18n-content="port">PORT</label>
+    <input type="number" min="1" max="65535" step="1" id="socks-port"/>
+</div>
 
-<input id="adv_checkbox" type="checkbox" style="margin-top:2em;"/>
-<span data-i18n-content="show_adv" class="option">Show advanced settings </span>
-<table style="margin-top:1em;" id="adv_settings" hidden>
-    <tr>
-    <td>
-        <label data-i18n-content="proxy_rules">Proxy Rules</label> 
-    </td>
-    <td>
-    <select id="rule" >
+<div style="margin-top:0.5em;">
+    <input type="radio" id="socks4"/>
+    <span style="font-size:80%;">SOCKS4</span>
+    <input type="radio" id="socks5"/>
+    <span style="font-size:80%;">SOCKS5</span>
+</div>
+
+<div class="section-header first" data-i18n-content="config_bypasslist">
+    Configure your proxy bypass list</div>
+
+<div class="section-data">
+    <span data-i18n-content="domain_in_bypasslist">Domains in bypass list Never use a proxy</span>
+</div>
+<div class="section-data">
+    <textarea id="bypasslist" cols="50" rows="3"></textarea>
+    <img src="images/help.gif" class="tip" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
+</div>
+
+<section class="section-data">
+    <h5 data-i18n-content="use_predefine_list">Use predefined proxy bypass list</h5>
+    <div class="checkbox">
+        <input type="checkbox" id="use_china_list"/>
+        <span data-i18n-content="china_list">China List</span>
+        <button data-i18n-content="edit" class="link-button">Edit</button>
+    </div>
+</section>
+
+<div data-i18n-content="advanced_settings" class="section-header first">Advanced settings</div>
+
+<div class="section-data">
+    <label data-i18n-content="proxy_rules">Proxy Rules  :  </label>
+    <select id="proxy-rule" >
         <option value="singleProxy">singleProxy</option>
         <option value="proxyForHttp">proxyForHttp</option>
         <option value="proxyForHttps">proxyForHttps</option>
         <option value="proxyForFtp">proxyForFtp</option>
         <option value="fallbackproxy">fallbackProxy</option>
     </select>
-    </td>
-    </tr>
-    <tr>
-    <td>
-    <label data-i18n-content="bypass_list">Bypass List</label>
-    </td>
-    <td>
-        <textarea  id="bypasslist" placeholder="192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99)" cols="40" rows="5"></textarea>
-        <img src="images/help.gif" class="tip" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
-    </td>
-    </tr>
-</table>
-
-<div style="margin-left:70px;margin-top:25px;">
-  <button id="save-button" class="btn solid grey" data-i18n-content="save">Save</button>
-  <button id="cancel-button" class="btn solid grey" data-i18n-content="cancel">Cancel</button>
 </div>
 
-<hr class="footer-divider">
-<footer>
-    <div style="text-align:center;">
-        <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">Home</a>  |
-        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">FAQ</a>
-    </div>
-</footer>
+<div style="margin-top:2.5em;margin-left:15em;">
+  <button id="btn-save"  data-i18n-content="save">Save</button>
+  <button id="cancel-button" data-i18n-content="cancel">Cancel</button>
+</div>
+
+</div>
+
+<div style="text-align:center;">
+    <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">Home</a>  |
+    <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">FAQ</a>
+</div>
+
 </body>
 </html>

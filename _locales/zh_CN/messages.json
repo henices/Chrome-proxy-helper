@@ -23,17 +23,23 @@
     "show_adv" : {
         "message": "显示高级设置"
     },
+    "advanced_settings" : {
+        "message": "高级设置"
+    },
     "download" : {
         "message" : "下载"
     },
-    "online_pac_script_url": {
-        "message": "在线PAC脚本URL"
+    "pac_url": {
+        "message": "在线PAC网址:"
     },
     "online_pac_script" : {
         "message": "使用在线PAC脚本"
     },
     "save" : {
         "message": "保存"
+    },
+    "edit" : {
+        "message": "编辑"
     },
     "cancel" : {
         "message": "取消"
@@ -45,13 +51,13 @@
         "message": "PAC 脚本"
     },
     "http_proxy" : {
-        "message": "HTTP代理"
+        "message": "HTTP 代理:"
     },
     "https_proxy" : {
-        "message": "HTTPS代理"
+        "message": "HTTPS代理:"
     },
     "socks_proxy" : {
-        "message": "SOCKS代理"
+        "message": "SOCKS代理:"
     },
     "system_proxy" : {
         "message": "系统代理"
@@ -60,10 +66,10 @@
         "message": "直接连接"
     },
     "port" : {
-        "message": "端口"
+        "message": "端口:"
     },
     "pac_path" : {
-        "message": "PAC文件路径"
+        "message": "PAC文件路径:"
     },
     "edit_pac_data" : {
         "message" : "编辑PAC脚本"
@@ -72,11 +78,19 @@
         "message": "BYPASS列表"
     },
     "proxy_rules" : {
-        "message" : "PROXY规则"
+        "message" : "PROXY规则 :"
     },
     "return" : {
         "message" : "返回"
+    },
+    "use_predefine_list" : {
+        "message" : "使用内置白名单"
+    },
+    "config_bypasslist" : {
+        "message" : "设置代理白名单"
+    },
+    "domain_in_bypasslist" : {
+        "message" : "在白名单里的域名将不使用代理"
     }
-
 }
 

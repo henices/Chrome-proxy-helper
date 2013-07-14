@@ -41,10 +41,24 @@ function gotoOptPage() {
 }
 
 setProxyIcon();
-var first = localStorage.firstime;
+var firstTime = localStorage.firstime;
 
-if (!first) {
-    localStorage.socks5 = true;
-    localStorage.socks4 = false;
+var proxySetting = {
+    'pac_script_url' : {'http': '', 'https': '', 'file' : ''},
+    'pac_type' : '',
+    'http_host' : '',
+    'http_port' : '',
+    'https_host' : '',
+    'https_port' : '',
+    'socks_host' : '',
+    'socks_port' : '',
+    'socks_type' : 'socks5',
+    'bypasslist' : '',
+    'proxy_rule' : '',
+    'internal'   : ''
+}
+
+if (!firstTime) {
+    localStorage.proxySetting = JSON.stringify(proxySetting);
     gotoOptPage();
 }

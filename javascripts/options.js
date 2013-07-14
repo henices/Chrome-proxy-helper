@@ -2,91 +2,41 @@
 // by zhouzhenster@gmail.com
 // https://raw.github.com/henices/Chrome-proxy-helper/master/javascripts/options.js
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    document.querySelector('#save-button').addEventListener('click', save);
-    document.querySelector('#adv_checkbox').addEventListener('change', showAdv);
-    document.querySelector('#pac-path').addEventListener('input', markDirty);
-    document.querySelector('#http-host').addEventListener('input', markDirty);
-    document.querySelector('#http-port').addEventListener('input', markDirty);
-    document.querySelector('#https-host').addEventListener('input', markDirty);
-    document.querySelector('#https-port').addEventListener('input', markDirty);
-    document.querySelector('#socks5-host').addEventListener('input', markDirty);
-    document.querySelector('#socks5-port').addEventListener('input', markDirty);
-    document.querySelector('#rule').addEventListener('change', markDirty);
-    document.querySelector('textarea#bypasslist').addEventListener('input', markDirty);
-    document.querySelector('#socks4').addEventListener('click', socks5_unchecked);
-    document.querySelector('#socks5').addEventListener('click', socks4_unchecked);
-    document.querySelector('#cancel-button').addEventListener('click', loadProxyData);
-    document.querySelector('#memory-data').addEventListener('change', enableInput);
-    document.querySelector('#load-pac').addEventListener('click', memoryData);
-    document.querySelector('textarea#pac-rules').addEventListener('input', markDirty);
-    document.querySelector('#edit-pac-data').addEventListener('click', showPacData);
-    document.querySelector('#ret-pac-data').addEventListener('click', retPacData);
-    document.querySelector('#pac-data').addEventListener('input', markDirty);
-    
-    $('[data-i18n-content]').each(function() {
-        var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
-        if (message)
-            $(this).html(message);
-    }); 
-
-    markClean();
-});
-
-loadProxyData();
-getProxyInfo();
-
-
-
-/**
- * load data in local database and 
- * display it on the options page
- *
- */
 function loadProxyData() {
 
   $(document).ready(function() {
 
-      $('#pac-path').val(localStorage.pacPath || "") ;
-      $('#pac-url').val(localStorage.pacUrl || "") ;
-      $('#socks5-host').val(localStorage.socks5Host || "");
-      $('#socks5-port').val(localStorage.socks5Port || "");
-      $('#http-host').val(localStorage.httpHost || "");
-      $('#http-port').val(localStorage.httpPort || "");
-      $('#https-host').val(localStorage.httpsHost || "");
-      $('#https-port').val(localStorage.httpsPort || "");
-      $('#rule').val(localStorage.rule || "");
-      $('textarea#bypasslist').val(localStorage.bypass || "localhost,127.0.0.1");
-      $('textarea#pac-data').val(localStorage.pacData || "");
-      $('#pac-via-proxy').val(localStorage.pacViaProxy || "");
-      $('#pac-proxy-host').val(localStorage.pacProxyHost || "");
-      $('textarea#pac-rules').val(localStorage.pacRules || "");
+      var proxySetting = JSON.parse(localStorage.proxySetting);
 
-      if (localStorage.socks5 == 'true') {
+      $('#socks-host').val(proxySetting['socks_host'] || "");
+      $('#socks-port').val(proxySetting['socks_port'] || "");
+      $('#http-host').val(proxySetting['http_host'] || "");
+      $('#http-port').val(proxySetting['http_port'] || "");
+      $('#https-host').val(proxySetting['https_host'] || "");
+      $('#https-port').val(proxySetting['https_port'] || "");
+      $('#pac-type').val(proxySetting['pac_type'] || "");
+      $('#bypasslist').val(proxySetting['bypasslist'] || "");
+      $('#proxy-rule').val(proxySetting['proxy_rule'] || "");
+
+      var type = proxySetting['pac_type'].split(':')[0];
+      $('#pac-script-url').val(proxySetting['pac_script_url'][type] || "");
+
+      if (proxySetting['socks_type'] == 'socks5') {
         $('#socks5').attr('checked', true);
         $('#socks4').attr('checked', false);
       }
 
-      if (localStorage.socks4 == 'true') {
+      if (proxySetting['socks_type'] == 'socks4') {
         $('#socks4').attr('checked', true);
         $('#socks5').attr('checked', false);
       }
 
-      if (localStorage.useMemory == 'true') {
-        $('#memory-data').attr('checked', true);
-        $('#pac-path').attr("disabled", true);
-        $('#pac-via-proxy').attr('disabled', false);
-        $('#pac-proxy-host').show();
-        $('#pac-data-settings').show();
-        //$('textarea#pac-rules').attr('disabled', false);
-        if ($('#pac-via-proxy').val() !== 'None')
-            $('#pac-proxy-host').attr('disabled', false);
+      if (proxySetting['internal'] == 'china') {
+          $('#use_china_list').attr('checked', true);
       }
 
   });
-
-  markClean();
 
 }
 
@@ -136,23 +86,6 @@ function getProxyInfo() {
         }
     );
 
-}
-
-/**
- * @brief merge pac data
- *
- */
-function mergePacData() {
-    var pacData;
-    var mergeData;
-
-    pacData = localStorage.pacData;
-    if (pacData.indexOf('${pac_rules}') !== -1)
-        mergeData = pacData.replace('${pac_rules}', localStorage.pacRules);
-    else
-        mergeData = pacData;
-
-    return mergeData;
 }
 
 /**
@@ -257,22 +190,6 @@ function showAdv() {
 }
 
 /**
- * input id memory-data handler
- *
- */
-function memoryData() {
-
-    if ($('#memory-data').attr('checked')) {
-        if (getPac())
-            return 1;
-    }
-
-    $('#pac-data').val(localStorage.pacData);
-
-    return 0;
-}
-
-/**
  * set system proxy
  *
  */
@@ -298,102 +215,46 @@ function sysProxy() {
  */
 function save() {
 
-  localStorage.pacPath = $('#pac-path').val()||"";
-  localStorage.pacUrl = $('#pac-url').val()||"";
-  localStorage.socks5Host = $('#socks5-host').val()||"";
-  localStorage.socks5Port = $('#socks5-port').val()||"";
-  localStorage.httpHost = $('#http-host').val()||"";
-  localStorage.httpPort = $('#http-port').val()||"";
-  localStorage.httpsHost = $('#https-host').val()||"";
-  localStorage.httpsPort = $('#https-port').val()||"";
-  localStorage.rule = $("#rule").val()||"singleProxy";
-  localStorage.bypass = $("textarea#bypasslist").val()||"localhost,127.0.0.1";
-  localStorage.pacViaProxy = $('#pac-via-proxy').val()||"";
-  localStorage.pacProxyHost = $('#pac-proxy-host').val()||"";
-  localStorage.pacData = $('#pac-data').val()||"";
-  localStorage.pacRules = $('textarea#pac-rules').val()||"";
+  var proxySetting = JSON.parse(localStorage.proxySetting);
+  proxySetting['http_host'] = $('#http-host').val() || "";
+  proxySetting['http_port'] = $('#http-port').val() || "";
+  proxySetting['https_host'] = $('#https-host').val() || "";
+  proxySetting['https_port'] = $('#https-port').val() || "";
+  proxySetting['socks_host'] = $('#socks-host').val() || "";
+  proxySetting['socks_port'] = $('#socks-port').val() || "";
+  proxySetting['pac_type'] = $('#pac-type').val() || "";
+  proxySetting['bypasslist'] = $('#bypasslist').val() || "";
+  proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
 
-  if ($('#socks5').attr('checked')) {
-      localStorage.socks5 = 'true';
-  } else {
-      localStorage.socks5 = 'false';
-  }
+  var pacType = $('#pac-type').val().split(':')[0];
+  proxySetting['pac_script_url'][pacType] = $('#pac-script-url').val() || "";
 
-  if ($('#socks4').attr('checked')) {
-      localStorage.socks4 = 'true';
-  } else {
-      localStorage.socks4 = 'false';
-  }
+  if ($('#socks5').attr('checked')) 
+      proxySetting['socks_type'] = 'socks5';
 
-  if ($('#memory-data').is(':checked')) {
-      localStorage.useMemory = true;
-  } else {
-      localStorage.useMemory = false;
-  }
+  if ($('#socks4').attr('checked'))
+      proxySetting['socks_type'] = 'socks4';
 
-  markClean();
+  if ($('#use_china_list').attr('checked'))
+      proxySetting['internal'] = "china";
+
+  localStorage.proxySetting = JSON.stringify(proxySetting);
+
+  //markClean();
   loadProxyData();
 
-  reloadProxy(localStorage.proxyInfo);
-  getProxyInfo();
+  //reloadProxy(localStorage.proxyInfo);
+  //getProxyInfo();
 }
 
-function markDirty() {
-  $('#save-button').attr("class", "btn solid red");
-}
+//function markDirty() {
+//  $('#save-button').attr("class", "btn solid red");
+//}
+//
+//function markClean() {
+//  $('#save-button').attr("class", "btn solid grey");
+//}
 
-function markClean() {
-  $('#save-button').attr("class", "btn solid grey");
-}
-
-function retPacData() {
-    enableInput();
-    $('#pac-data-info').hide();
-}
-
-
-/**
- * memory-data click handle
- *
- */
-
-function enableInput() {
-
-    if ($('#memory-data').is(':checked')) {
-
-        $("#pac-via-proxy").attr("disabled", false);
-        $('#pac-data-settings').show();
-        $('#pac-path').attr("disabled", true);
-
-        if ($('#pac-via-proxy').val() !== 'None') {
-            $("#pac-proxy-host").show();
-            $("#pac-proxy-host").attr("disabled", false);
-        }
-    } else {
-        $('#pac-path').attr("disabled", false);
-        $('#pac-data-settings').hide();
-        $('#pac-data-info').hide();
-        $("#pac-via-proxy").attr("disabled", true);
-        $("#pac-proxy-host").attr("disabled", true);
-    }
-    markDirty();
-}
-
-function showPacData() {
-    $('#pac-data-info').show();
-    $('#pac-data-settings').hide();
-}
-
-function disableInput() {
-    if ($('#pac-via-proxy').val() === 'None') {
-        $('#pac-proxy-host').attr('disabled', true);
-        $('#pac-proxy-host').val("");
-        $('#pac-proxy-host').hide();
-    } else {
-        $('#pac-proxy-host').attr('disabled', false);
-        $('#pac-proxy-host').show();
-    }
-}
 
 /**
  * set proxy for get pac data
@@ -433,47 +294,17 @@ function getPac() {
 
     var req = new XMLHttpRequest();
     var url = $('#pac-url').val();
-    var result;
-    var pacViaProxy;
-    var oldConfig;
-    var useProxy;
-    var pacData;
-
-    if ( url.indexOf("file") != -1) {
-        alert("Local file are not supported. :(");
-        return;
-    }
-
-    chrome.proxy.settings.get(
-        {'incognito': false},
-        function(config) {
-            oldConfig = config.value;
-        }
-    );
-
-    pacViaProxy = $('#pac-via-proxy').val();
-
-    // via proxy
-    useProxy = pacViaProxy.indexOf('None');
-
-    if (useProxy) {
-        setPacProxy();
-    }
+    var result = "";
 
     // async request
     req.open("GET", url, true);
     req.onreadystatechange = processResponse;
     req.send(null);
 
-    /**
-     *  decode pac data and set it to local database
-     *  @param {string} ret the response text
-     *
-     *  @return {string}
-     */
     function processPacData(ret) {
         var regx_dbase64 = /decode64\("(.*)"\)/i;
         var regx_find = /FindProxyForURL/i;
+        var pacData = "";
 
         // autoproxy2pac
         if (ret.indexOf('decode64') != -1) {
@@ -481,47 +312,62 @@ function getPac() {
             if (match) {
                 var decodePacData = $.base64Decode(RegExp.$1);
                 if (regx_find.test(decodePacData)) 
-                    localStorage.pacData = decodePacData;
-                else
-                    localStorage.pacData = "";
-            } else 
-                localStorage.pacData = "";
+                    pacData = decodePacData;
+            }
         }
         // plain text
         else {
             if (regx_find.test(ret))
-                localStorage.pacData = ret;
-            else
-                localStorage.pacData = "";
+                pacData = ret;
         }
 
-        return localStorage.pacData;
+        return pacData;
     }
 
-    /**
-     *  process the reponse text, tell user the result
-     *
-     */
     function processResponse() {
 
-        if (req.readyState == 4 ) {
+        if (req.readyState == 4) {
             if (req.status == 200) {
                 result = req.responseText;
-                pacData = processPacData(result);
-                if (pacData !== "") {
-                    alert('Load pac data OK');
-                    $('textarea#pac-data').val(pacData);
-                } else {
-                    alert('Error pac script, check it again :(');
-                }
-            } else
-                alert('Failed to open the pac url :(');
-
-            // if set proxy, recovery old proxy settings
-            if (useProxy)
-                chrome.proxy.settings.set(
-                    {value: oldConfig, scope: 'regular'},
-                    function() {});
+            }
         }
+
+        return result;
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    $('#btn_select').click(function() {
+        $('#pac_file').trigger('click');
+    });
+
+    $('#btn-save').click(function() {
+        save();
+    });
+
+    $('#btn-socks4').click(function() {
+        socks5_unchecked();
+    });
+
+    $('#btn-socks5').click(function() {
+        socks4_unchecked();
+    });
+
+    var proxySetting = JSON.parse(localStorage.proxySetting);
+    $('#pac-type').change(function() {
+        var type = $('#pac-type').val().split(':')[0];
+        $('#pac-script-url').val(proxySetting['pac_script_url'][type]);
+    });
+
+    $('[data-i18n-content]').each(function() {
+        var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
+        if (message)
+            $(this).html(message);
+    }); 
+
+});
+
+loadProxyData();
+//getProxyInfo();
+
