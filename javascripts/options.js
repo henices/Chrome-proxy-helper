@@ -346,11 +346,11 @@ document.addEventListener('DOMContentLoaded', function () {
         save();
     });
 
-    $('#btn-socks4').click(function() {
+    $('#socks4').change(function() {
         socks5_unchecked();
     });
 
-    $('#btn-socks5').click(function() {
+    $('#socks5').change(function() {
         socks4_unchecked();
     });
 
