@@ -47,10 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-chrome.proxy.onProxyError.addListener( function(details) {
-        console.log(JSON.stringify(details));
-});
-
 /**
  * set help message for popup page
  *
@@ -280,4 +276,6 @@ function sysProxy() {
     proxySelected("system")
 }
 
-
+chrome.proxy.onProxyError.addListener(function(details) {
+    console.log(details.error);
+});

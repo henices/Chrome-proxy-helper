@@ -58,10 +58,11 @@ body {
     display: block;
     vertical-align:middle;
     margin: 0.65em 0;
+    margin-left: 1em;
 }
 
 .section-header.first {
-    margin-top:2em;
+    margin-top:1.5em;
     line-height: 28px;
     height: 28px;
 }

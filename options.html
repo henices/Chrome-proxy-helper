@@ -46,12 +46,21 @@
     <input type="number" min="1" max="65535" step="1" id="socks-port"/>
 </div>
 
-<div style="margin-top:0.5em;">
+<div class="section-data">
     <input type="radio" id="socks4"/>
     <span style="font-size:80%;">SOCKS4</span>
     <input type="radio" id="socks5"/>
     <span style="font-size:80%;">SOCKS5</span>
 </div>
+
+<section class="section-data">
+    <h5 data-i18n-content="authentication">Authentication</h5>
+    <div class="checkbox">
+        <input type="checkbox" id="use_pass"/>
+        <span data-i18n-content="password_authentication">use password authentication</span>
+        <button id="password_page" data-i18n-content="edit" class="link-button">Edit</button>
+    </div>
+</section>
 
 <div class="section-header first" data-i18n-content="config_bypasslist">
     Configure your proxy bypass list</div>
@@ -69,7 +78,7 @@
     <div class="checkbox">
         <input type="checkbox" id="use_china_list"/>
         <span data-i18n-content="china_list">China List</span>
-        <button data-i18n-content="edit" class="link-button">Edit</button>
+        <button id="china_list_page" data-i18n-content="edit" class="link-button">Edit</button>
     </div>
 </section>
 
