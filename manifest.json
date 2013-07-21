@@ -13,7 +13,9 @@
         "proxy",
         "tabs",
         "unlimitedStorage",
-        "<all_urls>"
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking"
     ],
     "background": {
         "scripts": ["background.js"]
