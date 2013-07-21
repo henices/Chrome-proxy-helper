@@ -18,6 +18,8 @@ function loadProxyData() {
       $('#pac-type').val(proxySetting['pac_type'] || "");
       $('#bypasslist').val(proxySetting['bypasslist'] || "");
       $('#proxy-rule').val(proxySetting['proxy_rule'] || "");
+      $('#username').val(proxySetting['auth']['user'] || "");
+      $('#password').val(proxySetting['auth']['pass'] || "");
 
       var type = proxySetting['pac_type'].split(':')[0];
       $('#pac-script-url').val(proxySetting['pac_script_url'][type] || "");
@@ -32,9 +34,15 @@ function loadProxyData() {
         $('#socks5').attr('checked', false);
       }
 
-      if (proxySetting['internal'] == 'china') {
-          $('#use_china_list').attr('checked', true);
+      if (proxySetting['auth']['enable'] == 'y') {
+          $('#use-pass').attr('checked', true);
       }
+
+      if (proxySetting['internal'] == 'china') {
+          $('#use-china-list').attr('checked', true);
+      }
+
+      $('#div-auth-input').hide();
 
   });
 
@@ -179,17 +187,6 @@ function socks4_unchecked() {
 }
 
 /**
- * event handler
- *
- */
-function showAdv() {
-    if($('#adv_settings').is(':hidden'))
-        $("#adv_settings").show();
-    else
-        $("#adv_settings").hide();
-}
-
-/**
  * set system proxy
  *
  */
@@ -225,6 +222,8 @@ function save() {
   proxySetting['pac_type'] = $('#pac-type').val() || "";
   proxySetting['bypasslist'] = $('#bypasslist').val() || "";
   proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
+  proxySetting['auth']['user'] = $('#username').val() || "";
+  proxySetting['auth']['pass'] = $('#password').val() || "";
 
   var pacType = $('#pac-type').val().split(':')[0];
   proxySetting['pac_script_url'][pacType] = $('#pac-script-url').val() || "";
@@ -235,12 +234,19 @@ function save() {
   if ($('#socks4').attr('checked'))
       proxySetting['socks_type'] = 'socks4';
 
-  if ($('#use_china_list').attr('checked'))
+  if ($('#use-pass').attr('checked'))
+      proxySetting['auth']['enable'] = 'y';
+  else
+      proxySetting['auth']['enable'] = '';
+
+  if ($('#use-china-list').attr('checked'))
       proxySetting['internal'] = "china";
+  else
+      proxySetting['internal'] = "";
+
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
 
-  //markClean();
   loadProxyData();
 
   //reloadProxy(localStorage.proxyInfo);
@@ -336,6 +342,8 @@ function getPac() {
     }
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     $('#btn_select').click(function() {
@@ -352,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#socks5').change(function() {
         socks4_unchecked();
+    });
+
+    $('#btn-auth-edit').click(function() {
+        $('#div-auth-input').show();
     });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
