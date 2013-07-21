@@ -40,25 +40,50 @@ function gotoOptPage() {
     });
 }
 
-setProxyIcon();
-var firstTime = localStorage.firstime;
+function callbackFn(details) {
+    var proxySetting = JSON.parse(localStorage.proxySetting);
+
+    if (proxySetting){
+        var auth = proxySetting['auth'];
+        var username = auth['user'];
+        var password = auth['pass'];
+    }
+
+    if (proxySetting['auth']['enable'] == '')
+        return {};
+
+    return details.isProxy === !0 ? {
+        authCredentials: {
+            username: username,
+                password: password
+        }
+    } : {}
+}
+
+chrome.webRequest.onAuthRequired.addListener(
+            callbackFn,
+            {urls: ["<all_urls>"]},
+            ['asyncBlocking'] );
 
 var proxySetting = {
     'pac_script_url' : {'http': '', 'https': '', 'file' : ''},
-    'pac_type' : '',
-    'http_host' : '',
-    'http_port' : '',
+    'pac_type'   : '',
+    'http_host'  : '',
+    'http_port'  : '',
     'https_host' : '',
     'https_port' : '',
     'socks_host' : '',
     'socks_port' : '',
     'socks_type' : 'socks5',
-    'bypasslist' : '',
+    'bypasslist' : '127.0.0.1,localhost',
     'proxy_rule' : '',
-    'internal'   : ''
+    'internal'   : '',
+    'auth'       : {'enable': '', 'user': '', 'pass': ''}
 }
 
-if (!firstTime) {
+if (!localStorage.proxySetting) {
     localStorage.proxySetting = JSON.stringify(proxySetting);
     gotoOptPage();
 }
+
+setProxyIcon();
