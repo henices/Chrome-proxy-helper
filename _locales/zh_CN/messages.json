@@ -93,10 +93,10 @@
         "message" : "在白名单里的域名将不使用代理"
     },
     "user" : {
-        "message" : "用户名"
+        "message" : "用户名 :"
     },
     "pass" : {
-        "message" : "密码"
+        "message" : "密码 :"
     },
     "authentication" : {
         "message" : "认证设置"
