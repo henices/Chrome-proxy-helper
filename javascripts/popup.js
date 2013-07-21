@@ -24,6 +24,8 @@ var chinaList = ['*\.cn', 'chdbits.org', 'bbercn.com', '4shared.com', 'efeihu.co
 
 if (proxySetting['internal'] == 'china')
     bypasslist = chinaList.concat(bypasslist.split(','));
+else
+    bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
 
 $(document).ready(function() {
     color_proxy_item();
