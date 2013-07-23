@@ -55,7 +55,7 @@ function callbackFn(details) {
     return details.isProxy === !0 ? {
         authCredentials: {
             username: username,
-                password: password
+            password: password
         }
     } : {}
 }
@@ -63,7 +63,7 @@ function callbackFn(details) {
 chrome.webRequest.onAuthRequired.addListener(
             callbackFn,
             {urls: ["<all_urls>"]},
-            ['asyncBlocking'] );
+            ['blocking'] );
 
 var proxySetting = {
     'pac_script_url' : {'http': '', 'https': '', 'file' : ''},
