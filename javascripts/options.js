@@ -362,6 +362,10 @@ document.addEventListener('DOMContentLoaded', function () {
         save();
     });
 
+    $('#btn-cancel').click(function() {
+        location.reload();
+    });
+
     $('#socks4').change(function() {
         socks5_unchecked();
     });
