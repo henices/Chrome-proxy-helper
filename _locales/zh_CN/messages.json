@@ -103,6 +103,18 @@
     },
     "password_authentication": {
         "message" : "使用密码认证"
+    },
+    "pac_script_set" : {
+        "message" : "PAC代理"
+    },
+    "socks_proxy_set" : {
+        "message" : "SOCKS代理"
+    },
+    "http_proxy_set" : {
+        "message" : "HTTP代理"
+    },
+    "https_proxy_set" : {
+        "message" : "HTTPS代理"
     }
 }
 
