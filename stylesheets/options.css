@@ -4,6 +4,20 @@ body {
     display:block;
 }
 
+select {
+    height:22px;
+    line-height:18px;
+    padding:4px 0
+}
+
+input {
+    vertical-align:middle;
+}
+
+label {
+    vertical-align:middle;
+}
+
 .contentbox {
     background-color: #ffffff;
     border: 3px solid #bec9ce;
@@ -57,8 +71,7 @@ body {
 .section-data {
     display: block;
     vertical-align:middle;
-    margin: 0.65em 0;
-    margin-left: 1em;
+    margin: 0.80em 0;
 }
 
 .section-header.first {
@@ -124,7 +137,7 @@ select {
 /* The following platform-specific rule is necessary to get adjacent
    * buttons, text inputs, and so forth to align on their borders while also
    * aligning on the text's baselines. */
-  padding-bottom: 1px;
+  /* padding-bottom: 1px; */
 }
 
 :-webkit-any(button,
