@@ -56,6 +56,8 @@ function loadProxyData() {
 function getProxyInfo() {
 
     var proxyInfo, controlInfo, host, port;
+    var proxySetting = JSON.parse(localStorage.proxySetting);
+    var proxyRule = proxySetting['proxy_rule'];
 
     chrome.proxy.settings.get(
     {'incognito': false},
@@ -80,11 +82,11 @@ function getProxyInfo() {
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo = "Auto detect mode";
             } else {
-                host = config["value"]["rules"][localStorage.rule]["host"];
-                port = config["value"]["rules"][localStorage.rule]["port"];
+                host = config["value"]["rules"][proxyRule]["host"];
+                port = config["value"]["rules"][proxyRule]["port"];
                 controlInfo = "levelOfControl: " + config["levelOfControl"];
                 proxyInfo = "Proxy server  : " +
-                config["value"]["rules"][localStorage.rule]["scheme"] +
+                config["value"]["rules"][proxyRule]["scheme"] +
                 '://' + host + ':' + port.toString();
             }
             $("#proxy-info").text(proxyInfo);
@@ -110,6 +112,8 @@ function reloadProxy(info) {
         rules: {}
     };
 
+    var proxySetting = JSON.parse(localStorage.proxySetting);
+
     if (info.indexOf('DIRECT') != -1 || info.indexOf('System') != -1 )
         return;
 
@@ -118,42 +122,46 @@ function reloadProxy(info) {
     type = arrayString[1];
 
     if (auto.indexOf('PAC') != -1) {
-        var mergeData = mergePacData();
+        var pacType = proxySetting['pac_type'];
+        var proto = pacType.split(':')[0];
         config.mode = 'pac_script';
-        if (localStorage.useMemory === "true") {
-            config.pacScript.data = mergeData;
-            config.pacScript.url = "";
-        } else {
-            config.pacScript.data = "";
-            config.pacScript.url = localStorage.pacPath;
-        }
+        config["pacScript"]["url"] = pacType + pacScriptUrl[proto];
         chrome.proxy.settings.set(
         {value: config, scope: 'regular'},
         function() {})
     } else {
         if (type.indexOf('http') != -1) {
             proxy.type = 'http';
-            proxy.host = localStorage.httpHost;
-            proxy.port = parseInt(localStorage.httpPort);
+            proxy.host = proxySetting['http_host'];
+            proxy.port = parseInt(proxySetting['http_port']);
         }
         if (type.indexOf('https') != -1) {
             proxy.type = 'https';
-            proxy.host = localStorage.httpsHost;
-            proxy.port = parseInt(localStorage.httpsPort);
+            proxy.host = proxySetting['https_host'];
+            proxy.port = parseInt(proxySetting['https_port']);
         }
         if (type.indexOf('socks4') != -1) {
             proxy.type = 'socks4';
-            proxy.host = localStorage.socks5Host;
-            proxy.port = parseInt(localStorage.socks5Port);
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
         }
         if (type.indexOf('socks5') != -1) {
             proxy.type = 'socks5';
-            proxy.host = localStorage.socks5Host;
-            proxy.port = parseInt(localStorage.socks5Port);
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
         }
 
-        var rule = localStorage.rule;
-        var bypasslist = (localStorage.bypass).split(',');
+        var rule = proxySetting['proxy_rule'];
+        var chinaList = JSON.parse(localStorage.chinaList);
+        var bypasslist = proxySetting['bypasslist'];
+
+        if (proxySetting['internal'] == 'china') {
+            chinaList = chinaList.map(function(element) { return '*' + element});
+            bypasslist = chinaList.concat(bypasslist.split(','));
+        } else
+            bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
+
+
         config.mode = "fixed_servers";
         config.rules.bypassList = bypasslist;
         config["rules"][rule] = {
@@ -161,6 +169,8 @@ function reloadProxy(info) {
             host: proxy.host,
             port: proxy.port
         };
+
+        // console.log(JSON.stringify(config));
 
         chrome.proxy.settings.set(
         {value: config, scope: 'regular'},
@@ -247,10 +257,8 @@ function save() {
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
 
-  loadProxyData();
-
-  //reloadProxy(localStorage.proxyInfo);
-  //getProxyInfo();
+  reloadProxy(localStorage.proxyInfo);
+  getProxyInfo();
 }
 
 //function markDirty() {
@@ -381,5 +389,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 loadProxyData();
-//getProxyInfo();
+getProxyInfo();
 
