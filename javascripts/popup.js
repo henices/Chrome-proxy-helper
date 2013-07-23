@@ -56,31 +56,22 @@ document.addEventListener('DOMContentLoaded', function () {
 function add_li_title() {
     var _http, _https, _socks, _pac;
 
-    if (localStorage.httpHost && localStorage.httpPort) {
-        _http = "http://" + localStorage.httpHost +
-                 ":" + localStorage.httpPort;
+    if (httpHost && httpPort) {
+        _http = "http://" + httpHost + ":" + httpPort;
         $("#http-proxy").attr("title", _http);
     }
-    if (localStorage.pacPath) {
-        _pac = localStorage.pacPath;
+    if (pacScriptUrl) {
+        var type = pacType.split(':')[0];
+        _pac = pacType + pacScriptUrl[type];
         $("#pac-script").attr("title", _pac);
     }
-    if (localStorage.httpsHost && localStorage.httpsPort) {
-        _https = "https://" + localStorage.httpsHost +
-                  ":" + localStorage.httpsPort;
+    if (httpsHost && httpsPort) {
+        _https = "https://" + httpsHost + ":" + httpsPort;
         $("#https-proxy").attr("title", _https);
     }
-    if (localStorage.socks5Host && localStorage.socks5Port) {
-        if (localStorage.socks5 === 'true') {
-            _socks = "socks5://" + localStorage.socks5Host +
-                      ":" + localStorage.socks5Port;
-            $("#socks5-proxy").attr("title", _socks);
-        }
-        else {
-            _socks = "socks4://" + localStorage.socks5Host +
-                      ":" + localStorage.socks5Port;
-            $("#socks5-proxy").attr("title", _socks);
-        }
+    if (socks5Host && socks5Port) {
+        _socks = socksType + "://" + socksHost + ":" + socksPort;
+        $("#socks5-proxy").attr("title", _socks);
     }
 }
 
