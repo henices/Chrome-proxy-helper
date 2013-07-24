@@ -21,7 +21,8 @@
         <option>http://</option>
         <option>https://</option>
     </select>
-    <input type="text" size="40" id="pac-script-url"></input>
+    <input type="text" size="40" id="pac-script-url" placeholder="c:/proxy.pac"></input>
+    <img src="images/help.gif" class="tip" title="example: file:///c:/proxy.pac, http://127.0.0.1/proxy.pac"/>
 </div>
 
 <div class="section-header first" data-i18n-content="config_manual">
@@ -61,7 +62,7 @@
         <button id="btn-auth-edit" data-i18n-content="edit" class="link-button">Edit</button>
     </div>
     <div id="div-auth-input" class="section-data">
-        <label data-i18n-content="user">NAME :</label>
+        <label data-i18n-content="user">USER:</label>
         <input id="username" size="10"></input>
         <label data-i18n-content="pass">PASS :</label>
         <input id="password" size="15"></input>
@@ -75,12 +76,12 @@
     <span data-i18n-content="domain_in_bypasslist">Domains in bypass list Never use a proxy</span>
 </div>
 <div class="section-data">
-    <textarea id="bypasslist" cols="50" rows="3"></textarea>
+    <textarea id="bypasslist" cols="50" rows="3" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
     <img src="images/help.gif" class="tip" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
 </div>
 
 <section class="section-data">
-    <h5 data-i18n-content="use_predefine_list">Use predefined proxy bypass list</h5>
+    <h5 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h5>
     <div class="checkbox">
         <input type="checkbox" id="use-china-list"/>
         <span data-i18n-content="china_list">China List</span>
