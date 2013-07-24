@@ -350,8 +350,6 @@ function getPac() {
     }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
 
     $('#btn_select').click(function() {
@@ -376,6 +374,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#btn-auth-edit').click(function() {
         $('#div-auth-input').show();
+    });
+
+    $('#diagnosis').click(function() {
+        chrome.tabs.create({url: 'chrome://net-internals/#proxy'});
     });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
