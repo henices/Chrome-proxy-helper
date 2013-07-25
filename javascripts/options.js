@@ -125,7 +125,7 @@ function reloadProxy(info) {
         var pacType = proxySetting['pac_type'];
         var proto = pacType.split(':')[0];
         config.mode = 'pac_script';
-        config["pacScript"]["url"] = pacType + proxySetting['pacScriptUrl'][proto];
+        config["pacScript"]["url"] = pacType + proxySetting['pac_script_url'][proto];
         chrome.proxy.settings.set(
         {value: config, scope: 'regular'},
         function() {})
