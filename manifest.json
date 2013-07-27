@@ -26,6 +26,7 @@
         "default_title": "__MSG_title__",
         "default_popup": "popup.html"
     },
+    "update_url" : "http://clients2.google.com/service/update2/crx",
     "minimum_chrome_version":"18.0.0"
 }
 
