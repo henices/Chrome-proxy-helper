@@ -75,7 +75,7 @@ var proxySetting = {
     'socks_host' : '',
     'socks_port' : '',
     'socks_type' : 'socks5',
-    'bypasslist' : '127.0.0.1,localhost',
+    'bypasslist' : '127.0.0.1,localhost,192.168.0.0/16,172.16.0.0/12,169.254.0.0/16,10.0.0.0/8',
     'proxy_rule' : '',
     'internal'   : '',
     'auth'       : {'enable': '', 'user': '', 'pass': ''}
