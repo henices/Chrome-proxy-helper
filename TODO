@@ -3,11 +3,9 @@
 3. QuickAdd and and AutoAdd patterns
 4. Proxy switching by URL (done)
 5. Support online pac script (done)
-6. Multiple language support (80%)
+6. Multiple language support (90%)
 7. automaticly reload proxy after save proxy settings (done)
 8. wiki page
 9. update UI
 10. friendly rule list  (json format)
-11. Shortcuts support
-12. multiple proxy support
-13. default china bypass list
+11. default china bypass list (done)

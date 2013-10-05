@@ -71,7 +71,7 @@ label {
 .section-data {
     display: block;
     vertical-align:middle;
-    margin: 0.80em 0;
+    margin: 0.80em 0 0 1em;
 }
 
 .section-header.first {
