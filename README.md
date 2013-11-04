@@ -23,6 +23,7 @@ and https protocol and pac script, Fast And Simple.
 # Usage
 
 * SEE  https://github.com/henices/Chrome-proxy-helper/wiki
+* [FAQ](https://github.com/henices/Chrome-proxy-helper/wiki/FAQ)
 
 # LICENSE
 This program is free software: you can redistribute it and/or modify
