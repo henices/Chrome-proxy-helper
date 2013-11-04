@@ -20,6 +20,10 @@ and https protocol and pac script, Fast And Simple.
     git clone https://github.com/henices/Chrome-proxy-helper.git
 ```
 
+# Usage
+
+* SEE  https://github.com/henices/Chrome-proxy-helper/wiki
+
 # LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
