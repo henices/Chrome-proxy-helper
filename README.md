@@ -10,8 +10,6 @@ and https protocol and pac script, Fast And Simple.
 * support online pac script
 * support customer proxy rules
 
-
-
 # Install
 * Install the latest stable version on chrome web store by click [here](https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic).
 * Install the unstable version by cloning the [Git](https://github.com/henices/Chrome-proxy-helper.git) repository:
@@ -20,9 +18,9 @@ and https protocol and pac script, Fast And Simple.
     git clone https://github.com/henices/Chrome-proxy-helper.git
 ```
 
-# Usage
+# Document
 
-* SEE  https://github.com/henices/Chrome-proxy-helper/wiki
+* [Help](https://github.com/henices/Chrome-proxy-helper/wiki)
 * [FAQ](https://github.com/henices/Chrome-proxy-helper/wiki/FAQ)
 
 # LICENSE
