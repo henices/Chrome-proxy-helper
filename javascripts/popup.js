@@ -28,9 +28,246 @@ if (proxySetting['internal'] == 'china') {
 } else
     bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
 
-$(document).ready(function() {
-    color_proxy_item();
-    add_li_title();
+
+/**
+ * set help message for popup page
+ *
+ */
+function add_li_title() {
+    var _http, _https, _socks, _pac;
+
+    if (httpHost && httpPort) {
+        _http = 'http://' + httpHost + ':' + httpPort;
+        $('#http-proxy').attr('title', _http);
+    }
+    if (pacScriptUrl) {
+        var type = pacType.split(':')[0];
+        _pac = pacType + pacScriptUrl[type];
+        $('#pac-script').attr('title', _pac);
+    }
+    if (httpsHost && httpsPort) {
+        _https = 'https://' + httpsHost + ':' + httpsPort;
+        $('#https-proxy').attr('title', _https);
+    }
+    if (socksHost && socksPort) {
+        _socks = socksType + '://' + socksHost + ':' + socksPort;
+        $('#socks5-proxy').attr('title', _socks);
+    }
+}
+
+/**
+ * set popup page item blue color
+ *
+ */
+function color_proxy_item() {
+    var mode, rules, proxyRule;
+
+    chrome.proxy.settings.get( {'incognito': false}, function(config) {
+        //alert(JSON.stringify(config));
+        rules = config['value']['rules'];
+
+        if (rules.hasOwnProperty('singleProxy')) {
+            proxyRule = 'singleProxy';
+        } else if (rules.hasOwnProperty('proxyForHttp')) {
+            proxyRule = 'proxyForHttp';
+        } else if (rules.hasOwnProperty('proxyForHttps')) {
+            proxyRule = 'proxyForHttps'
+        }
+
+        if (mode == 'system') {
+            $('#system').addClass('selected');
+        } else if (mode == 'direct') {
+            $('#direct').addClass('selected');
+        } else if (mode == 'pac_script') {
+            $('#pac').addClass('selected');
+        } else {
+            if (rules[proxyRule]['scheme'] == 'http') {
+                $('#http').addClass('selected');
+            }
+            else if (rules[proxyRule]['scheme'] == 'https') {
+                $('#https').addClass('selected');
+            }
+            else if (rules[proxyRule]['scheme'] == 'socks5') {
+                $('#socks5').addClass('selected');
+            }
+            else if (rules[proxyRule]['scheme'] == 'socks4') {
+                $('#socks5').addClass('selected');
+            }else {
+                ;
+            }
+        }
+    });
+}
+
+/**
+ * set the icon on or off
+ *
+ */
+function iconSet(str) {
+
+    var icon = {
+        path: 'images/on.png',
+    }
+    if (str == 'off') {
+        icon['path'] = 'images/off.png';
+    }
+    chrome.browserAction.setIcon(icon);
+}
+
+function proxySelected(str) {
+    var id = '#' + str;
+    $('span').removeClass('selected');
+    $(id).addClass('selected');
+}
+
+/**
+ * set pac script proxy
+ *
+ */
+function pacProxy() {
+
+    var config = {
+        mode: 'pac_script',
+        pacScript: {
+        },
+    };
+
+    var type = pacType.split(':')[0];
+    config['pacScript']['url'] = pacType + pacScriptUrl[type];
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('pac');
+}
+
+/**
+ * set socks proxy (socks4 or socks5)
+ *
+ */
+function socks5Proxy() {
+
+    var config = {
+        mode: 'fixed_servers',
+        rules: {
+            bypassList:bypasslist
+        }
+    };
+
+    if (!socksHost) return;
+
+    config['rules'][proxyRule] = {
+        scheme: socksType,
+        host: socksHost,
+        port: parseInt(socksPort)
+    };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('socks5');
+}
+
+/**
+ * set http proxy
+ *
+ */
+function httpProxy() {
+
+    var config = {
+        mode: 'fixed_servers',
+        rules: {
+            bypassList: bypasslist
+        },
+    };
+
+    if (!httpHost) return;
+
+    config['rules'][proxyRule] = {
+                             scheme: 'http',
+                             host: httpHost,
+                             port: parseInt(httpPort)
+                         };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('http');
+}
+
+/**
+ * set https proxy
+ *
+ */
+function httpsProxy() {
+
+    var config = {
+        mode: 'fixed_servers',
+        rules: {
+            bypassList:bypasslist
+        }
+    };
+
+    if (!httpsHost) return;
+
+    config['rules'][proxyRule] = {
+                             scheme: 'https',
+                             host: httpsHost,
+                             port: parseInt(httpsPort)
+                         };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('https');
+}
+
+/**
+ * set direct proxy
+ *
+ */
+function directProxy() {
+
+    var config = {
+        mode: 'direct',
+    };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('off');
+    proxySelected('direct');
+}
+
+/**
+ * set system proxy
+ *
+ */
+function sysProxy() {
+
+    var config = {
+        mode: 'system',
+    };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('off');
+    proxySelected('system')
+}
+
+chrome.proxy.onProxyError.addListener(function(details) {
+    console.log(details.error);
 });
 
 
@@ -50,226 +287,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-/**
- * set help message for popup page
- *
- */
-function add_li_title() {
-    var _http, _https, _socks, _pac;
-
-    if (httpHost && httpPort) {
-        _http = "http://" + httpHost + ":" + httpPort;
-        $("#http-proxy").attr("title", _http);
-    }
-    if (pacScriptUrl) {
-        var type = pacType.split(':')[0];
-        _pac = pacType + pacScriptUrl[type];
-        $("#pac-script").attr("title", _pac);
-    }
-    if (httpsHost && httpsPort) {
-        _https = "https://" + httpsHost + ":" + httpsPort;
-        $("#https-proxy").attr("title", _https);
-    }
-    if (socksHost && socksPort) {
-        _socks = socksType + "://" + socksHost + ":" + socksPort;
-        $("#socks5-proxy").attr("title", _socks);
-    }
-}
-
-/**
- * set popup page item blue color
- *
- */
-function color_proxy_item() {
-
-    chrome.proxy.settings.get( {'incognito': false}, function(config) {
-        //alert(JSON.stringify(config));
-        if (config["value"]["mode"] == "system") {
-            $("#system").addClass("selected");
-        } else if (config["value"]["mode"] == "direct") {
-            $("#direct").addClass("selected");
-        } else if (config["value"]["mode"] == "pac_script") {
-            $("#pac").addClass("selected");
-        } else {
-            if (config["value"]["rules"][proxyRule]["scheme"] == "http") {
-                $("#http").addClass("selected");
-            }
-            else if (config["value"]["rules"][proxyRule]["scheme"] == "https") {
-                $("#https").addClass("selected");
-            }
-            else if (config["value"]["rules"][proxyRule]["scheme"] == "socks5") {
-                $("#socks5").addClass("selected");
-            }
-            else if (config["value"]["rules"][proxyRule]["scheme"] == "socks4") {
-                $("#socks5").addClass("selected");
-            }else {
-                ;
-            }
-        }
-    });
-}
-
-/**
- * set the icon on or off
- *
- */
-function iconSet(str) {
-
-    var icon = {
-        path: "images/on.png",
-    }
-    if (str == "off") {
-        icon["path"] = "images/off.png";
-    }
-    chrome.browserAction.setIcon(icon);
-}
-
-function proxySelected(str) {
-    var id = "#" + str;
-    $("span").removeClass("selected");
-    $(id).addClass("selected");
-}
-
-/**
- * set pac script proxy
- *
- */
-function pacProxy() {
-
-    var config = {
-        mode: "pac_script",
-        pacScript: {
-        },
-    };
-
-    var type = pacType.split(':')[0];
-    config["pacScript"]["url"] = pacType + pacScriptUrl[type];
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("on");
-    proxySelected("pac");
-}
-
-/**
- * set socks proxy (socks4 or socks5)
- *
- */
-function socks5Proxy() {
-
-    var config = {
-        mode: "fixed_servers",
-        rules: {
-            bypassList:bypasslist
-        }
-    };
-
-    config["rules"][proxyRule] = {
-                             scheme: socksType,
-                             host: socksHost,
-                             port: parseInt(socksPort)
-                         };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("on");
-    proxySelected("socks5");
-}
-
-/**
- * set http proxy
- *
- */
-function httpProxy() {
-
-    var config = {
-        mode: "fixed_servers",
-        rules: {
-            bypassList: bypasslist
-        },
-    };
-
-    config["rules"][proxyRule] = {
-                             scheme: "http",
-                             host: httpHost,
-                             port: parseInt(httpPort)
-                         };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("on");
-    proxySelected("http");
-}
-
-/**
- * set https proxy
- *
- */
-function httpsProxy() {
-
-    var config = {
-        mode: "fixed_servers",
-        rules: {
-            bypassList:bypasslist
-        }
-    };
-
-    config["rules"][proxyRule] = {
-                             scheme: "https",
-                             host: httpsHost,
-                             port: parseInt(httpsPort)
-                         };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("on");
-    proxySelected("https");
-}
-
-/**
- * set direct proxy
- *
- */
-function directProxy() {
-
-    var config = {
-        mode: "direct",
-    };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("off");
-    proxySelected("direct");
-}
-
-/**
- * set system proxy
- *
- */
-function sysProxy() {
-
-    var config = {
-        mode: "system",
-    };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet("off");
-    proxySelected("system")
-}
-
-chrome.proxy.onProxyError.addListener(function(details) {
-    console.log(details.error);
+$(document).ready(function() {
+    color_proxy_item();
+    add_li_title();
 });
+
+
