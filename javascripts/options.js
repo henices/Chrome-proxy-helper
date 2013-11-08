@@ -147,12 +147,14 @@ function getProxyInfo() {
         mode = config['value']['mode'];
         rules = config['value']['rules'];
 
-        if (rules.hasOwnProperty('singleProxy')) {
-            proxyRule = 'singleProxy';
-        } else if (rules.hasOwnProperty('proxyForHttp')) {
-            proxyRule = 'proxyForHttp';
-        } else if (rules.hasOwnProperty('proxyForHttps')) {
-            proxyRule = 'proxyForHttps'
+        if (rules) {
+            if (rules.hasOwnProperty('singleProxy')) {
+                proxyRule = 'singleProxy';
+            } else if (rules.hasOwnProperty('proxyForHttp')) {
+                proxyRule = 'proxyForHttp';
+            } else if (rules.hasOwnProperty('proxyForHttps')) {
+                proxyRule = 'proxyForHttps'
+            }
         }
 
         if (mode == 'direct' ||
@@ -165,8 +167,7 @@ function getProxyInfo() {
                 proxyInfo = 'pac_url';
             else 
                 proxyInfo = 'pac_data';
-        }
-        else 
+        } else if (mode == 'fixed_servers')
             proxyInfo = rules[proxyRule]['scheme'];
 
         localStorage.proxyInfo = proxyInfo;
