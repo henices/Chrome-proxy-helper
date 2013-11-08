@@ -63,15 +63,17 @@ function loadOldInfo() {
         mode = config["value"]["mode"];
         rules = config['value']['rules'];
 
-        if (rules.hasOwnProperty('singleProxy')) {
-            proxyRule = 'singleProxy';
-        } else if (rules.hasOwnProperty('proxyForHttp')) {
-            proxyRule = 'proxyForHttp';
-        } else if (rules.hasOwnProperty('proxyForHttps')) {
-            proxyRule = 'proxyForHttps'
-        }
+        if (rules) {
+            if (rules.hasOwnProperty('singleProxy')) {
+                proxyRule = 'singleProxy';
+            } else if (rules.hasOwnProperty('proxyForHttp')) {
+                proxyRule = 'proxyForHttp';
+            } else if (rules.hasOwnProperty('proxyForHttps')) {
+                proxyRule = 'proxyForHttps'
+            }
 
-        $('#proxy-rule').val(proxyRule);
+            $('#proxy-rule').val(proxyRule);
+        }
 
         if (mode == "direct" ||
             mode == "system" ||

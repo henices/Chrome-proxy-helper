@@ -62,16 +62,20 @@ function add_li_title() {
 function color_proxy_item() {
     var mode, rules, proxyRule;
 
-    chrome.proxy.settings.get( {'incognito': false}, function(config) {
+    chrome.proxy.settings.get({'incognito': false},
+      function(config) {
         //alert(JSON.stringify(config));
+        mode = config['value']['mode'];
         rules = config['value']['rules'];
 
-        if (rules.hasOwnProperty('singleProxy')) {
-            proxyRule = 'singleProxy';
-        } else if (rules.hasOwnProperty('proxyForHttp')) {
-            proxyRule = 'proxyForHttp';
-        } else if (rules.hasOwnProperty('proxyForHttps')) {
-            proxyRule = 'proxyForHttps'
+        if (rules) {
+            if (rules.hasOwnProperty('singleProxy')) {
+                proxyRule = 'singleProxy';
+            } else if (rules.hasOwnProperty('proxyForHttp')) {
+                proxyRule = 'proxyForHttp';
+            } else if (rules.hasOwnProperty('proxyForHttps')) {
+                proxyRule = 'proxyForHttps'
+            }
         }
 
         if (mode == 'system') {
@@ -92,8 +96,6 @@ function color_proxy_item() {
             }
             else if (rules[proxyRule]['scheme'] == 'socks4') {
                 $('#socks5').addClass('selected');
-            }else {
-                ;
             }
         }
     });
