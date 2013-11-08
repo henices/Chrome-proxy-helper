@@ -53,7 +53,7 @@ function loadProxyData() {
  * load old proxy info
  */
 function loadOldInfo() {
-    var mode, url;
+    var mode, url, rules, proxyRule;
     var type, host, port;
     var ret, pacType, pacScriptUrl;
 
@@ -61,6 +61,17 @@ function loadOldInfo() {
     function(config) {
 
         mode = config["value"]["mode"];
+        rules = config['value']['rules'];
+
+        if (rules.hasOwnProperty('singleProxy')) {
+            proxyRule = 'singleProxy';
+        } else if (rules.hasOwnProperty('proxyForHttp')) {
+            proxyRule = 'proxyForHttp';
+        } else if (rules.hasOwnProperty('proxyForHttps')) {
+            proxyRule = 'proxyForHttps'
+        }
+
+        $('#proxy-rule').val(proxyRule);
 
         if (mode == "direct" ||
             mode == "system" ||
@@ -85,10 +96,10 @@ function loadOldInfo() {
         } else if (mode == "fixed_servers") {
 
             // we are in manual mode
-            type = config.value.rules.singleProxy.scheme;
-            host = config.value.rules.singleProxy.host;
-            port = config.value.rules.singleProxy.port;
-            bypassList = config.value.rules.bypassList;
+            type = rules[proxyRule]['scheme'];
+            host = rules[proxyRule]['host'];
+            port = rules[proxyRule]['port'];
+            bypassList = rules.bypassList;
 
             if (type == 'http') {
                 $('#http-host').val(host);
@@ -126,29 +137,53 @@ function getProxyInfo() {
 
     var proxyInfo, controlInfo, host, port;
     var proxySetting = JSON.parse(localStorage.proxySetting);
-    var proxyRule = proxySetting['proxy_rule'];
+    var mode, rules, proxyRule;
 
     chrome.proxy.settings.get({'incognito': false},
     function(config) {
         //alert(JSON.stringify(config));
-        var mode = config["value"]["mode"];
-        if (mode == "direct" ||
-            mode == "system" ||
-            mode == "auto_detect" ) {
+        mode = config['value']['mode'];
+        rules = config['value']['rules'];
+
+        if (rules.hasOwnProperty('singleProxy')) {
+            proxyRule = 'singleProxy';
+        } else if (rules.hasOwnProperty('proxyForHttp')) {
+            proxyRule = 'proxyForHttp';
+        } else if (rules.hasOwnProperty('proxyForHttps')) {
+            proxyRule = 'proxyForHttps'
+        }
+
+        if (mode == 'direct' ||
+            mode == 'system' ||
+            mode == 'auto_detect' ) {
             proxyInfo = mode;
         } else if (mode == "pac_script") {
-            var url = config["value"]["pacScript"]["url"];
+            var url = config['value']['pacScript']['url'];
             if (url)
-                proxyInfo = "pac_url";
+                proxyInfo = 'pac_url';
             else 
-                proxyInfo = "pac_data";
-
+                proxyInfo = 'pac_data';
         }
         else 
-            proxyInfo = config["value"]["rules"][proxyRule]["scheme"];
+            proxyInfo = rules[proxyRule]['scheme'];
 
         localStorage.proxyInfo = proxyInfo;
     });
+}
+
+/**
+ * get uniq array
+ *
+ */
+function uniqueArray(arr) {
+    var hash = {}, result = [];
+    for (var i = 0, l = arr.length; i < l; ++i) {
+        if (!hash.hasOwnProperty(arr[i])) {
+            hash[arr[i]] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
 }
 
 /**
@@ -215,13 +250,12 @@ function reloadProxy(info) {
                 return '*' + element;
             });
             bypasslist = chinaList.concat(bypasslist.split(','));
-
         } else {
             bypasslist = 
               bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
         }
 
-        config.rules.bypassList = bypasslist;
+        config.rules.bypassList = uniqueArray(bypasslist);
         config["rules"][rule] = {
             scheme: proxy.type,
             host: proxy.host,
