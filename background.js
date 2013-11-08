@@ -22,7 +22,6 @@ function setProxyIcon() {
 }
 
 function gotoOptPage() {
-    localStorage.firstime = 1;
 
     var opturl = "options.html";
     var fulurl = chrome.extension.getURL(opturl);

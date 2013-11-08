@@ -48,6 +48,75 @@ function loadProxyData() {
 
 }
 
+
+/**
+ * load old proxy info
+ */
+function loadOldInfo() {
+    var mode, url;
+    var type, host, port;
+    var ret, pacType, pacScriptUrl;
+
+    chrome.proxy.settings.get({'incognito': false},
+    function(config) {
+
+        mode = config["value"]["mode"];
+
+        if (mode == "direct" ||
+            mode == "system" ||
+            mode == "auto_detect" ) {
+
+            return;
+
+        } else if (mode == "pac_script") {
+
+            // may be need to deal with pac data
+            url = config.value.pacScript.url
+            if (url) {
+                alert(url);
+                ret = url.split('://');
+                pacType = ret[0];
+                pacScriptUrl = ret[1];
+
+                $('#pac-script-url').val(pacScriptUrl);
+                $('#pac-type').val(pacType + '://');
+            }
+
+        } else if (mode == "fixed_servers") {
+
+            // we are in manual mode
+            type = config.value.rules.singleProxy.scheme;
+            host = config.value.rules.singleProxy.host;
+            port = config.value.rules.singleProxy.port;
+            bypassList = config.value.rules.bypassList;
+
+            if (type == 'http') {
+                $('#http-host').val(host);
+                $('#http-port').val(port);
+            } else if (type == 'https') {
+                $('#https-host').val(host);
+                $('#https-port').val(port);
+            } else {
+                if (type == 'socks5') {
+                    $('#socks5').attr('checked', true);
+                    $('#socks4').attr('checked', false);
+                } else if (type == 'socks4') {
+                    $('#socks5').attr('checked', false);
+                    $('#socks4').attr('checked', true);
+                }
+
+                $('#socks-host').val(host);
+                $('#socks-port').val(port);
+            }
+
+            if (bypassList)
+                $('#bypasslist').val(bypassList.join(','));
+        }
+    });
+
+    localStorage.firstime = 1;
+}
+
 /**
  * get chrome browser proxy settings 
  * and display on the options page
@@ -59,43 +128,27 @@ function getProxyInfo() {
     var proxySetting = JSON.parse(localStorage.proxySetting);
     var proxyRule = proxySetting['proxy_rule'];
 
-    chrome.proxy.settings.get(
-    {'incognito': false},
-        function(config) {
-            //alert(JSON.stringify(config));
-            if (config["value"]["mode"] == "direct") {
-                controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo =  "Use DIRECT connections.";
-            } else if (config["value"]["mode"] == "system" ) {
-                controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo =  "Use System's proxy settings.";
-            } else if (config["value"]["mode"] == "pac_script") {
-                controlInfo = "levelOfControl: " + config["levelOfControl"];
-                var url = config["value"]["pacScript"]["url"];
-                if (url)
-                    proxyInfo = "PAC script: " + url;
-                else {
-                    proxyInfo = "PAC script: data:application/x-ns-proxy-autoconfig;"
-                }
+    chrome.proxy.settings.get({'incognito': false},
+    function(config) {
+        //alert(JSON.stringify(config));
+        var mode = config["value"]["mode"];
+        if (mode == "direct" ||
+            mode == "system" ||
+            mode == "auto_detect" ) {
+            proxyInfo = mode;
+        } else if (mode == "pac_script") {
+            var url = config["value"]["pacScript"]["url"];
+            if (url)
+                proxyInfo = "pac_url";
+            else 
+                proxyInfo = "pac_data";
 
-            } else if (config["value"]["mode"] == "auto_detect") {
-                controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo = "Auto detect mode";
-            } else {
-                host = config["value"]["rules"][proxyRule]["host"];
-                port = config["value"]["rules"][proxyRule]["port"];
-                controlInfo = "levelOfControl: " + config["levelOfControl"];
-                proxyInfo = "Proxy server  : " +
-                config["value"]["rules"][proxyRule]["scheme"] +
-                '://' + host + ':' + port.toString();
-            }
-            $("#proxy-info").text(proxyInfo);
-            $("#control-info").text(controlInfo);
-
-            localStorage.proxyInfo = proxyInfo;
         }
-    );
+        else 
+            proxyInfo = config["value"]["rules"][proxyRule]["scheme"];
 
+        localStorage.proxyInfo = proxyInfo;
+    });
 }
 
 /**
@@ -114,41 +167,39 @@ function reloadProxy(info) {
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
 
-    if (info.indexOf('DIRECT') != -1 || info.indexOf('System') != -1 )
-        return;
+    if (!info) return;
 
-    arrayString = info.split(':');
-    auto = arrayString[0];
-    type = arrayString[1];
+    if (info.indexOf('direct') != -1) return;
 
-    if (auto.indexOf('PAC') != -1) {
+    if (info.indexOf('system') != -1) return;
+
+    if (info.indexOf('pac') != -1) {
         var pacType = proxySetting['pac_type'];
         var proto = pacType.split(':')[0];
+
         config.mode = 'pac_script';
-        config["pacScript"]["url"] = pacType + proxySetting['pac_script_url'][proto];
-        chrome.proxy.settings.set(
-        {value: config, scope: 'regular'},
-        function() {})
+        config["pacScript"]["url"] = pacType +
+            proxySetting['pac_script_url'][proto];
     } else {
-        if (type.indexOf('http') != -1) {
+
+        config.mode = "fixed_servers";
+
+        if (info.indexOf('http') != -1) {
             proxy.type = 'http';
             proxy.host = proxySetting['http_host'];
             proxy.port = parseInt(proxySetting['http_port']);
-        }
-        if (type.indexOf('https') != -1) {
-            proxy.type = 'https';
-            proxy.host = proxySetting['https_host'];
-            proxy.port = parseInt(proxySetting['https_port']);
-        }
-        if (type.indexOf('socks4') != -1) {
-            proxy.type = 'socks4';
-            proxy.host = proxySetting['socks_host'];
-            proxy.port = parseInt(proxySetting['socks_port']);
-        }
-        if (type.indexOf('socks5') != -1) {
-            proxy.type = 'socks5';
-            proxy.host = proxySetting['socks_host'];
-            proxy.port = parseInt(proxySetting['socks_port']);
+        } else if (info.indexOf('https') != -1) {
+                proxy.type = 'https';
+                proxy.host = proxySetting['https_host'];
+                proxy.port = parseInt(proxySetting['https_port']);
+        } else if (info.indexOf('socks4') != -1) {
+                proxy.type = 'socks4';
+                proxy.host = proxySetting['socks_host'];
+                proxy.port = parseInt(proxySetting['socks_port']);
+        } else if (info.indexOf('socks5') != -1) {
+                proxy.type = 'socks5';
+                proxy.host = proxySetting['socks_host'];
+                proxy.port = parseInt(proxySetting['socks_port']);
         }
 
         var rule = proxySetting['proxy_rule'];
@@ -156,44 +207,26 @@ function reloadProxy(info) {
         var bypasslist = proxySetting['bypasslist'];
 
         if (proxySetting['internal'] == 'china') {
-            chinaList = chinaList.map(function(element) { return '*' + element});
+            chinaList = chinaList.map(function(element) {
+                return '*' + element;
+            });
             bypasslist = chinaList.concat(bypasslist.split(','));
         } else
             bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
 
-
-        config.mode = "fixed_servers";
         config.rules.bypassList = bypasslist;
-        config["rules"][rule] = {
-            scheme: proxy.type,
-            host: proxy.host,
-            port: proxy.port
-        };
+        config["rules"][rule] =
+        {scheme: proxy.type, host: proxy.host, port: proxy.port};
 
-        // console.log(JSON.stringify(config));
-
-        chrome.proxy.settings.set(
-        {value: config, scope: 'regular'},
-        function() {});
     }
-}
 
-/**
- * event handler
- *
- */
-function socks5_unchecked() {
-    $('#socks5').attr('checked', false);
-    markDirty();
-}
+    // console.log(JSON.stringify(config));
 
-/**
- * event handler
- *
- */
-function socks4_unchecked() {
-    $('#socks4').attr('checked', false);
-    markDirty();
+    chrome.proxy.settings.set({
+        value: config,
+        scope: 'regular'}, function() {})
+
+    getProxyInfo();
 }
 
 /**
@@ -256,18 +289,8 @@ function save() {
 
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
-
   reloadProxy(localStorage.proxyInfo);
-  getProxyInfo();
 }
-
-//function markDirty() {
-//  $('#save-button').attr("class", "btn solid red");
-//}
-//
-//function markClean() {
-//  $('#save-button').attr("class", "btn solid grey");
-//}
 
 
 /**
@@ -352,10 +375,6 @@ function getPac() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    $('#btn_select').click(function() {
-        $('#pac_file').trigger('click');
-    });
-
     $('#btn-save').click(function() {
         save();
     });
@@ -365,11 +384,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $('#socks4').change(function() {
-        socks5_unchecked();
+        $('#socks5').attr('checked', false);
     });
 
     $('#socks5').change(function() {
-        socks4_unchecked();
+        $('#socks4').attr('checked', false);
     });
 
     $('#btn-auth-edit').click(function() {
@@ -387,13 +406,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $('[data-i18n-content]').each(function() {
-        var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
+        var message = chrome.i18n.getMessage(
+            this.getAttribute('data-i18n-content'));
         if (message)
             $(this).html(message);
-    }); 
+    });
 
 });
 
-loadProxyData();
-getProxyInfo();
 
+
+if (!localStorage.firstime)
+    loadOldInfo();
+else
+    loadProxyData();
+
+getProxyInfo();
