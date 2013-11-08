@@ -167,39 +167,43 @@ function reloadProxy(info) {
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
 
-    if (!info) return;
+    if (!info)
+        return;
 
-    if (info.indexOf('direct') != -1) return;
+    if (info == 'direct' || info == 'system')
+        return;
 
-    if (info.indexOf('system') != -1) return;
-
-    if (info.indexOf('pac') != -1) {
+    if (info == 'pac') {
         var pacType = proxySetting['pac_type'];
         var proto = pacType.split(':')[0];
 
         config.mode = 'pac_script';
         config["pacScript"]["url"] = pacType +
             proxySetting['pac_script_url'][proto];
+
     } else {
 
         config.mode = "fixed_servers";
 
-        if (info.indexOf('http') != -1) {
+        if (info == 'http') {
             proxy.type = 'http';
             proxy.host = proxySetting['http_host'];
             proxy.port = parseInt(proxySetting['http_port']);
-        } else if (info.indexOf('https') != -1) {
-                proxy.type = 'https';
-                proxy.host = proxySetting['https_host'];
-                proxy.port = parseInt(proxySetting['https_port']);
-        } else if (info.indexOf('socks4') != -1) {
-                proxy.type = 'socks4';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
-        } else if (info.indexOf('socks5') != -1) {
-                proxy.type = 'socks5';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
+
+        } else if (info == 'https') {
+            proxy.type = 'https';
+            proxy.host = proxySetting['https_host'];
+            proxy.port = parseInt(proxySetting['https_port']);
+
+        } else if (info == 'socks4') {
+            proxy.type = 'socks4';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
+
+        } else if (info == 'socks5') {
+            proxy.type = 'socks5';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
         }
 
         var rule = proxySetting['proxy_rule'];
@@ -211,16 +215,21 @@ function reloadProxy(info) {
                 return '*' + element;
             });
             bypasslist = chinaList.concat(bypasslist.split(','));
-        } else
-            bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
+
+        } else {
+            bypasslist = 
+              bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
+        }
 
         config.rules.bypassList = bypasslist;
-        config["rules"][rule] =
-        {scheme: proxy.type, host: proxy.host, port: proxy.port};
-
+        config["rules"][rule] = {
+            scheme: proxy.type,
+            host: proxy.host,
+            port: proxy.port
+        };
     }
 
-    // console.log(JSON.stringify(config));
+    //console.log(JSON.stringify(config));
 
     chrome.proxy.settings.set({
         value: config,
