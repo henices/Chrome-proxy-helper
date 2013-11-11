@@ -6,10 +6,11 @@ and https protocol and pac script, Fast And Simple.
 
 # Features
 * support socks4, socks5, http, https proxy settings
+* support pac proxy settings
 * support bypass list
 * support online pac script
 * support customer proxy rules
-
+* support proxy authentication
 
 
 # Install
@@ -19,6 +20,11 @@ and https protocol and pac script, Fast And Simple.
 ```
     git clone https://github.com/henices/Chrome-proxy-helper.git
 ```
+
+# Document
+
+* [Help](https://github.com/henices/Chrome-proxy-helper/wiki)
+* [FAQ](https://github.com/henices/Chrome-proxy-helper/wiki/FAQ)
 
 # LICENSE
 This program is free software: you can redistribute it and/or modify
