@@ -88,7 +88,7 @@ function loadOldInfo() {
             // may be need to deal with pac data
             url = config.value.pacScript.url
             if (url) {
-                alert(url);
+                console.log(url);
                 ret = url.split('://');
                 pacType = ret[0];
                 pacScriptUrl = ret[1];
