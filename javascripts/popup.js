@@ -75,7 +75,10 @@ function color_proxy_item() {
                 proxyRule = 'proxyForHttp';
             } else if (rules.hasOwnProperty('proxyForHttps')) {
                 proxyRule = 'proxyForHttps'
+            } else if (rules.hasOwnProperty('proxyForFtp')) {
+                proxyRule = 'proxyForFtp';
             }
+
         }
 
         if (mode == 'system') {

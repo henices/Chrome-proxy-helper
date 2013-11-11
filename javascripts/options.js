@@ -70,6 +70,8 @@ function loadOldInfo() {
                 proxyRule = 'proxyForHttp';
             } else if (rules.hasOwnProperty('proxyForHttps')) {
                 proxyRule = 'proxyForHttps'
+            } else if (rules.hasOwnProperty('proxyForFtp')) {
+                proxyRule = 'proxyForFtp';
             }
 
             $('#proxy-rule').val(proxyRule);
@@ -154,7 +156,10 @@ function getProxyInfo() {
                 proxyRule = 'proxyForHttp';
             } else if (rules.hasOwnProperty('proxyForHttps')) {
                 proxyRule = 'proxyForHttps'
+            } else if (rules.hasOwnProperty('proxyForFtp')) {
+                proxyRule = 'proxyForFtp';
             }
+
         }
 
         if (mode == 'direct' ||
