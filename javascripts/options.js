@@ -88,13 +88,19 @@ function loadOldInfo() {
             // may be need to deal with pac data
             url = config.value.pacScript.url
             if (url) {
-                console.log(url);
                 ret = url.split('://');
                 pacType = ret[0];
                 pacScriptUrl = ret[1];
 
-                $('#pac-script-url').val(pacScriptUrl);
                 $('#pac-type').val(pacType + '://');
+
+                // fix pacScriptUrl on Windows platform
+                if (pacType == 'file') {
+                    if (pacScriptUrl.substring(0, 1) != '/')
+                        pacScriptUrl = '/' + pacScriptUrl;
+                }
+
+                $('#pac-script-url').val(pacScriptUrl);
             }
 
         } else if (mode == "fixed_servers") {
@@ -319,9 +325,6 @@ function save() {
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
-  var pacType = $('#pac-type').val().split(':')[0];
-  proxySetting['pac_script_url'][pacType] = $('#pac-script-url').val() || "";
-
   if ($('#socks5').attr('checked')) 
       proxySetting['socks_type'] = 'socks5';
 
@@ -338,6 +341,16 @@ function save() {
   else
       proxySetting['internal'] = "";
 
+  var pacType = $('#pac-type').val().split(':')[0];
+  var pacScriptUrl = $('#pac-script-url').val() || '';
+
+  // fix pacScriptUrl on windows platform
+  if (pacType == 'file' && pacScriptUrl) {
+      if (pacScriptUrl.substring(0, 1) != '/')
+          pacScriptUrl = '/' + pacScriptUrl;
+  }
+
+  proxySetting['pac_script_url'][pacType] = pacScriptUrl;
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
   reloadProxy(localStorage.proxyInfo);
