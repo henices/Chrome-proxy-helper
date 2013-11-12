@@ -354,6 +354,7 @@ function save() {
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
   reloadProxy(localStorage.proxyInfo);
+  loadProxyData();
 }
 
 
