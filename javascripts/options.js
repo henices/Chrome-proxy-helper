@@ -325,21 +325,25 @@ function save() {
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
-  if ($('#socks5').attr('checked')) 
+  if ($('#socks5').is(':checked')) 
       proxySetting['socks_type'] = 'socks5';
 
-  if ($('#socks4').attr('checked'))
+  if ($('#socks4').is(':checked'))
       proxySetting['socks_type'] = 'socks4';
 
-  if ($('#use-pass').attr('checked'))
+  if ($('#use-pass').is(':checked'))
       proxySetting['auth']['enable'] = 'y';
   else
       proxySetting['auth']['enable'] = '';
 
-  if ($('#use-china-list').attr('checked'))
+  if ($('#use-china-list').is(':checked')) {
+      console.log('china list checked');
       proxySetting['internal'] = "china";
-  else
+  }
+  else {
+      console.log('china list no checked');
       proxySetting['internal'] = "";
+  }
 
   var pacType = $('#pac-type').val().split(':')[0];
   var pacScriptUrl = $('#pac-script-url').val() || '';
