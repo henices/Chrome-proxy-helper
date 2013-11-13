@@ -337,11 +337,9 @@ function save() {
       proxySetting['auth']['enable'] = '';
 
   if ($('#use-china-list').is(':checked')) {
-      console.log('china list checked');
       proxySetting['internal'] = "china";
   }
   else {
-      console.log('china list no checked');
       proxySetting['internal'] = "";
   }
 
