@@ -66,7 +66,7 @@ chrome.webRequest.onAuthRequired.addListener(
 
 var proxySetting = {
     'pac_script_url' : {'http': '', 'https': '', 'file' : ''},
-    'pac_type'   : '',
+    'pac_type'   : 'file://',
     'http_host'  : '',
     'http_port'  : '',
     'https_host' : '',
@@ -75,7 +75,7 @@ var proxySetting = {
     'socks_port' : '',
     'socks_type' : 'socks5',
     'bypasslist' : '127.0.0.1,localhost,192.168.0.0/16,172.16.0.0/12,169.254.0.0/16,10.0.0.0/8',
-    'proxy_rule' : '',
+    'proxy_rule' : 'singleProxy',
     'internal'   : '',
     'auth'       : {'enable': '', 'user': '', 'pass': ''}
 }
