@@ -15,9 +15,9 @@ function loadProxyData() {
       $('#http-port').val(proxySetting['http_port'] || "");
       $('#https-host').val(proxySetting['https_host'] || "");
       $('#https-port').val(proxySetting['https_port'] || "");
-      $('#pac-type').val(proxySetting['pac_type'] || "");
+      $('#pac-type').val(proxySetting['pac_type'] || "file://");
       $('#bypasslist').val(proxySetting['bypasslist'] || "");
-      $('#proxy-rule').val(proxySetting['proxy_rule'] || "");
+      $('#proxy-rule').val(proxySetting['proxy_rule'] || "singleProxy");
       $('#username').val(proxySetting['auth']['user'] || "");
       $('#password').val(proxySetting['auth']['pass'] || "");
 
