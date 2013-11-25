@@ -26,7 +26,7 @@ if (proxySetting['internal'] == 'china') {
     chinaList = chinaList.map(function(element) { return '*' + element});
     bypasslist = chinaList.concat(bypasslist.split(','));
 } else
-    bypasslist = bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
+    bypasslist = bypasslist ? bypasslist.split(',') : ['<local>'];
 
 
 /**

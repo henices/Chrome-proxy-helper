@@ -143,9 +143,9 @@ function loadOldInfo() {
  * and display on the options page
  *
  */
-function getProxyInfo() {
+function getProxyInfo(callback) {
 
-    var proxyInfo, controlInfo, host, port;
+    var proxyInfo;
     var proxySetting = JSON.parse(localStorage.proxySetting);
     var mode, rules, proxyRule;
 
@@ -182,6 +182,7 @@ function getProxyInfo() {
             proxyInfo = rules[proxyRule]['scheme'];
 
         localStorage.proxyInfo = proxyInfo;
+        callback(proxyInfo);
     });
 }
 
@@ -204,7 +205,7 @@ function uniqueArray(arr) {
  * @brief use proxy info to set proxy
  *
  */
-function reloadProxy(info) {
+function reloadProxy() {
 
     var type, auto, arrayString;
     var proxy = {type: '', host: '', port: ''};
@@ -216,74 +217,74 @@ function reloadProxy(info) {
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
 
-    if (!info)
-        return;
+    getProxyInfo(function(info) {
 
-    if (info == 'direct' || info == 'system')
-        return;
-
-    if (info == 'pac') {
-        var pacType = proxySetting['pac_type'];
-        var proto = pacType.split(':')[0];
-
-        config.mode = 'pac_script';
-        config["pacScript"]["url"] = pacType +
-            proxySetting['pac_script_url'][proto];
-
-    } else {
-
-        config.mode = "fixed_servers";
-
-        if (info == 'http') {
-            proxy.type = 'http';
-            proxy.host = proxySetting['http_host'];
-            proxy.port = parseInt(proxySetting['http_port']);
-
-        } else if (info == 'https') {
-            proxy.type = 'https';
-            proxy.host = proxySetting['https_host'];
-            proxy.port = parseInt(proxySetting['https_port']);
-
-        } else if (info == 'socks4') {
-            proxy.type = 'socks4';
-            proxy.host = proxySetting['socks_host'];
-            proxy.port = parseInt(proxySetting['socks_port']);
-
-        } else if (info == 'socks5') {
-            proxy.type = 'socks5';
-            proxy.host = proxySetting['socks_host'];
-            proxy.port = parseInt(proxySetting['socks_port']);
+        if (typeof info === 'undefined' ||
+           info == 'direct' || info == 'system' ) {
+            return;
         }
 
-        var rule = proxySetting['proxy_rule'];
-        var chinaList = JSON.parse(localStorage.chinaList);
-        var bypasslist = proxySetting['bypasslist'];
+        if (info == 'pac_url') {
+            var pacType = proxySetting['pac_type'];
+            var proto = pacType.split(':')[0];
 
-        if (proxySetting['internal'] == 'china') {
-            chinaList = chinaList.map(function(element) {
-                return '*' + element;
-            });
-            bypasslist = chinaList.concat(bypasslist.split(','));
+            config.mode = 'pac_script';
+            config["pacScript"]["url"] = pacType +
+                proxySetting['pac_script_url'][proto];
+
         } else {
-            bypasslist = 
-              bypasslist ? bypasslist.split(',') : ['127.0.0.1', 'localhost'];
+
+            if (info == 'http') {
+                proxy.type = 'http';
+                proxy.host = proxySetting['http_host'];
+                proxy.port = parseInt(proxySetting['http_port']);
+
+            } else if (info == 'https') {
+                proxy.type = 'https';
+                proxy.host = proxySetting['https_host'];
+                proxy.port = parseInt(proxySetting['https_port']);
+
+            } else if (info == 'socks4') {
+                proxy.type = 'socks4';
+                proxy.host = proxySetting['socks_host'];
+                proxy.port = parseInt(proxySetting['socks_port']);
+
+            } else if (info == 'socks5') {
+                proxy.type = 'socks5';
+                proxy.host = proxySetting['socks_host'];
+                proxy.port = parseInt(proxySetting['socks_port']);
+            }
+
+            var rule = proxySetting['proxy_rule'];
+            var chinaList = JSON.parse(localStorage.chinaList);
+            var bypasslist = proxySetting['bypasslist'];
+
+            if (proxySetting['internal'] == 'china') {
+                chinaList = chinaList.map(function(element) {
+                    return '*' + element;
+                });
+                bypasslist = chinaList.concat(bypasslist.split(','));
+            } else {
+                bypasslist = 
+                  bypasslist ? bypasslist.split(',') : ['<local>'];
+            }
+
+            config.mode = "fixed_servers";
+            config.rules.bypassList = uniqueArray(bypasslist);
+            config["rules"][rule] = {
+                scheme: proxy.type,
+                host: proxy.host,
+                port: parseInt(proxy.port)
+            };
         }
 
-        config.rules.bypassList = uniqueArray(bypasslist);
-        config["rules"][rule] = {
-            scheme: proxy.type,
-            host: proxy.host,
-            port: proxy.port
-        };
-    }
+        //console.log(JSON.stringify(config));
 
-    //console.log(JSON.stringify(config));
+        chrome.proxy.settings.set({
+            value: config,
+            scope: 'regular'}, function() {})
+    });
 
-    chrome.proxy.settings.set({
-        value: config,
-        scope: 'regular'}, function() {})
-
-    getProxyInfo();
 }
 
 /**
@@ -355,7 +356,7 @@ function save() {
   proxySetting['pac_script_url'][pacType] = pacScriptUrl;
 
   localStorage.proxySetting = JSON.stringify(proxySetting);
-  reloadProxy(localStorage.proxyInfo);
+  reloadProxy();
   loadProxyData();
 }
 
