@@ -60,11 +60,11 @@ function add_li_title() {
  *
  */
 function color_proxy_item() {
-    var mode, rules, proxyRule;
+    var mode, rules, proxyRule, scheme;
 
     chrome.proxy.settings.get({'incognito': false},
       function(config) {
-        //alert(JSON.stringify(config));
+        //console.log(JSON.stringify(config));
         mode = config['value']['mode'];
         rules = config['value']['rules'];
 
@@ -87,17 +87,21 @@ function color_proxy_item() {
             $('#direct').addClass('selected');
         } else if (mode == 'pac_script') {
             $('#pac').addClass('selected');
-        } else {
-            if (rules[proxyRule]['scheme'] == 'http') {
+        } else if (mode == 'auto_detect') {
+            $('#auto').addClass('selected');
+        }else {
+            scheme = rules[proxyRule]['scheme'];
+
+            if (scheme == 'http') {
                 $('#http').addClass('selected');
             }
-            else if (rules[proxyRule]['scheme'] == 'https') {
+            else if (scheme == 'https') {
                 $('#https').addClass('selected');
             }
-            else if (rules[proxyRule]['scheme'] == 'socks5') {
+            else if (scheme == 'socks5') {
                 $('#socks5').addClass('selected');
             }
-            else if (rules[proxyRule]['scheme'] == 'socks4') {
+            else if (scheme == 'socks4') {
                 $('#socks5').addClass('selected');
             }
         }
