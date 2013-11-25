@@ -271,6 +271,25 @@ function sysProxy() {
     proxySelected('system')
 }
 
+/**
+ * set auto detect proxy
+ *
+ */
+function autoProxy() {
+
+    var config = {
+        mode: 'auto_detect',
+    };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('auto')
+}
+
+
 chrome.proxy.onProxyError.addListener(function(details) {
     console.log(details.error);
 });
@@ -283,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
+    document.querySelector('#auto-detect').addEventListener('click', autoProxy);
 
     $('[data-i18n-content]').each(function() {
         var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));
