@@ -82,27 +82,27 @@ function color_proxy_item() {
         }
 
         if (mode == 'system') {
-            $('#system').addClass('selected');
+            $('#sys-proxy').addClass('selected');
         } else if (mode == 'direct') {
-            $('#direct').addClass('selected');
+            $('#direct-proxy').addClass('selected');
         } else if (mode == 'pac_script') {
-            $('#pac').addClass('selected');
+            $('#pac-script').addClass('selected');
         } else if (mode == 'auto_detect') {
-            $('#auto').addClass('selected');
+            $('#auto-detect').addClass('selected');
         }else {
             scheme = rules[proxyRule]['scheme'];
 
             if (scheme == 'http') {
-                $('#http').addClass('selected');
+                $('#http-proxy').addClass('selected');
             }
             else if (scheme == 'https') {
-                $('#https').addClass('selected');
+                $('#https-proxy').addClass('selected');
             }
             else if (scheme == 'socks5') {
-                $('#socks5').addClass('selected');
+                $('#socks5-proxy').addClass('selected');
             }
             else if (scheme == 'socks4') {
-                $('#socks5').addClass('selected');
+                $('#socks5-proxy').addClass('selected');
             }
         }
     });
@@ -125,7 +125,7 @@ function iconSet(str) {
 
 function proxySelected(str) {
     var id = '#' + str;
-    $('span').removeClass('selected');
+    $('li').removeClass('selected');
     $(id).addClass('selected');
 }
 
@@ -149,7 +149,7 @@ function pacProxy() {
             function() {});
 
     iconSet('on');
-    proxySelected('pac');
+    proxySelected('pac-script');
 }
 
 /**
@@ -178,7 +178,7 @@ function socks5Proxy() {
             function() {});
 
     iconSet('on');
-    proxySelected('socks5');
+    proxySelected('socks5-proxy');
 }
 
 /**
@@ -207,7 +207,7 @@ function httpProxy() {
             function() {});
 
     iconSet('on');
-    proxySelected('http');
+    proxySelected('http-proxy');
 }
 
 /**
@@ -236,7 +236,7 @@ function httpsProxy() {
             function() {});
 
     iconSet('on');
-    proxySelected('https');
+    proxySelected('https-proxy');
 }
 
 /**
@@ -254,7 +254,7 @@ function directProxy() {
             function() {});
 
     iconSet('off');
-    proxySelected('direct');
+    proxySelected('direct-proxy');
 }
 
 /**
@@ -272,7 +272,7 @@ function sysProxy() {
             function() {});
 
     iconSet('off');
-    proxySelected('system')
+    proxySelected('sys-proxy')
 }
 
 /**
@@ -290,7 +290,7 @@ function autoProxy() {
             function() {});
 
     iconSet('on');
-    proxySelected('auto')
+    proxySelected('auto-detect')
 }
 
 
