@@ -35,9 +35,11 @@ li {
 
 ul li:hover {
   border-radius: 3px 3px;
+  /*
   background: -webkit-gradient(linear, left top, left bottom,
       color-stop(0, #fff),  color-stop(0.4, hsl(215, 67%, 97%)),
       color-stop(0.41, hsl(213, 48%, 95%)));
+  */
   border: solid 1px #c5cdd3;
 }
 
@@ -50,5 +52,8 @@ ul li:hover {
 .selected {
   color: #15C;
   font-weight: bolder;
+  background-image: url(/images/checked.gif);
+  background-repeat: no-repeat;
+  background-position: 0.2em;
 }
 
