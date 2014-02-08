@@ -23,7 +23,6 @@ var pacScriptUrl = proxySetting['pac_script_url'];
 var chinaList = JSON.parse(localStorage.chinaList);
 
 if (proxySetting['internal'] == 'china') {
-    chinaList = chinaList.map(function(element) { return '*' + element});
     bypasslist = chinaList.concat(bypasslist.split(','));
 } else
     bypasslist = bypasslist ? bypasslist.split(',') : ['<local>'];

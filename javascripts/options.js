@@ -151,7 +151,7 @@ function getProxyInfo(callback) {
 
     chrome.proxy.settings.get({'incognito': false},
     function(config) {
-        //alert(JSON.stringify(config));
+        // console.log(JSON.stringify(config));
         mode = config['value']['mode'];
         rules = config['value']['rules'];
 
@@ -234,25 +234,31 @@ function reloadProxy() {
 
         } else {
 
-            if (info == 'http') {
+            switch(info) {
+
+            case 'http':
                 proxy.type = 'http';
                 proxy.host = proxySetting['http_host'];
                 proxy.port = parseInt(proxySetting['http_port']);
+                break;
 
-            } else if (info == 'https') {
+            case 'https':
                 proxy.type = 'https';
                 proxy.host = proxySetting['https_host'];
                 proxy.port = parseInt(proxySetting['https_port']);
+                break;
 
-            } else if (info == 'socks4') {
+            case 'socks4':
                 proxy.type = 'socks4';
                 proxy.host = proxySetting['socks_host'];
                 proxy.port = parseInt(proxySetting['socks_port']);
+                break;
 
-            } else if (info == 'socks5') {
+            case 'socks5':
                 proxy.type = 'socks5';
                 proxy.host = proxySetting['socks_host'];
                 proxy.port = parseInt(proxySetting['socks_port']);
+                break;
             }
 
             var rule = proxySetting['proxy_rule'];
@@ -260,9 +266,6 @@ function reloadProxy() {
             var bypasslist = proxySetting['bypasslist'];
 
             if (proxySetting['internal'] == 'china') {
-                chinaList = chinaList.map(function(element) {
-                    return '*' + element;
-                });
                 bypasslist = chinaList.concat(bypasslist.split(','));
             } else {
                 bypasslist = 
@@ -489,4 +492,4 @@ if (!localStorage.firstime)
 else
     loadProxyData();
 
-getProxyInfo();
+getProxyInfo(function(info) {});
