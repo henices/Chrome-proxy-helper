@@ -5,17 +5,29 @@ body {
 }
 
 select {
-    height:22px;
-    line-height:18px;
-    padding:4px 0
+    padding:0px 3px;
 }
 
 input {
     vertical-align:middle;
+    line-height:20px
 }
 
-label {
-    vertical-align:middle;
+.label0 {
+    text-align:middle;
+    display:inline-block;
+    vertical-align:baseline;
+    line-height:32px;
+    width:85px;
+}
+
+.label1 {
+    text-align:middle;
+    display:inline-block;
+    vertical-align:baseline;
+    line-height:32px;
+    margin-left:3px;
+    width:40px;
 }
 
 .contentbox {
@@ -192,11 +204,10 @@ textarea {
   border-radius: 2px;
   box-sizing: border-box;
   color: #444;
-  font: inherit;
   margin: 0;
   /* Use min-height to accommodate addditional padding for touch as needed. */
   min-height: 2em;
-  padding: 3px;
+  padding: 0px 3px;
 /* For better alignment between adjacent buttons and inputs. */
   padding-bottom: 4px;
 }
