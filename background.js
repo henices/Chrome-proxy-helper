@@ -89,19 +89,26 @@ function getBypass() {
     req.onreadystatechange = processResponse;
     req.send(null);
 
-
     function processResponse() {
         if (req.readyState == 4 &&
             req.status == 200) {
             localStorage.chinaList = JSON.stringify(req.responseText.split(','));
-        }
-        else {
+        } else
             localStorage.chinaList = JSON.stringify(chinaList);
-        }
     }
 }
 
 getBypass();
+
+var before = new Date();
+var interval = 1000 * 60 * 60;
+
+setInterval(function() {
+    now = new Date();
+    var elapsedTime = (now.getTime() - before.getTime());
+    if(elapsedTime > interval) getBypass();
+    before = new Date();
+}, interval);
 
 if (!localStorage.proxySetting) {
     localStorage.proxySetting = JSON.stringify(proxySetting);
