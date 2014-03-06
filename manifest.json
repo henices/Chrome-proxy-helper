@@ -13,6 +13,7 @@
         "proxy",
         "tabs",
         "unlimitedStorage",
+        "storage",
         "<all_urls>",
         "webRequest",
         "webRequestBlocking"
