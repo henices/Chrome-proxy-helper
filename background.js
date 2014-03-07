@@ -98,21 +98,25 @@ function getBypass() {
     }
 }
 
-getBypass();
+chrome.runtime.onInstalled.addListener(function(details){
+    if(details.reason == "install") {
+        localStorage.proxySetting = JSON.stringify(proxySetting);
+        gotoOptPage();
+    }
+    //else if(details.reason == "update"){
+    //}
+});
 
-var before = new Date();
-var interval = 1000 * 60 * 60;
-
-setInterval(function() {
-    now = new Date();
-    var elapsedTime = (now.getTime() - before.getTime());
-    if(elapsedTime > interval) getBypass();
-    before = new Date();
-}, interval);
-
-if (!localStorage.proxySetting) {
-    localStorage.proxySetting = JSON.stringify(proxySetting);
-    gotoOptPage();
-}
+// sync extension settings from google cloud
+chrome.storage.sync.get('proxySetting', function(value) {
+    localStorage.proxySetting = vaule.proxySetting;
+});
 
 setProxyIcon();
+
+// sync bypass list from github.com
+getBypass();
+var interval = 1000 * 60 * 60;
+setInterval(function() { getBypass(); }, interval);
+
+
