@@ -108,8 +108,9 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 // sync extension settings from google cloud
-chrome.storage.sync.get('proxySetting', function(value) {
-    localStorage.proxySetting = vaule.proxySetting;
+chrome.storage.sync.get('proxySetting', function(val) {
+    if (typeof val.proxySetting !== "undefined")
+        localStorage.proxySetting = val.proxySetting;
 });
 
 setProxyIcon();

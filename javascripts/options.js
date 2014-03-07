@@ -359,14 +359,14 @@ function save() {
   proxySetting['pac_script_url'][pacType] = pacScriptUrl;
 
   var settings = JSON.stringify(proxySetting);
+  console.log(settings);
 
   localStorage.proxySetting = settings;
   reloadProxy();
   loadProxyData();
 
   // sync settings to google cloud
-  chrome.storage.sync.set(
-      {'proxySetting' : settings}, function() {});
+  chrome.storage.sync.set({'proxySetting' : settings}, function() {});
 }
 
 
