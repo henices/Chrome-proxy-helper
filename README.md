@@ -11,7 +11,7 @@ and https protocol and pac script, Fast And Simple.
 * support online pac script
 * support customer proxy rules
 * support proxy authentication
-
+* support extension settings synchronize
 
 # Install
 * Install the latest stable version on chrome web store by click [here](https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic).
