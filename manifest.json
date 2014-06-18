@@ -21,6 +21,13 @@
     "background": {
         "scripts": ["background.js"]
     },
+    "commands": {
+        "open-option": {
+          "suggested_key": {
+            "default": "Alt+O"},
+          "description": "Open option page"
+        }
+    },
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "images/off.png",

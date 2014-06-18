@@ -359,7 +359,7 @@ function save() {
   proxySetting['pac_script_url'][pacType] = pacScriptUrl;
 
   var settings = JSON.stringify(proxySetting);
-  console.log(settings);
+  //console.log(settings);
 
   localStorage.proxySetting = settings;
   reloadProxy();
