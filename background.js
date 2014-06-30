@@ -21,10 +21,9 @@ function setProxyIcon() {
     );
 }
 
-function gotoOptPage() {
+function gotoPage(url) {
 
-    var opturl = "options.html";
-    var fulurl = chrome.extension.getURL(opturl);
+    var fulurl = chrome.extension.getURL(url);
     chrome.tabs.getAllInWindow(undefined, function(tabs) {
         for (var i in tabs) {
             tab = tabs[i];
@@ -34,7 +33,7 @@ function gotoOptPage() {
             }
         }
         chrome.tabs.getSelected(null, function(tab) {
-                    chrome.tabs.create({url: opturl,index: tab.index + 1});
+                    chrome.tabs.create({url: url,index: tab.index + 1});
         });
     });
 }
@@ -101,16 +100,17 @@ function getBypass() {
 chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install") {
         localStorage.proxySetting = JSON.stringify(proxySetting);
-        gotoOptPage();
+        gotoPage('options.html');
     }
-    //else if(details.reason == "update"){
-    //}
+    else if(details.reason == "update"){
+        gotoPage('CHANGELOG');
+    }
 });
 
 
 chrome.commands.onCommand.addListener(function(command) {
   if (command == 'open-option')
-      gotoOptPage();
+      gotoPage('options.html');
 });
 
 // sync extension settings from google cloud

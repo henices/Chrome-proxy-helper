@@ -1,0 +1,32 @@
+ChangeLog
+===================================================
+
+2014-06-30 (1.2.5)
+    1. Add Alt-o keyboard shortcut to go to option page
+
+
+2014-03-10 (1.2.4)
+    1. Support extension settings synchronize
+    2. Update UI
+
+
+2014-02-26 (1.2.3)
+    1. Update internal china bypass list automatically
+    2. Update UI (better UI for Mac OSX users)
+
+2013-12-18 (1.2.2)
+    1. Add proxy auto_detect mode support (WPAD)
+    2. Import old proxy settings automatically
+    3. Bug fixed
+    4. Update UI
+
+2013-7-25 (1.2)
+    1. Add proxy authentication support
+    2. Reload proxy settings automaticlly after save
+    3. Add default china bypass list
+    4. Completely rewritten UI
+    5. Add Chinese language support
+
+2012-12-7 (1.1.4)
+    1. Support direct mode, connect never use a proxy.
+    2. Update UI and bugs fixed.
