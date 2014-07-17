@@ -1,124 +1,206 @@
+﻿<meta name="google" value="notranslate" />
 <html>
-    <head>
-        <title>Proxy Helper - Options</title>
-        <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="javascripts/options.js"></script>
-        <link href="stylesheets/options.css" type="text/css" rel="stylesheet"/>
-    </head>
-    <body>
+<head>
+    <title>Options</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <div class="contentbox">
-            <div id="header"><h1 data-i18n-content="proxy_helper_options">Proxy Helper Options</h1></div>
+    <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
+    <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="javascripts/options-ui.js"></script>
+    <script type="text/javascript" src="javascripts/options.js"></script>
+</head>
+<body class="chrome-bootstrap">
+    <div class="frame">
+        <div class="navigation">
+            <h1>
+                <a style="font-size:18px" data-i18n-content="Options">Options</a>
+            </h1>
 
-            <div class="section-header first" data-i18n-content="config_auto">
-                Configure your proxy settings automatically</div>
-
-            <div class="section-data">
-                <label class="label0" data-i18n-content="pac_path">PAC PATH:</label>
-                <select id="pac-type">
-                    <option>file://</option>
-                    <option>http://</option>
-                    <option>https://</option>
-                </select>
-                <input type="text" size="40" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                <img src="images/help.gif" class="tip" title="example: file:///c:/proxy.pac, http://127.0.0.1/proxy.pac"/>
-            </div>
-
-            <div class="section-header first" data-i18n-content="config_manual">
-                Configure your proxy settings manually</div>
-
-            <div class="section-data">
-                <div>
-                    <label class="label0" data-i18n-content="http_proxy">HTTP PROXY:</label>
-                    <input type="text" id="http-host" size="15"/>
-                    <label class="label1" data-i18n-content="port">PORT:</label>
-                    <input type="text" size="8" id="http-port"/>
-                </div>
-                <div>
-                    <label class="label0" data-i18n-content="https_proxy">HTTPS PROXY:</label>
-                    <input type="text" id="https-host" size="15"/>
-                    <label class="label1" data-i18n-content="port">PORT:</label>
-                    <input type="text" size="8" id="https-port"/>
-                </div>
-                <div>
-                    <label class="label0" data-i18n-content="socks_proxy">SOCKS PROXY:</label>
-                    <input type="text" id="socks-host" size="15"/>
-                    <label class="label1" data-i18n-content="port">PORT:</label>
-                    <input type="text" size="8" id="socks-port"/>
-                </div>
-            </div>
-
-            <div class="section-data">
-                <input type="radio" id="socks4"/>
-                <span style="font-size:80%;">SOCKS4</span>
-                <input type="radio" id="socks5"/>
-                <span style="font-size:80%;">SOCKS5</span>
-            </div>
-
-            <section class="section-data">
-            <h5 data-i18n-content="authentication">Authentication</h5>
-            <div class="checkbox">
-                <input type="checkbox" id="use-pass"/>
-                <span data-i18n-content="password_authentication">use authentication</span>
-                <button id="btn-auth-edit" data-i18n-content="edit" class="link-button">Edit</button>
-            </div>
-            <div id="div-auth-input" class="section-data">
-                <label data-i18n-content="user">USER</label>
-                <input id="username" size="10"></input>
-                <label data-i18n-content="pass">PASS</label>
-                <input type="password" id="password" size="15"></input>
-            </div>
-            </section>
-
-            <div class="section-header first" data-i18n-content="config_bypasslist">
-                Configure your proxy bypass list</div>
-
-            <div class="section-data">
-                <span data-i18n-content="domain_in_bypasslist">Domains in bypass list Never use a proxy</span>
-            </div>
-            <div class="section-data">
-                <textarea id="bypasslist" cols="52" rows="3" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
-                <img src="images/help.gif" class="tip" title="split by , eg. 192.168.1.1/16, *.foobar.com, *foobar.com:99, https://x.*.y.com:99"/>
-            </div>
-
-            <section class="section-data">
-            <h5 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h5>
-            <div class="checkbox">
-                <input type="checkbox" id="use-china-list"/>
-                <span data-i18n-content="china_list">China List</span>
-                <!--
-                <button id="china_list_page" data-i18n-content="edit" class="link-button">Edit</button>
-                -->
-            </div>
-            </section>
-
-            <div data-i18n-content="advanced_settings" class="section-header first">Advanced settings</div>
-
-            <div class="section-data">
-                <label class="label0" data-i18n-content="proxy_rules">Proxy rules:</label>
-                <select id="proxy-rule" >
-                    <option value="singleProxy">singleProxy</option>
-                    <option value="proxyForHttp">proxyForHttp</option>
-                    <option value="proxyForHttps">proxyForHttps</option>
-                    <option value="proxyForFtp">proxyForFtp</option>
-                    <!--
-                    <option value="fallbackproxy">fallbackProxy</option>
-                    -->
-                </select>
-            </div>
-
-            <div style="margin-top:2.5em;margin-left:15em;">
-                <button id="btn-save"  data-i18n-content="save">Save</button>
-                <button id="btn-cancel" data-i18n-content="cancel">Cancel</button>
-            </div>
-
+            <ul class="menu">
+                <li class="selected">
+                    <a href="#general" data-i18n-content="General">General</a>
+                </li>
+                <li>
+                    <a href="#rules" data-i18n-content="Rules">Rules</a>
+                </li>
+            </ul>
+            <ul class="menu">
+                <li>
+                    <a href="#help" data-i18n-content="Help">Help</a>
+                </li>
+                <li>
+                    <a href="#about" data-i18n-content="About">About</a>
+                </li>
+            </ul>
         </div>
 
-        <div style="text-align:center;">
-            <a href="chrome://net-internals/#proxy" target="_blank" id="diagnosis">Diagnosis</a> |
-            <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">Home</a>  |
-            <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">FAQ</a>
+        <div class="mainview view">
+        <div id="general" class="selected">
+            <header><h1 data-i18n-content="General">General</h1></header>
+            <div class="content">
+                <h3 data-i18n-content="pac_script">Pac script</h3>
+                <section>
+                <div>
+                    <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
+                        <select id="pac-type">
+                            <option>file://</option>
+                            <option>http://</option>
+                            <option>https://</option>
+                        </select>
+                        <input type="text" size="25" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                    </label>
+                </div>
+                </section>
+                <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
+                <section>
+                    <div>
+                        <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="http_proxy">HTTP PROXY:</span>
+                        <input type="text" id="http-host" size="15"/>
+                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <input type="text" size="6" id="http-port"/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="https_proxy">HTTPS PROXY:</span>
+                        <input type="text" id="https-host" size="15"/>
+                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <input type="text" size="6" id="https-port"/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="socks_proxy">SOCKS PROXY:</span>
+                        <input type="text" id="socks-host" size="15"/>
+                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <input type="text" size="6" id="socks-port"/>
+                        </label>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <label>
+                            <input type="radio" id="socks4"/>
+                            <span style="font-size:80%;">SOCKS4</span>
+                            <input type="radio" id="socks5"/>
+                            <span style="font-size:80%;">SOCKS5</span>
+                        </label>
+                    </div>
+                </section>
+                <h3 data-i18n-content="authentication">Authentication</h3>
+                <section>
+                    <div>
+                    <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
+                        <input type="text" id="username" size="15"></input>
+                    </label>
+                    </div>
+                    <div>
+                    <label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
+                        <input type="password" id="password" size="15"></input>
+                    </label>
+                </section>
+                <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
+                <section>
+                    <div>
+                        <label>
+                            <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy rules:</span>
+                            <select id="proxy-rule" >
+                                <option value="singleProxy">singleProxy</option>
+                                <option value="proxyForHttp">proxyForHttp</option>
+                                <option value="proxyForHttps">proxyForHttps</option>
+                                <option value="proxyForFtp">proxyForFtp</option>
+                            </select>
+                        </label>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div id="rules">
+            <header><h1 data-i18n-content="Rules">Rules</h1></header>
+            <div class="content">
+                <h3 data-i18n-content="config_bypasslist">BypassList</h3>
+                <section>
+                    <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
+                    <div>
+                        <textarea id="bypasslist" cols="52" rows="3" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                    </div>
+                    <h3 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
+                    <div class="checkbox">
+                        <input type="checkbox" id="use-china-list"/>
+                        <span data-i18n-content="china_list">China List</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div id="help">
+            <header><h1 data-i18n-content="Help">Help</h1></header>
+            <div class="content">
+                <h3>FAQ</h3>
+                <section>
+                    <div>
+                        <img src="images/GitHub-Mark-32px.png"></img>
+                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">https://github.com/henices/Chrome-proxy-helper/wiki/FAQ</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div id="about">
+            <header><h1 data-i18n-content="About">About</h1></header>
+            <div class="content">
+            <h3>Chrome Web Store<h3>
+            <section>
+                <img src="images/chrome_web_store.png"></img>
+                <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnicimg">Proxy Helper</a>
+            </section>
+            <h3>Homepage</h3>
+            <section>
+                <div>
+                    <img src="images/GitHub-Mark-32px.png"></img>
+                    <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">https://github.com/henices/Chrome-proxy-helper</a>
+                </div>
+            </section>
+            <h3>Author</h3>
+            <section>
+                <div>
+                <ul>
+                    <li>Email  : <a href="mailto:zhouzhenster@gmail.com">zhouzhenster@gmail.com</a></li>
+                    <li>Github : <a href="https://github.com/henices" target="_blank">@henices</a></li>
+                    <li>Twitter: <a href="https://twitter.com/henices" target="_blank">@henices</a></li>
+                </ul>
+                </div>
+            </section>
+            <h3>Open Source</h3>
+            <section>
+                <div>
+                    <table class="simpletable">
+                        <thead>
+                            <tr>
+                                <th>Library</th>
+                                <th>License</th>
+                            </tr>
+                        </thead>
+                        <tbody style="display: table-row-group;">
+                            <tr>
+                                <td><a href="https://jquery.org" target="_blank">jQuery</a></td>
+                                <td><a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" target="_blank">LICENSE.txt</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://github.com/roykolak/chrome-bootstrap" target="_blank">chrome-bootstrap</a></td>
+                                <td><a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a></td>
+                            </tr>
+                            <tr></tr>
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            </div>
         </div>
 
-    </body>
+    </div>
+    </div>
+</body>
 </html>

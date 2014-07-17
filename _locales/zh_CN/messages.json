@@ -118,6 +118,28 @@
     },
     "auto_detect_set" : {
         "message" : "自动检测"
+    },
+    "General": {
+        "message" : "常规"
+    },
+    "Rules" : {
+        "message" : "规则"
+    },
+    "Help" : {
+        "message" : "帮助"
+    },
+    "About" : {
+        "message" : "关于"
+    },
+    "Options" : {
+        "message" : "选项"
+    },
+    "proxy_servers" : {
+        "message" : "代理服务器"
+    },
+    "pac_script" : {
+        "message" : "Pac 脚本"
     }
+
 }
 

@@ -1,6 +1,8 @@
 body {
     width: 120px;
-    font: 14px/18px "Microsoft YaHei","WenQuanYi Micro Hei",SimSun,sans-serif;
+    /*font: 14px/18px "Microsoft YaHei","WenQuanYi Micro Hei",SimSun,sans-serif;*/
+    font-family: 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', sans-serif;
+    font-size:12px;
     color: #333;
     font-weight: 500;
     padding: 3px;

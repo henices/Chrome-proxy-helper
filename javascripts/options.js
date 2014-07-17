@@ -34,15 +34,9 @@ function loadProxyData() {
         $('#socks5').attr('checked', false);
       }
 
-      if (proxySetting['auth']['enable'] == 'y') {
-          $('#use-pass').attr('checked', true);
-      }
-
       if (proxySetting['internal'] == 'china') {
           $('#use-china-list').attr('checked', true);
       }
-
-      $('#div-auth-input').hide();
 
   });
 
@@ -468,25 +462,24 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#socks4').attr('checked', false);
     });
 
-    $('#btn-auth-edit').click(function() {
-        $('#div-auth-input').show();
-    });
-
     $('#diagnosis').click(function() {
         chrome.tabs.create({url: 'chrome://net-internals/#proxy'});
     });
+
+    $('input').change(
+        function() { save(); });
+
+    $('textarea').change(
+        function() { save(); });
+
+    $('#proxy-rule').change(
+        function() { save(); });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
     $('#pac-type').change(function() {
         var type = $('#pac-type').val().split(':')[0];
         $('#pac-script-url').val(proxySetting['pac_script_url'][type]);
-    });
-
-    $('[data-i18n-content]').each(function() {
-        var message = chrome.i18n.getMessage(
-            this.getAttribute('data-i18n-content'));
-        if (message)
-            $(this).html(message);
+        save();
     });
 
 });

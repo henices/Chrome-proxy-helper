@@ -47,7 +47,8 @@ function callbackFn(details) {
         var password = auth['pass'];
     }
 
-    if (proxySetting['auth']['enable'] == '')
+    if (proxySetting['auth']['user'] == '' && 
+        proxySetting['auth']['pass'] == '')
         return {};
 
     return details.isProxy === !0 ? {
