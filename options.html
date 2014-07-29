@@ -49,7 +49,19 @@
                             <option>http://</option>
                             <option>https://</option>
                         </select>
-                        <input type="text" size="25" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                        <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                        <a href='#' class='tooltip'>
+                            <img src="images/help.gif">
+                            <span>
+                                <img class="callout" src="images/callout.gif"/>
+                                <strong>Local pac script:</strong><br/>
+                                file:///c:/proxy.pac
+                                <br>
+                                <strong>Remote pac script:</strong><br/>
+                                http://127.0.0.1/proxy.pac
+                                https://127.0.0.1/proxy.pac
+                            </span>
+                        </a>
                     </label>
                 </div>
                 </section>
@@ -126,6 +138,16 @@
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div>
                         <textarea id="bypasslist" cols="52" rows="3" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                        <a href='#' class='tooltip'>
+                            <img src="images/help.gif">
+                            <span>
+                                <img class="callout" src="images/callout.gif"/>
+                                192.168.1.1/16,  <br/>
+                                *.foobar.com,    <br/>
+                                *foobar.com:99,  <br/>
+                                https://x.*.y.com:99
+                            </span>
+                        </a>
                     </div>
                     <h3 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
                     <div class="checkbox">
