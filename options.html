@@ -33,35 +33,32 @@
                 </li>
             </ul>
         </div>
-
         <div class="mainview view">
         <div id="general" class="selected">
             <header><h1 data-i18n-content="General">General</h1></header>
             <div class="content">
                 <h3 data-i18n-content="pac_script">Pac script</h3>
                 <section>
-                <div>
-                    <label>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
-                        <select id="pac-type">
-                            <option>file://</option>
-                            <option>http://</option>
-                            <option>https://</option>
-                        </select>
-                        <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                        <a href='#' class='tooltip'>
-                            <img src="images/help.gif">
-                            <span>
-                                <img class="callout" src="images/callout.gif"/>
-                                <strong>Local pac script:</strong><br/>
-                                file:///c:/proxy.pac
-                                <br>
-                                <strong>Remote pac script:</strong><br/>
-                                http://127.0.0.1/proxy.pac
-                                https://127.0.0.1/proxy.pac
-                            </span>
-                        </a>
-                    </label>
+                <div class="section">
+                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
+                    <select id="pac-type">
+                        <option>file://</option>
+                        <option>http://</option>
+                        <option>https://</option>
+                    </select>
+                    <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                    <a href='#' class='tooltip'>
+                        <img src="images/help.gif">
+                        <span>
+                            <img class="callout" src="images/callout.gif"/>
+                            <strong>Local pac script:</strong><br/>
+                            file:///c:/proxy.pac
+                            <br>
+                            <strong>Remote pac script:</strong><br/>
+                            http://127.0.0.1/proxy.pac
+                            https://127.0.0.1/proxy.pac
+                        </span>
+                    </a>
                 </div>
                 </section>
                 <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
@@ -122,7 +119,7 @@
                 <h3 data-i18n-content="config_bypasslist">BypassList</h3>
                 <section>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
-                    <div>
+                    <div class="section">
                         <textarea id="bypasslist" cols="42" rows="5" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
                         <a href='#' class='tooltip'>
                             <img src="images/help.gif">
@@ -164,7 +161,7 @@
         <div id="about">
             <header><h1 data-i18n-content="About">About</h1></header>
             <div class="content">
-            <h3>Chrome Web Store<h3>
+            <h3>Chrome Web Store</h3>
             <section class="section">
                 <img src="images/chrome_web_store.png"></img>
                 <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic">Proxy Helper</a>
