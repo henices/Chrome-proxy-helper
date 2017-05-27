@@ -1,5 +1,5 @@
 .chrome-bootstrap {
-  font-family: 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', sans-serif;
+  font-family: 'Noto Sans UI', 'Segoe UI', 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', 'Tahoma', sans-serif;
   font-size: 12px;
   color: #303942;
   cursor: default;
@@ -531,8 +531,8 @@
   min-width: 4em;
 }
 .chrome-bootstrap input[type='text'],
-.chrome-bootstrap input[type='password'],
 .chrome-bootstrap input[type='number'],
+.chrome-bootstrap input[type='password'],
 .chrome-bootstrap input[type='search'] {
   border: 1px solid #BFBFBF;
   border-radius: 2px;
@@ -547,6 +547,25 @@
 .chrome-bootstrap .radio,
 .chrome-bootstrap .checkbox {
   margin: 0.65em 0;
+}
+.chrome-bootstrap .link-button {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background: transparent none !important;
+  border: none !important;
+  border-color: transparent !important;
+  color: #1155cc !important;
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  padding: 0 4px;
+}
+.chrome-bootstrap .link-button:hover {
+  text-decoration: underline;
+}
+.chrome-bootstrap .link-button:active {
+  color: #052577 !important;
+  text-decoration: underline;
 }
 .chrome-bootstrap select:focus,
 .chrome-bootstrap input[type='checkbox']:focus,
@@ -584,6 +603,7 @@
 }
 .chrome-bootstrap input[type='search']:disabled,
 .chrome-bootstrap input[type='number']:disabled,
+.chrome-bootstrap input[type='password']:disabled,
 .chrome-bootstrap input[type='text']:disabled {
   color: #999;
 }
