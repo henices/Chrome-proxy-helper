@@ -3,7 +3,6 @@
 <head>
     <title>Options</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
     <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
     <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
@@ -68,64 +67,51 @@
                 <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
                 <section>
                     <div>
-                        <label>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="http_proxy">HTTP PROXY:</span>
+                        <span class="ip_label" data-i18n-content="http_proxy">HTTP PROXY:</span>
                         <input type="text" id="http-host" size="15"/>
-                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <span class="port_label" data-i18n-content="port">PORT:</span>
                         <input type="text" size="6" id="http-port"/>
-                        </label>
                     </div>
                     <div>
-                        <label>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="https_proxy">HTTPS PROXY:</span>
+                        <span class="ip_label" data-i18n-content="https_proxy">HTTPS PROXY:</span>
                         <input type="text" id="https-host" size="15"/>
-                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <span class="port_label" data-i18n-content="port">PORT:</span>
                         <input type="text" size="6" id="https-port"/>
-                        </label>
                     </div>
                     <div>
-                        <label>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="socks_proxy">SOCKS PROXY:</span>
+                        <span class="ip_label" data-i18n-content="socks_proxy">SOCKS PROXY:</span>
                         <input type="text" id="socks-host" size="15"/>
-                        <span class="field_label" style="width: 44px;" data-i18n-content="port">PORT:</span>
+                        <span class="port_label" data-i18n-content="port">PORT:</span>
                         <input type="text" size="6" id="socks-port"/>
-                        </label>
                     </div>
-                    <div style="margin-left: 20px;">
-                        <label>
-                            <input type="radio" id="socks4"/>
-                            <span style="font-size:80%;">SOCKS4</span>
-                            <input type="radio" id="socks5"/>
-                            <span style="font-size:80%;">SOCKS5</span>
-                        </label>
+                    <div class="socks">
+                        <input type="radio" id="socks4"/>
+                        <span style="font-size:80%;">SOCKS4</span>
+                        <input type="radio" id="socks5"/>
+                        <span style="font-size:80%;">SOCKS5</span>
                     </div>
                 </section>
                 <h3 data-i18n-content="authentication">Authentication</h3>
                 <section>
                     <div>
-                    <label>
                         <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
                         <input type="text" id="username" size="15"></input>
-                    </label>
                     </div>
                     <div>
-                    <label>
                         <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
                         <input type="password" id="password" size="15"></input>
-                    </label>
+                    </div>
                 </section>
                 <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
                 <section>
                     <div>
-                        <label>
-                            <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy rules:</span>
-                            <select id="proxy-rule" >
-                                <option value="singleProxy">singleProxy</option>
-                                <option value="proxyForHttp">proxyForHttp</option>
-                                <option value="proxyForHttps">proxyForHttps</option>
-                                <option value="proxyForFtp">proxyForFtp</option>
-                            </select>
-                        </label>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy rules:</span>
+                        <select id="proxy-rule" >
+                            <option value="singleProxy">singleProxy</option>
+                            <option value="proxyForHttp">proxyForHttp</option>
+                            <option value="proxyForHttps">proxyForHttps</option>
+                            <option value="proxyForFtp">proxyForFtp</option>
+                        </select>
                     </div>
                 </section>
             </div>
@@ -162,8 +148,8 @@
             <div class="content">
                 <h3>FAQ</h3>
                 <section>
-                    <div>
-                        <img src="images/GitHub-Mark-32px.png"></img>
+                    <div class="section">
+                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ"><img src="images/GitHub-Mark-32px.png" alt="FAQ" /></a>
                         <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">https://github.com/henices/Chrome-proxy-helper/wiki/FAQ</a>
                     </div>
                 </section>
@@ -179,13 +165,13 @@
             <header><h1 data-i18n-content="About">About</h1></header>
             <div class="content">
             <h3>Chrome Web Store<h3>
-            <section>
+            <section class="section">
                 <img src="images/chrome_web_store.png"></img>
-                <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnicimg">Proxy Helper</a>
+                <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic">Proxy Helper</a>
             </section>
             <h3>Homepage</h3>
             <section>
-                <div>
+                <div class="section">
                     <img src="images/GitHub-Mark-32px.png"></img>
                     <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">https://github.com/henices/Chrome-proxy-helper</a>
                 </div>
