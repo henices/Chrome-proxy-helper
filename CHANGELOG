@@ -1,6 +1,11 @@
 ChangeLog
 ===================================================
 
+2017-12-14 (1.2.7)
+    1. Change font size bigger
+    2. Fix some html error
+    3. code refactor
+
 2014-8-12 (1.2.6)
     1. Rewrite UI
 
@@ -10,7 +15,6 @@ ChangeLog
 2014-03-10 (1.2.4)
     1. Support extension settings synchronize
     2. Update UI
-
 
 2014-02-26 (1.2.3)
     1. Update internal china bypass list automatically
