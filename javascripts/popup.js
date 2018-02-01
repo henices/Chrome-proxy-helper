@@ -292,6 +292,19 @@ function autoProxy() {
     proxySelected('auto-detect')
 }
 
+/**
+ * open option page
+ */
+
+function openOptionPage(){
+    if (chrome.runtime.openOptionsPage) {
+        // New way to open options pages, if supported (Chrome 42+).
+        chrome.runtime.openOptionsPage();
+      } else {
+        // Reasonable fallback.
+        window.open(chrome.runtime.getURL('options.html'));
+      }
+}
 
 chrome.proxy.onProxyError.addListener(function(details) {
     console.log(details.error);
@@ -306,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
     document.querySelector('#auto-detect').addEventListener('click', autoProxy);
+    document.querySelector('#option-page').addEventListener('click', openOptionPage);
 
     $('[data-i18n-content]').each(function() {
         var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));

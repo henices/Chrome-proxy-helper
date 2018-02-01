@@ -65,6 +65,9 @@
     "direct_proxy" : {
         "message" : "直接连接"
     },
+    "option-page" : {
+        "message" : "选项"
+    },
     "port" : {
         "message" : "端口:"
     },
