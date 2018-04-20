@@ -1,9 +1,9 @@
 {
-    "version": "1.2.7",
     "manifest_version": 2,
-    "default_locale": "en",
-    "description": "__MSG_appDesc__",
-    "name": "__MSG_appName__",
+    "name": "simple proxy switcher",
+    "version": "1.0",
+	"description": "Переключатель прокси-серверов",
+
     "icons": {
         "128": "images/on.png",
         "48":  "images/on48.png",
@@ -31,10 +31,7 @@
     "options_page": "options.html",
     "browser_action": {
         "default_icon": "images/off.png",
-        "default_title": "__MSG_title__",
+        "default_title": "simple proxy switcher",
         "default_popup": "popup.html"
-    },
-    "update_url" : "http://clients2.google.com/service/update2/crx",
-    "minimum_chrome_version":"22.0.0"
+    }
 }
-

@@ -1,7 +1,7 @@
 ﻿<meta name="google" value="notranslate" />
 <html>
 <head>
-    <title>Options</title>
+    <title>Настройки simple proxy switcher</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
@@ -13,23 +13,17 @@
     <div class="frame">
         <div class="navigation">
             <h1>
-                <a style="font-size:18px" data-i18n-content="Options">Options</a>
+                <a style="font-size:18px" data-i18n-content="Options">Настройки</a>
             </h1>
 
             <ul class="menu">
                 <li class="selected">
-                    <a href="#general" data-i18n-content="General">General</a>
-                </li>
-                <li>
-                    <a href="#rules" data-i18n-content="Rules">Rules</a>
+                    <a href="#general" data-i18n-content="General">Проки</a>
                 </li>
             </ul>
             <ul class="menu">
                 <li>
-                    <a href="#help" data-i18n-content="Help">Help</a>
-                </li>
-                <li>
-                    <a href="#about" data-i18n-content="About">About</a>
+                    <a href="#about" data-i18n-content="About">О расширении</a>
                 </li>
             </ul>
         </div>
@@ -113,101 +107,13 @@
                 </section>
             </div>
         </div>
-        <div id="rules">
-            <header><h1 data-i18n-content="Rules">Rules</h1></header>
-            <div class="content">
-                <h3 data-i18n-content="config_bypasslist">BypassList</h3>
-                <section>
-                    <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
-                    <div class="section">
-                        <textarea id="bypasslist" cols="42" rows="5" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
-                        <a href='#' class='tooltip'>
-                            <img src="images/help.gif">
-                            <span>
-                                <img class="callout" src="images/callout.gif"/>
-                                192.168.1.1/16,  <br/>
-                                *.foobar.com,    <br/>
-                                *foobar.com:99,  <br/>
-                                https://x.*.y.com:99
-                            </span>
-                        </a>
-                    </div>
-                    <h3 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
-                    <div class="checkbox">
-                        <input type="checkbox" id="use-china-list"/>
-                        <span data-i18n-content="china_list">China List</span>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div id="help">
-            <header><h1 data-i18n-content="Help">Help</h1></header>
-            <div class="content">
-                <h3>FAQ</h3>
-                <section>
-                    <div class="section">
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ"><img src="images/GitHub-Mark-32px.png" alt="FAQ" /></a>
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">https://github.com/henices/Chrome-proxy-helper/wiki/FAQ</a>
-                    </div>
-                </section>
-                <h3>Diagnosis</h3>
-                <section>
-                    <div>
-                        <a href="chrome://net-internals/#proxy" target="_blank" id="diagnosis">chrome://net-internals/#proxy</a>
-                    </div>
-                </section>
-            </div>
-        </div>
         <div id="about">
-            <header><h1 data-i18n-content="About">About</h1></header>
+            <header><h1 data-i18n-content="About">О расширении</h1></header>
             <div class="content">
-            <h3>Chrome Web Store</h3>
-            <section class="section">
-                <img src="images/chrome_web_store.png"></img>
-                <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic">Proxy Helper</a>
-            </section>
-            <h3>Homepage</h3>
-            <section>
-                <div class="section">
-                    <img src="images/GitHub-Mark-32px.png"></img>
-                    <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">https://github.com/henices/Chrome-proxy-helper</a>
-                </div>
-            </section>
-            <h3>Author</h3>
-            <section>
-                <div>
-                <ul>
-                    <li>Email  : <a href="mailto:zhouzhenster@gmail.com">zhouzhenster@gmail.com</a></li>
-                    <li>Github : <a href="https://github.com/henices" target="_blank">@henices</a></li>
-                    <li>Twitter: <a href="https://twitter.com/henices" target="_blank">@henices</a></li>
-                </ul>
-                </div>
-            </section>
-            <h3>Open Source</h3>
-            <section>
-                <div>
-                    <table class="simpletable">
-                        <thead>
-                            <tr>
-                                <th>Library</th>
-                                <th>License</th>
-                            </tr>
-                        </thead>
-                        <tbody style="display: table-row-group;">
-                            <tr>
-                                <td><a href="https://jquery.org" target="_blank">jQuery</a></td>
-                                <td><a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" target="_blank">LICENSE.txt</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://github.com/roykolak/chrome-bootstrap" target="_blank">chrome-bootstrap</a></td>
-                                <td><a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a></td>
-                            </tr>
-                            <tr></tr>
-                            <tr></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+			<br>Переключатель прокси-серверов для Google Chrome. Простой и быстрый. Переключение прокси происходит только для Chrome, а не для всей системы в целом. Поддержка socks4, socks5, http и https прокси. Поддержка аутентификации.
+			<br><br>
+			Разработчик <a href="https://github.com/digitalduke" target="_blank">digitalduke</a><br>
+			Основано на <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">chrome-proxy-helper</a>
             </div>
         </div>
 

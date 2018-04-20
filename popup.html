@@ -1,45 +1,27 @@
+<!doctype html>
 <html>
     <head>
-        <title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Переключатель прокси</title>
         <link href="stylesheets/popup.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="javascripts/popup.js"></script>
     </head>
     <body>
         <ul>
-            <li id="pac-script">
+            <li id="use-proxy">
                 <div class="menu">
-                    <span id="pac" class="text" data-i18n-content="pac_script_set">PAC SCRIPT</span>
+                    <span id="use-proxy" class="text">Прокси включен</span>
                 </div>
             </li>
-            <li id="socks5-proxy">
+            <li id="no-proxy">
                 <div class="menu">
-                    <span id="socks5" class="text" data-i18n-content="socks_proxy_set">SOCKS PROXY</span>
+                    <span id="no-proxy" class="text">Прокси выключен</span>
                 </div>
             </li>
-            <li id="http-proxy">
+            <li id="sys-proxy" title="Использовать настроки операционный системы">
                 <div class="menu">
-                    <span id="http" class="text" data-i18n-content="http_proxy_set">HTTP PROXY</span>
-                </div>
-            </li>
-            <li id="https-proxy">
-                <div class="menu">
-                    <span id="https" class="text" data-i18n-content="https_proxy_set">HTTPS PROXY</span>
-                </div>
-            </li>
-            <li id="auto-detect" title="Proxy configuration is determined by WPAD">
-                <div class="menu">
-                    <span id="auto" class="text" data-i18n-content="auto_detect_set">AUTO DETECT</span>
-                </div>
-            </li>
-            <li id="sys-proxy" title="Use system's proxy settings">
-                <div class="menu">
-                    <span id="system" class="text" data-i18n-content="system_proxy">SYSTEM</span>
-                </div>
-            </li>
-            <li id="direct-proxy" title="Never use a proxy">
-                <div class="menu">
-                    <span id="direct" class="text" data-i18n-content="direct_proxy">DIRECT</span>
+                    <span id="sys-proxy" class="text">Системный</span>
                 </div>
             </li>
         </ul>
