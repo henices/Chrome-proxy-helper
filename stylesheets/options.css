@@ -1,43 +1,8 @@
-.chrome-bootstrap {font-size:14px;}
-
-.mainview { margin-left: 15px }
-
-input.editor-text { width: 100%; height: 100%; border: 0; margin: 0; background: transparent; outline: 0; padding: 0; text-align: center; min-height: 1.5em !important }
-select.editor-yesno { width: 100%; margin: 0; vertical-align: middle }
-input.editor-checkbox { position: inherit; margin: 4px 3px 3px 3px !important }
-.field_label { /*text-align: right;*/ display: inline-block; margin-right: .5em; }
-.field_input { margin-left: 10px }
-span.clear { clear: left; display: block }
-section div { margin-bottom: 5px }
-
-.row_active { background-color: white !important }
-.row_inactive { background-color: #e5e5e5 !important }
-.cell_active { color: Black !important }
-.cell_inactive { color: #d0d0d0 !important }
-.cell_inactive img { -webkit-filter: grayscale(100%); filter: grayscale(100%) }
-.note_text { font-weight: bold }
-
-table.simpletable { margin-top: 7px; margin-bottom: 7px; font-size: 11px; color: #333; border-width: 1px; border-color: #666; border-collapse: collapse }
-table.simpletable th {border-width: 1px; padding: 5px; border-style: solid; border-color: #666; background-color: #f0f0f0 }
-table.simpletable td {border-width: 1px;padding: 3px 7px 2px 7px;border-style: solid;border-color: #666;background-color: #fff;text-align: center}
-table.simpletable th {cursor: pointer}
-table.simpletable td:first-child {white-space: nowrap}
-table.simpletable td:last-child {text-align: left}
-
-#opensrc_table td:last-child {text-align: center}
-
-a.tooltip {outline:none;}
-a.tooltip strong {line-height:30px;}
-a.tooltip:hover {text-decoration:none;} 
-a.tooltip span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:240px; line-height:16px; }
-a.tooltip:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
-a.tooltip span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
-.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
-
-.section * {vertical-align:middle;}
-.section img {margin-right:.2em;}
-.chrome-bootstrap a {text-decoration:none;font-size:110%;}
-.chrome-bootstrap a:hover {text-decoration:underline;}
-.socks {display:block;margin-top:.6em;margin-left:1em;}
-.ip_label {display:inline-block;width:100px; margin-right:.2em;}
-.port_label {display:inline-block;width:44px; margin-left:.5em;}
+.c-b {font-size:14px;}
+.c-b a {text-decoration:none;font-size:110%;}
+.c-b a:hover {text-decoration:underline;}
+.ip_label {display:inline-block;}
+.port_label {display:inline-block; margin-left:.5em;}
+.type_label {display:inline-block; margin-left:.5em;}
+.login_label {display:inline-block;}
+.pswd_label {display:inline-block; margin-left:.5em;}

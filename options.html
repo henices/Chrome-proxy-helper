@@ -1,216 +1,83 @@
-﻿<meta name="google" value="notranslate" />
-<html>
+﻿<html>
 <head>
-    <title>Options</title>
+    <title>Настройки simple proxy switcher</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
-    <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
+	<script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="javascripts/options-ui.js"></script>
     <script type="text/javascript" src="javascripts/options.js"></script>
 </head>
-<body class="chrome-bootstrap">
+<body class="c-b">
     <div class="frame">
         <div class="navigation">
-            <h1>
-                <a style="font-size:18px" data-i18n-content="Options">Options</a>
-            </h1>
-
             <ul class="menu">
                 <li class="selected">
-                    <a href="#general" data-i18n-content="General">General</a>
-                </li>
-                <li>
-                    <a href="#rules" data-i18n-content="Rules">Rules</a>
+                    <a href="#general">Прокси</a>
                 </li>
             </ul>
             <ul class="menu">
                 <li>
-                    <a href="#help" data-i18n-content="Help">Help</a>
-                </li>
-                <li>
-                    <a href="#about" data-i18n-content="About">About</a>
+                    <a href="#about">О расширении</a>
                 </li>
             </ul>
         </div>
         <div class="mainview view">
         <div id="general" class="selected">
-            <header><h1 data-i18n-content="General">General</h1></header>
             <div class="content">
-                <h3 data-i18n-content="pac_script">Pac script</h3>
-                <section>
-                <div class="section">
-                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
-                    <select id="pac-type">
-                        <option>file://</option>
-                        <option>http://</option>
-                        <option>https://</option>
-                    </select>
-                    <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                    <a href='#' class='tooltip'>
-                        <img src="images/help.gif">
-                        <span>
-                            <img class="callout" src="images/callout.gif"/>
-                            <strong>Local pac script:</strong><br/>
-                            file:///c:/proxy.pac
-                            <br>
-                            <strong>Remote pac script:</strong><br/>
-                            http://127.0.0.1/proxy.pac
-                            https://127.0.0.1/proxy.pac
-                        </span>
-                    </a>
-                </div>
-                </section>
-                <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
+				<h3>Прокси</h3>
                 <section>
                     <div>
-                        <span class="ip_label" data-i18n-content="http_proxy">HTTP PROXY:</span>
-                        <input type="text" id="http-host" size="15"/>
-                        <span class="port_label" data-i18n-content="port">PORT:</span>
-                        <input type="text" size="6" id="http-port"/>
-                    </div>
-                    <div>
-                        <span class="ip_label" data-i18n-content="https_proxy">HTTPS PROXY:</span>
-                        <input type="text" id="https-host" size="15"/>
-                        <span class="port_label" data-i18n-content="port">PORT:</span>
-                        <input type="text" size="6" id="https-port"/>
-                    </div>
-                    <div>
-                        <span class="ip_label" data-i18n-content="socks_proxy">SOCKS PROXY:</span>
-                        <input type="text" id="socks-host" size="15"/>
-                        <span class="port_label" data-i18n-content="port">PORT:</span>
-                        <input type="text" size="6" id="socks-port"/>
-                    </div>
-                    <div class="socks">
-                        <input type="radio" id="socks4"/>
-                        <span style="font-size:80%;">SOCKS4</span>
-                        <input type="radio" id="socks5"/>
-                        <span style="font-size:80%;">SOCKS5</span>
+						<br>
+                        <span class="ip_label">Адрес:</span>
+                        <input type="text" id="proxy-host" size="15"/>
+                        <span class="port_label">Порт:</span>
+                        <input type="text" size="6" id="proxy-port"/>
+						<span class="type_label">Тип:</span>
+						<select id="proxy-type">
+							<option value="notype"></option>
+							<option value="socks4">socks4</option>
+							<option value="socks5">socks5</option>
+							<option value="http">http</option>
+							<option value="https">https</option>
+						</select>
+						<br><br>
                     </div>
                 </section>
-                <h3 data-i18n-content="authentication">Authentication</h3>
+                <h3>Аутентификация</h3>
                 <section>
                     <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
+						<br>
+                        <span class="login_label">Логин:</span>
                         <input type="text" id="username" size="15"></input>
-                    </div>
-                    <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
+                        <span class="pswd_label">Пароль:</span>
                         <input type="password" id="password" size="15"></input>
-                    </div>
-                </section>
-                <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
-                <section>
-                    <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy rules:</span>
-                        <select id="proxy-rule" >
-                            <option value="singleProxy">singleProxy</option>
-                            <option value="proxyForHttp">proxyForHttp</option>
-                            <option value="proxyForHttps">proxyForHttps</option>
-                            <option value="proxyForFtp">proxyForFtp</option>
-                        </select>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div id="rules">
-            <header><h1 data-i18n-content="Rules">Rules</h1></header>
-            <div class="content">
-                <h3 data-i18n-content="config_bypasslist">BypassList</h3>
-                <section>
-                    <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
-                    <div class="section">
-                        <textarea id="bypasslist" cols="42" rows="5" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
-                        <a href='#' class='tooltip'>
-                            <img src="images/help.gif">
-                            <span>
-                                <img class="callout" src="images/callout.gif"/>
-                                192.168.1.1/16,  <br/>
-                                *.foobar.com,    <br/>
-                                *foobar.com:99,  <br/>
-                                https://x.*.y.com:99
-                            </span>
-                        </a>
-                    </div>
-                    <h3 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
-                    <div class="checkbox">
-                        <input type="checkbox" id="use-china-list"/>
-                        <span data-i18n-content="china_list">China List</span>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div id="help">
-            <header><h1 data-i18n-content="Help">Help</h1></header>
-            <div class="content">
-                <h3>FAQ</h3>
-                <section>
-                    <div class="section">
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ"><img src="images/GitHub-Mark-32px.png" alt="FAQ" /></a>
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">https://github.com/henices/Chrome-proxy-helper/wiki/FAQ</a>
-                    </div>
-                </section>
-                <h3>Diagnosis</h3>
-                <section>
-                    <div>
-                        <a href="chrome://net-internals/#proxy" target="_blank" id="diagnosis">chrome://net-internals/#proxy</a>
-                    </div>
+					</div>
                 </section>
             </div>
         </div>
         <div id="about">
-            <header><h1 data-i18n-content="About">About</h1></header>
             <div class="content">
-            <h3>Chrome Web Store</h3>
-            <section class="section">
-                <img src="images/chrome_web_store.png"></img>
-                <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic">Proxy Helper</a>
-            </section>
-            <h3>Homepage</h3>
-            <section>
-                <div class="section">
-                    <img src="images/GitHub-Mark-32px.png"></img>
-                    <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">https://github.com/henices/Chrome-proxy-helper</a>
-                </div>
-            </section>
-            <h3>Author</h3>
-            <section>
-                <div>
-                <ul>
-                    <li>Email  : <a href="mailto:zhouzhenster@gmail.com">zhouzhenster@gmail.com</a></li>
-                    <li>Github : <a href="https://github.com/henices" target="_blank">@henices</a></li>
-                    <li>Twitter: <a href="https://twitter.com/henices" target="_blank">@henices</a></li>
-                </ul>
-                </div>
-            </section>
-            <h3>Open Source</h3>
-            <section>
-                <div>
-                    <table class="simpletable">
-                        <thead>
-                            <tr>
-                                <th>Library</th>
-                                <th>License</th>
-                            </tr>
-                        </thead>
-                        <tbody style="display: table-row-group;">
-                            <tr>
-                                <td><a href="https://jquery.org" target="_blank">jQuery</a></td>
-                                <td><a href="https://github.com/jquery/jquery/blob/master/LICENSE.txt" target="_blank">LICENSE.txt</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="https://github.com/roykolak/chrome-bootstrap" target="_blank">chrome-bootstrap</a></td>
-                                <td><a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a></td>
-                            </tr>
-                            <tr></tr>
-                            <tr></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            </div>
+				<h3>О расширении</h3>
+				<section>
+					<div>
+						<br>
+						Переключатель прокси-серверов для Google Chrome. Простой и быстрый. Переключение прокси происходит только для Chrome, а не для всей системы в целом. Поддержка socks4, socks5, http и https прокси. Поддержка аутентификации.
+						<br><br>
+						Разработчик <a href="https://github.com/digitalduke" target="_blank">digitalduke</a><br>
+						Основано на <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">chrome-proxy-helper</a>
+						<br><br>
+					</div>
+				</section>
+				<h3>Обратная связь</h3>
+				<section>
+					<div>
+					<br>
+					Предложения, пожелания или сообщение об ошибке? Напишите мне на <a href="https://github.com/digitalduke/simple-proxy-switcher/issues" target="_blank">GitHub</a>.
+					</div>
+				</section>
+			</div>
         </div>
-
     </div>
     </div>
 </body>
