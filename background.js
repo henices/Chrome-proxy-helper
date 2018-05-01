@@ -1,5 +1,3 @@
-
-
 function setProxyIcon() {
 
     var icon = {

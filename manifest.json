@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "simple proxy switcher",
     "version": "1.0",
-	"description": "Переключатель прокси-серверов",
+		"description": "Переключатель прокси-серверов. Переключение прокси происходит только для Chrome, а не для всей системы в целом. Поддержка socks4, socks5, http и https прокси. Поддержка аутентификации.",
 
     "icons": {
         "128": "images/on.png",
