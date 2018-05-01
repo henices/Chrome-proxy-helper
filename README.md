@@ -1,4 +1,4 @@
-# Simple proxy switcher ([english version](README_en.md))
+# Simple proxy switcher
 Переключатель прокси-серверов для Google Chrome. Простой и быстрый. Переключение прокси происходит только для Chrome, а не для всей системы в целом. Поддержка socks4, socks5, http и https прокси. Поддержка аутентифиакации.
 
 # Установка
