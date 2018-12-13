@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
-    <script type="text/javascript" src="javascripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="javascripts/options-ui.js"></script>
     <script type="text/javascript" src="javascripts/options.js"></script>
 </head>
@@ -116,11 +116,11 @@
         <div id="rules">
             <header><h1 data-i18n-content="Rules">Rules</h1></header>
             <div class="content">
-                <h3 data-i18n-content="config_bypasslist">BypassList</h3>
+                <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                 <section>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div class="section">
-                        <textarea id="bypasslist" cols="42" rows="5" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                        <textarea id="bypasslist" cols="42" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
                         <a href='#' class='tooltip'>
                             <img src="images/help.gif">
                             <span>
@@ -136,6 +136,11 @@
                     <div class="checkbox">
                         <input type="checkbox" id="use-china-list"/>
                         <span data-i18n-content="china_list">China List</span>
+                    </div>
+                    <h3 data-i18n-content="config_proxylist">Proxy List</h3>
+                    <p data-i18n-content="domain_in_proxy">Domains in list will use a proxy</p>
+                    <div class="section">
+                        <textarea id="proxylist" cols="42" rows="10" placeholder=""></textarea>
                     </div>
                 </section>
             </div>

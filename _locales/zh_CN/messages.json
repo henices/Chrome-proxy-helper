@@ -139,7 +139,12 @@
     },
     "pac_script" : {
         "message" : "Pac 脚本"
+    },
+    "config_proxylist": {
+        "message": "设置代理黒名单"
+    },
+    "domain_in_proxy": {
+        "message": "在黑名单里的域名将使用代理"
     }
-
 }
 
