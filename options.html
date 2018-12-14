@@ -117,6 +117,13 @@
             <header><h1 data-i18n-content="Rules">Rules</h1></header>
             <div class="content">
                 <section>
+                    <h3 data-i18n-content="rules_mode">Rules Mode</h3>
+                    <select>
+                        <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
+                        <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
+                    </select>
+                </section>
+                <section>
                     <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div class="section">
@@ -132,7 +139,7 @@
                             </span>
                         </a>
                     </div>
-                    <h3 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
+                    <h4 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
                     <div class="checkbox">
                         <input type="checkbox" id="use-china-list"/>
                         <span data-i18n-content="china_list">China List</span>
@@ -144,13 +151,6 @@
                     <div class="section">
                         <textarea id="proxylist" cols="50" rows="10" placeholder=""></textarea>
                     </div>
-                </section>
-                <section>
-                    <h3 data-i18n-content="rules_mode">Rules Mode</h3>
-                    <select>
-                        <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
-                        <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
-                    </select>
                 </section>
             </div>
         </div>
