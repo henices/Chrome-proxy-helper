@@ -78,7 +78,7 @@
         "message" : "BYPASS列表"
     },
     "proxy_rules" : {
-        "message" : "PROXY规则:"
+        "message" : "PROXY模式: "
     },
     "return" : {
         "message" : "返回"
@@ -141,10 +141,19 @@
         "message" : "Pac 脚本"
     },
     "config_proxylist": {
-        "message": "设置代理黒名单"
+        "message": "设置代理黑名单"
     },
     "domain_in_proxy": {
         "message": "在黑名单里的域名将使用代理"
+    },
+    "rules_mode": {
+        "message": "设置规则模式"
+    },
+    "Whitelist": {
+        "message": "白名单"
+    },
+    "Blacklist": {
+        "message": "黑名单"
     }
 }
 

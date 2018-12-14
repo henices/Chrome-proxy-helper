@@ -102,7 +102,7 @@
                 <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
                 <section>
                     <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy rules:</span>
+                        <span class="field_label" style="width: 100px;" data-i18n-content="proxy_rules">Proxy mode: </span>
                         <select id="proxy-rule" >
                             <option value="singleProxy">singleProxy</option>
                             <option value="proxyForHttp">proxyForHttp</option>
@@ -116,11 +116,11 @@
         <div id="rules">
             <header><h1 data-i18n-content="Rules">Rules</h1></header>
             <div class="content">
-                <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                 <section>
+                    <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div class="section">
-                        <textarea id="bypasslist" cols="42" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                        <textarea id="bypasslist" cols="50" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
                         <a href='#' class='tooltip'>
                             <img src="images/help.gif">
                             <span>
@@ -137,11 +137,20 @@
                         <input type="checkbox" id="use-china-list"/>
                         <span data-i18n-content="china_list">China List</span>
                     </div>
+                </section>
+                <section>
                     <h3 data-i18n-content="config_proxylist">Proxy List</h3>
                     <p data-i18n-content="domain_in_proxy">Domains in list will use a proxy</p>
                     <div class="section">
-                        <textarea id="proxylist" cols="42" rows="10" placeholder=""></textarea>
+                        <textarea id="proxylist" cols="50" rows="10" placeholder=""></textarea>
                     </div>
+                </section>
+                <section>
+                    <h3 data-i18n-content="rules_mode">Rules Mode</h3>
+                    <select>
+                        <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
+                        <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
+                    </select>
                 </section>
             </div>
         </div>
