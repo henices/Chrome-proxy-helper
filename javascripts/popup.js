@@ -313,11 +313,25 @@ document.addEventListener('DOMContentLoaded', function () {
             $(this).html(message);
     });
 
+    if (!httpHost) {
+        $('#http-proxy').hide();
+    }
+
+    if (!socksHost) {
+        $('#socks5-proxy').hide();
+    }
+
+    if (!httpsHost) {
+        $('#https-proxy').hide();
+    }
+
+    if (!pacScriptUrl) {
+        $('#pac-script').hide();
+    }
+
 });
 
 $(document).ready(function() {
     color_proxy_item();
     add_li_title();
 });
-
-
