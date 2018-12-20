@@ -17,6 +17,7 @@ function loadProxyData() {
       $('#https-port').val(proxySetting['https_port'] || "");
       $('#pac-type').val(proxySetting['pac_type'] || "file://");
       $('#bypasslist').val(proxySetting['bypasslist'] || "");
+      $('#rules-mode').val(proxySetting['rules_mode'] || "Whitelist");
       $('#proxy-rule').val(proxySetting['proxy_rule'] || "singleProxy");
       $('#username').val(proxySetting['auth']['user'] || "");
       $('#password').val(proxySetting['auth']['pass'] || "");
@@ -36,6 +37,20 @@ function loadProxyData() {
 
       if (proxySetting['internal'] == 'china') {
           $('#use-china-list').attr('checked', true);
+      }
+
+      if (proxySetting['rules_mode'] == 'Whitelist') {
+          $('#bypasslist').prop('disabled', false);
+          $('#proxylist').prop('disabled', true);
+          $('#china-list').prop('disabled', false);
+          $('#blacklist').hide();
+          $('#whitelist').show();
+      } else {
+          $('#bypasslist').prop('disabled', true);
+          $('#proxylist').prop('disabled', false);
+          $('#china-list').prop('disabled', true);
+          $('#blacklist').show();
+          $('#whitelist').hide();
       }
 
   });
@@ -320,6 +335,7 @@ function save() {
   proxySetting['pac_type'] = $('#pac-type').val() || "";
   proxySetting['bypasslist'] = $('#bypasslist').val() || "";
   proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
+  proxySetting['rules_mode'] = $('#rules-mode').val() || "";
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
@@ -446,13 +462,9 @@ function getPac() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    $('#btn-save').click(function() {
-        save();
-    });
+    $('#btn-save').click(function() { save(); });
 
-    $('#btn-cancel').click(function() {
-        location.reload();
-    });
+    $('#btn-cancel').click(function() { location.reload(); });
 
     $('#socks4').change(function() {
         $('#socks5').attr('checked', false);
@@ -466,14 +478,13 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.tabs.create({url: 'chrome://net-internals/#proxy'});
     });
 
-    $('input').change(
-        function() { save(); });
+    $('input').change(function() { save(); });
 
-    $('textarea').change(
-        function() { save(); });
+    $('textarea').change(function() { save(); });
 
-    $('#proxy-rule').change(
-        function() { save(); });
+    $('#proxy-rule').change(function() { save(); });
+
+    $('#rules-mode').change(function() { save(); });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
     $('#pac-type').change(function() {

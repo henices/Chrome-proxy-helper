@@ -118,16 +118,16 @@
             <div class="content">
                 <section>
                     <h3 data-i18n-content="rules_mode">Rules Mode</h3>
-                    <select>
+                    <select id='rules-mode'>
                         <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
                         <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
                     </select>
                 </section>
-                <section>
+                <section id='whitelist'>
                     <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div class="section">
-                        <textarea id="bypasslist" cols="50" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                        <textarea id="bypasslist" cols="40" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
                         <a href='#' class='tooltip'>
                             <img src="images/help.gif">
                             <span>
@@ -141,15 +141,15 @@
                     </div>
                     <h4 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
                     <div class="checkbox">
-                        <input type="checkbox" id="use-china-list"/>
+                        <input id='china-list' type="checkbox" id="use-china-list"/>
                         <span data-i18n-content="china_list">China List</span>
                     </div>
                 </section>
-                <section>
+                <section id='blacklist'>
                     <h3 data-i18n-content="config_proxylist">Proxy List</h3>
                     <p data-i18n-content="domain_in_proxy">Domains in list will use a proxy</p>
                     <div class="section">
-                        <textarea id="proxylist" cols="50" rows="10" placeholder=""></textarea>
+                        <textarea id="proxylist" cols="40" rows="10" placeholder=""></textarea>
                     </div>
                 </section>
             </div>
