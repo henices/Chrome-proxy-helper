@@ -78,7 +78,7 @@
         "message" : "Белый список"
     },
     "proxy_rules" : {
-        "message" : "Правила прокси:"
+        "message" : "Режим прокси:"
     },
     "return" : {
         "message" : "Назад"
@@ -139,7 +139,20 @@
     },
     "pac_script" : {
         "message" : "PAC-скрипт"
+    },
+    "config_proxylist": {
+        "message": "Чёрный список для прокси"
+    },
+    "domain_in_proxy": {
+        "message": "Домены в чёрном списке будут использовать прокси"
+    },
+    "rules_mode": {
+        "message": "Настройка режима правил"
+    },
+    "Whitelist": {
+        "message": "Белый список"
+    },
+    "Blacklist": {
+        "message": "Чёрный список"
     }
-
 }
-
