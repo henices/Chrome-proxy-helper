@@ -103,7 +103,7 @@ chrome.runtime.onInstalled.addListener(function(details){
         localStorage.proxySetting = JSON.stringify(proxySetting);
         gotoPage('options.html');
     }
-    else if(details.reason == "update"){
+    else if(details.reason == "update") {
         gotoPage('CHANGELOG');
     }
 });
@@ -118,6 +118,12 @@ chrome.commands.onCommand.addListener(function(command) {
 chrome.storage.sync.get('proxySetting', function(val) {
     if (typeof val.proxySetting !== "undefined")
         localStorage.proxySetting = val.proxySetting;
+});
+
+chrome.proxy.onProxyError.addListener(function(details) {
+    console.log("fatal: ", details.fatal);
+    console.log("error: ", details.error);
+    console.log("details: ", details.details)
 });
 
 setProxyIcon();
