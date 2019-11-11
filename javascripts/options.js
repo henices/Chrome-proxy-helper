@@ -52,7 +52,6 @@ function loadProxyData() {
           $('#blacklist').show();
           $('#whitelist').hide();
       }
-
   });
 
 }
@@ -160,7 +159,6 @@ function getProxyInfo(callback) {
 
     chrome.proxy.settings.get({'incognito': false},
     function(config) {
-        // console.log(JSON.stringify(config));
         mode = config['value']['mode'];
         rules = config['value']['rules'];
 
@@ -240,6 +238,7 @@ function reloadProxy() {
             config.mode = 'pac_script';
             config["pacScript"]["url"] = pacType +
                 proxySetting['pac_script_url'][proto];
+            //console.log(pacType +  proxySetting['pac_script_url'][proto]);
 
         } else {
 
@@ -296,7 +295,6 @@ function reloadProxy() {
             value: config,
             scope: 'regular'}, function() {})
     });
-
 }
 
 /**
@@ -489,7 +487,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var proxySetting = JSON.parse(localStorage.proxySetting);
     $('#pac-type').change(function() {
         var type = $('#pac-type').val().split(':')[0];
+        //console.log(type);
         $('#pac-script-url').val(proxySetting['pac_script_url'][type]);
+        save();
+    });
+
+    $('#pac-script-url').change(function() {
         save();
     });
 
