@@ -158,7 +158,7 @@ function loadOldInfo() {
  * and display on the options page
  *
  */
-function getProxyInfo(callback) {
+function getProxyInfo() {
 
     var proxyInfo;
     var proxySetting = JSON.parse(localStorage.proxySetting);
@@ -198,7 +198,6 @@ function getProxyInfo(callback) {
             proxyInfo = rules[proxyRule]['scheme'];
 
         localStorage.proxyInfo = proxyInfo;
-        callback(proxyInfo);
     });
 }
 
@@ -232,84 +231,84 @@ function reloadProxy() {
     };
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
+    //console.log('proxySetting: ', proxySetting);
+    var info = localStorage.proxyInfo;
 
-    getProxyInfo(function(info) {
+    if (typeof info === 'undefined' ||
+       info == 'direct' || info == 'system' ) {
+        return;
+    }
 
-        if (typeof info === 'undefined' ||
-           info == 'direct' || info == 'system' ) {
-            return;
+    if (info == 'pac_url') {
+        var pacType = proxySetting['pac_type'];
+        var proto = pacType.split(':')[0];
+
+        config.mode = 'pac_script';
+        config["pacScript"]["url"] = pacType +
+            proxySetting['pac_script_url'][proto];
+        //console.log(pacType +  proxySetting['pac_script_url'][proto]);
+
+    } else {
+
+        switch(info) {
+
+        case 'http':
+            proxy.type = 'http';
+            proxy.host = proxySetting['http_host'];
+            proxy.port = parseInt(proxySetting['http_port']);
+            break;
+
+        case 'https':
+            proxy.type = 'https';
+            proxy.host = proxySetting['https_host'];
+            proxy.port = parseInt(proxySetting['https_port']);
+            break;
+
+        case 'socks4':
+            proxy.type = 'socks4';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
+            break;
+
+        case 'socks5':
+            proxy.type = 'socks5';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
+            break;
+
+        case 'quic':
+            proxy.type = 'quic';
+            proxy.host = proxySetting['quic_host'];
+            proxy.port = parseInt(proxySetting['quic_port']);
+            break;
         }
 
-        if (info == 'pac_url') {
-            var pacType = proxySetting['pac_type'];
-            var proto = pacType.split(':')[0];
+        var rule = proxySetting['proxy_rule'];
+        if (proxy.type == 'http' && rule == 'fallbackProxy')
+            rule = 'singleProxy';
+        var chinaList = JSON.parse(localStorage.chinaList);
+        var bypasslist = proxySetting['bypasslist'];
 
-            config.mode = 'pac_script';
-            config["pacScript"]["url"] = pacType +
-                proxySetting['pac_script_url'][proto];
-            //console.log(pacType +  proxySetting['pac_script_url'][proto]);
-
+        if (proxySetting['internal'] == 'china') {
+            bypasslist = chinaList.concat(bypasslist.split(','));
         } else {
-
-            switch(info) {
-
-            case 'http':
-                proxy.type = 'http';
-                proxy.host = proxySetting['http_host'];
-                proxy.port = parseInt(proxySetting['http_port']);
-                break;
-
-            case 'https':
-                proxy.type = 'https';
-                proxy.host = proxySetting['https_host'];
-                proxy.port = parseInt(proxySetting['https_port']);
-                break;
-
-            case 'socks4':
-                proxy.type = 'socks4';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
-                break;
-
-            case 'socks5':
-                proxy.type = 'socks5';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
-                break;
-
-            case 'quic':
-                proxy.type = 'quic';
-                proxy.host = proxySetting['quic_host'];
-                proxy.port = parseInt(proxySetting['quic_port']);
-                break;
-            }
-
-            var rule = proxySetting['proxy_rule'];
-            var chinaList = JSON.parse(localStorage.chinaList);
-            var bypasslist = proxySetting['bypasslist'];
-
-            if (proxySetting['internal'] == 'china') {
-                bypasslist = chinaList.concat(bypasslist.split(','));
-            } else {
-                bypasslist = 
-                  bypasslist ? bypasslist.split(',') : ['<local>'];
-            }
-
-            config.mode = "fixed_servers";
-            config.rules.bypassList = uniqueArray(bypasslist);
-            config["rules"][rule] = {
-                scheme: proxy.type,
-                host: proxy.host,
-                port: parseInt(proxy.port)
-            };
+            bypasslist = bypasslist ? bypasslist.split(',') : ['<local>'];
         }
 
-        //console.log(JSON.stringify(config));
+        config.mode = "fixed_servers";
+        config.rules.bypassList = uniqueArray(bypasslist);
+        config["rules"][rule] = {
+            scheme: proxy.type,
+            host: proxy.host,
+            port: parseInt(proxy.port)
+        };
+    }
 
-        chrome.proxy.settings.set({
-            value: config,
-            scope: 'regular'}, function() {})
-    });
+    //console.log(JSON.stringify(config));
+    chrome.proxy.settings.set({
+        value: config,
+        scope: 'regular'}, function() {})
+
 }
 
 /**
@@ -522,4 +521,4 @@ if (!localStorage.firstime)
 else
     loadProxyData();
 
-getProxyInfo(function(info) {});
+getProxyInfo();

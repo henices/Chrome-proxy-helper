@@ -201,6 +201,9 @@ function httpProxy() {
 
     if (!httpHost) return;
 
+    if (proxyRule == 'fallbackProxy')
+        proxyRule = 'singleProxy';
+
     config['rules'][proxyRule] = {
                              scheme: 'http',
                              host: httpHost,
