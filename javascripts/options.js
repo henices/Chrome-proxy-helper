@@ -38,7 +38,7 @@ function loadProxyData() {
       }
 
       if (proxySetting['internal'] == 'china') {
-          $('#use-china-list').attr('checked', true);
+          $('#china-list').attr('checked', true);
       }
 
       if (proxySetting['rules_mode'] == 'Whitelist') {
@@ -364,7 +364,7 @@ function save() {
   else
       proxySetting['auth']['enable'] = '';
 
-  if ($('#use-china-list').is(':checked')) {
+  if ($('#china-list').is(':checked')) {
       proxySetting['internal'] = "china";
   }
   else {
@@ -499,6 +499,8 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#proxy-rule').change(function() { save(); });
 
     $('#rules-mode').change(function() { save(); });
+
+    $('#chinalist').change(function() { save(); });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
     $('#pac-type').change(function() {
