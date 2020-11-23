@@ -56,6 +56,9 @@
     "https_proxy" : {
         "message" : "HTTPS代理:"
     },
+    "quic_proxy" : {
+        "message" : "QUIC代理:"
+    },
     "socks_proxy" : {
         "message" : "SOCKS代理:"
     },
@@ -115,6 +118,9 @@
     },
     "https_proxy_set" : {
         "message" : "HTTPS代理"
+    },
+    "quic_proxy_set" : {
+        "message" : "QUIC代理"
     },
     "auto_detect_set" : {
         "message" : "自动检测"

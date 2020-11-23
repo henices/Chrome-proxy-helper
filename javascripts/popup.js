@@ -20,6 +20,8 @@ var httpsHost = proxySetting['https_host'];
 var httpsPort = proxySetting['https_port'];
 var pacType = proxySetting['pac_type'];
 var pacScriptUrl = proxySetting['pac_script_url'];
+var quicHost = proxySetting['quic_host'];
+var quicPort = proxySetting['quic_port'];
 var chinaList = JSON.parse(localStorage.chinaList);
 
 if (proxySetting['internal'] == 'china') {
@@ -33,7 +35,7 @@ if (proxySetting['internal'] == 'china') {
  *
  */
 function add_li_title() {
-    var _http, _https, _socks, _pac;
+    var _http, _https, _socks, _pac, _quic;
 
     if (httpHost && httpPort) {
         _http = 'http://' + httpHost + ':' + httpPort;
@@ -51,6 +53,9 @@ function add_li_title() {
     if (socksHost && socksPort) {
         _socks = socksType + '://' + socksHost + ':' + socksPort;
         $('#socks5-proxy').attr('title', _socks);
+    }
+    if (quicHost && quicPort) {
+        _quic = 'quic://' + quicHost + ':' + quicPort;
     }
 }
 
@@ -76,6 +81,8 @@ function color_proxy_item() {
                 proxyRule = 'proxyForHttps'
             } else if (rules.hasOwnProperty('proxyForFtp')) {
                 proxyRule = 'proxyForFtp';
+            } else if (rules.hasOwnProperty('fallbackProxy')) {
+                proxyRule = 'fallbackProxy';
             }
 
         }
@@ -93,15 +100,14 @@ function color_proxy_item() {
 
             if (scheme == 'http') {
                 $('#http-proxy').addClass('selected');
-            }
-            else if (scheme == 'https') {
+            } else if (scheme == 'https') {
                 $('#https-proxy').addClass('selected');
-            }
-            else if (scheme == 'socks5') {
+            } else if (scheme == 'socks5') {
                 $('#socks5-proxy').addClass('selected');
-            }
-            else if (scheme == 'socks4') {
+            } else if (scheme == 'socks4') {
                 $('#socks5-proxy').addClass('selected');
+            } else if (scheme == 'quic') {
+                $('#quic-proxy').addClass('selected');
             }
         }
     });
@@ -238,6 +244,32 @@ function httpsProxy() {
     proxySelected('https-proxy');
 }
 
+function quicProxy() {
+
+    var config = {
+        mode: 'fixed_servers',
+        rules: {
+            bypassList:bypasslist
+        }
+    };
+
+    if (!quicHost) return;
+
+    config['rules'][proxyRule] = {
+                             scheme: 'quic',
+                             host: quicHost,
+                             port: parseInt(quicPort)
+                         };
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('quic-proxy');
+
+}
+
 /**
  * set direct proxy
  *
@@ -303,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#socks5-proxy').addEventListener('click', socks5Proxy);
     document.querySelector('#http-proxy').addEventListener('click', httpProxy);
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
+    document.querySelector('#quic-proxy').addEventListener('click', quicProxy);
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
     document.querySelector('#auto-detect').addEventListener('click', autoProxy);
@@ -327,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!pacScriptUrl) {
         $('#pac-script').hide();
+    }
+
+    if (!quicHost) {
+        $('#quic-proxy').hide();
     }
 
 });

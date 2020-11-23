@@ -42,7 +42,9 @@
                 <div class="section">
                     <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
                     <select id="pac-type">
+                        <!--
                         <option>file://</option>
+                        -->
                         <option>http://</option>
                         <option>https://</option>
                     </select>
@@ -56,6 +58,7 @@
                             <br>
                             <strong>Remote pac script:</strong><br/>
                             http://127.0.0.1/proxy.pac
+                            <br>
                             https://127.0.0.1/proxy.pac
                         </span>
                     </a>
@@ -87,13 +90,26 @@
                         <input type="radio" id="socks5"/>
                         <span style="font-size:80%;">SOCKS5</span>
                     </div>
+                    <div>
+                        <span class="ip_label" data-i18n-content="quic_proxy">QUIC PROXY:</span>
+                        <input type="text" id="quic-host" size="15"/>
+                        <span class="port_label" data-i18n-content="port">PORT:</span>
+                        <input type="text" size="6" id="quic-port"/>
+                    </div>
                 </section>
                 <h3 data-i18n-content="authentication">Authentication</h3>
-                <section>
+               <section>
                     <div>
                         <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
                         <input type="text" id="username" size="15"></input>
-                    </div>
+                    <a href='#' class='tooltip'>
+                        <img src="images/help.gif">
+                        <span>
+                            <img class="callout" src="images/callout.gif"/>
+                            <strong>chrome api doesn't support socks authentication</strong><br/>
+                        </span>
+                    </a>
+                        </div>
                     <div>
                         <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
                         <input type="password" id="password" size="15"></input>
@@ -108,6 +124,7 @@
                             <option value="proxyForHttp">proxyForHttp</option>
                             <option value="proxyForHttps">proxyForHttps</option>
                             <option value="proxyForFtp">proxyForFtp</option>
+                            <option value="fallbackProxy">fallbackProxy</option>
                         </select>
                     </div>
                 </section>
@@ -120,7 +137,9 @@
                     <h3 data-i18n-content="rules_mode">Rules Mode</h3>
                     <select id='rules-mode'>
                         <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
+                        <!--
                         <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
+                        -->
                     </select>
                 </section>
                 <section id='whitelist'>
