@@ -155,6 +155,7 @@ function pacProxy() {
 
     iconSet('on');
     proxySelected('pac-script');
+    localStorage.proxyInfo = 'pac_url';
 }
 
 /**
@@ -184,6 +185,7 @@ function socks5Proxy() {
 
     iconSet('on');
     proxySelected('socks5-proxy');
+    localStorage.proxyInfo = 'socks5';
 }
 
 /**
@@ -216,6 +218,7 @@ function httpProxy() {
 
     iconSet('on');
     proxySelected('http-proxy');
+    localStorage.proxyInfo = 'http';
 }
 
 /**
@@ -245,6 +248,7 @@ function httpsProxy() {
 
     iconSet('on');
     proxySelected('https-proxy');
+    localStorage.proxyInfo = 'https';
 }
 
 function quicProxy() {
@@ -270,7 +274,7 @@ function quicProxy() {
 
     iconSet('on');
     proxySelected('quic-proxy');
-
+    localStorage.proxyInfo = 'quic';
 }
 
 /**
@@ -289,6 +293,7 @@ function directProxy() {
 
     iconSet('off');
     proxySelected('direct-proxy');
+    localStorage.proxyInfo = 'direct';
 }
 
 /**
@@ -307,6 +312,7 @@ function sysProxy() {
 
     iconSet('off');
     proxySelected('sys-proxy')
+    localStorage.proxyInfo = 'system';
 }
 
 /**
@@ -325,6 +331,7 @@ function autoProxy() {
 
     iconSet('on');
     proxySelected('auto-detect')
+    localStorage.proxyInfo = 'auto_detect';
 }
 
 
