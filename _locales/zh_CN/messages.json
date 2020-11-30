@@ -104,6 +104,9 @@
     "authentication" : {
         "message" : "认证设置"
     },
+    "authConfig" : {
+        "message" : "认证"
+    },
     "password_authentication": {
         "message" : "使用密码认证"
     },

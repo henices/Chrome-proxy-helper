@@ -21,7 +21,13 @@
                     <a href="#general" data-i18n-content="General">General</a>
                 </li>
                 <li>
+                    <a href="#pac-config" data-i18n-content="PAC">PAC</a>
+                </li>
+                <li>
                     <a href="#rules" data-i18n-content="Rules">Rules</a>
+                </li>
+                <li>
+                    <a href="#auth-config" data-i18n-content="authConfig">Authentication</a>
                 </li>
             </ul>
             <ul class="menu">
@@ -32,35 +38,8 @@
         </div>
         <div class="mainview view">
         <div id="general" class="selected">
-            <header><h1 data-i18n-content="General">General</h1></header>
+            <header><h1></h1></header>
             <div class="content">
-                <h3 data-i18n-content="pac_script">Pac script</h3>
-                <section>
-                <div class="section">
-                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
-                    <select id="pac-type">
-                        <!--
-                        <option>file://</option>
-                        -->
-                        <option>http://</option>
-                        <option>https://</option>
-                    </select>
-                    <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                    <a href='#' class='tooltip'>
-                        <img src="images/help.gif">
-                        <span>
-                            <img class="callout" src="images/callout.gif"/>
-                            <strong>Local pac script:</strong><br/>
-                            file:///c:/proxy.pac
-                            <br>
-                            <strong>Remote pac script:</strong><br/>
-                            http://127.0.0.1/proxy.pac
-                            <br>
-                            https://127.0.0.1/proxy.pac
-                        </span>
-                    </a>
-                </div>
-                </section>
                 <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
                 <section>
                     <div>
@@ -94,24 +73,6 @@
                         <input type="text" size="6" id="quic-port"/>
                     </div>
                 </section>
-                <h3 data-i18n-content="authentication">Authentication</h3>
-               <section>
-                    <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
-                        <input type="text" id="username" size="15"></input>
-                    <a href='#' class='tooltip'>
-                        <img src="images/help.gif">
-                        <span>
-                            <img class="callout" src="images/callout.gif"/>
-                            <strong>chrome api doesn't support socks authentication</strong><br/>
-                        </span>
-                    </a>
-                        </div>
-                    <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
-                        <input type="password" id="password" size="15"></input>
-                    </div>
-                </section>
                 <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
                 <section>
                     <div>
@@ -128,7 +89,7 @@
             </div>
         </div>
         <div id="rules">
-            <header><h1 data-i18n-content="Rules">Rules</h1></header>
+            <header><h1></h1></header>
             <div class="content">
                 <section>
                     <h3 data-i18n-content="rules_mode">Rules Mode</h3>
@@ -168,6 +129,58 @@
                         <textarea id="proxylist" cols="40" rows="10" placeholder=""></textarea>
                     </div>
                 </section>
+            </div>
+        </div>
+        <div id="auth-config">
+           <header><h1></h1></header>
+           <div class="content">
+           <h3 data-i18n-content="authentication">Authentication</h3>
+           <section>
+                <div>
+                    <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
+                    <input type="text" id="username" size="15"></input>
+                <a href='#' class='tooltip'>
+                    <img src="images/help.gif">
+                    <span>
+                        <img class="callout" src="images/callout.gif"/>
+                        <strong>chrome api doesn't support socks authentication</strong><br/>
+                    </span>
+                </a>
+                    </div>
+                <div>
+                    <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
+                    <input type="password" id="password" size="15"></input>
+                </div>
+            </section>
+            </div>
+        </div>
+        <div id="pac-config">
+            <header><h1></h1></header>
+            <div class="content">
+            <h3 data-i18n-content="pac_script">Pac script</h3>
+            <section>
+                <div class="section">
+                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
+                    <select id="pac-type">
+                        <!--
+                        <option>file://</option>
+                        -->
+                        <option>http://</option>
+                        <option>https://</option>
+                    </select>
+                    <input type="text" size="40" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                    <a href='#' class='tooltip'>
+                        <img src="images/help.gif">
+                        <span>
+                            <img class="callout" src="images/callout.gif"/>
+                            <strong>Remote pac script:</strong><br/>
+                            http://127.0.0.1/proxy.pac
+                            <br>
+                            https://127.0.0.1/proxy.pac
+                        </span>
+                    </a>
+                </div>
+            </section>
             </div>
         </div>
         <div id="about">
