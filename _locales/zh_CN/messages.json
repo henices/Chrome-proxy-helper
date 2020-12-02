@@ -107,6 +107,9 @@
     "authConfig" : {
         "message" : "认证"
     },
+    "pac_data" : {
+        "message" : "Pac 脚本"
+    },
     "password_authentication": {
         "message" : "使用密码认证"
     },
