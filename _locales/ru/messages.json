@@ -3,7 +3,7 @@
         "message" : "Помощник прокси"
     },
     "appDesc": {
-        "message" : "Установка прокси для браузера Google Chrome"
+        "message" : "Управление прокси в браузере Google Chrome"
     },
     "title" : {
         "message" : "Помощник прокси"
@@ -56,6 +56,9 @@
     "https_proxy" : {
         "message" : "HTTPS-прокси:"
     },
+    "quic_proxy" : {
+        "message" : "QUIC-прокси:"
+    },
     "socks_proxy" : {
         "message" : "SOCKS-прокси:"
     },
@@ -69,7 +72,7 @@
         "message" : "Порт:"
     },
     "pac_path" : {
-        "message" : "Путь к PAC-файлу:"
+        "message" : "PAC-файл:"
     },
     "edit_pac_data" : {
         "message" : "Редактировать PAC-скрипт"
@@ -99,10 +102,13 @@
         "message" : "Пароль:"
     },
     "authentication" : {
+        "message" : "Настройки аутентификации"
+    },
+    "authConfig" : {
         "message" : "Аутентификация"
     },
     "password_authentication": {
-        "message" : "Использовать проверку пароля"
+        "message" : "Использовать пароль"
     },
     "pac_script_set" : {
         "message" : "PAC-скрипт"
@@ -115,6 +121,9 @@
     },
     "https_proxy_set" : {
         "message" : "HTTPS-прокси"
+    },
+    "quic_proxy_set" : {
+        "message" : "QUIC-прокси"
     },
     "auto_detect_set" : {
         "message" : "Автоматически"
@@ -156,3 +165,4 @@
         "message": "Чёрный список"
     }
 }
+
