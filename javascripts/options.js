@@ -11,12 +11,15 @@ function loadProxyData() {
 
       $('#socks-host').val(proxySetting['socks_host'] || "");
       $('#socks-port').val(proxySetting['socks_port'] || "");
+      $('#quic-host').val(proxySetting['quic_host'] || "");
+      $('#quic-port').val(proxySetting['quic_port'] || "");
       $('#http-host').val(proxySetting['http_host'] || "");
       $('#http-port').val(proxySetting['http_port'] || "");
       $('#https-host').val(proxySetting['https_host'] || "");
       $('#https-port').val(proxySetting['https_port'] || "");
       $('#pac-type').val(proxySetting['pac_type'] || "file://");
       $('#bypasslist').val(proxySetting['bypasslist'] || "");
+      $('#rules-mode').val(proxySetting['rules_mode'] || "Whitelist");
       $('#proxy-rule').val(proxySetting['proxy_rule'] || "singleProxy");
       $('#username').val(proxySetting['auth']['user'] || "");
       $('#password').val(proxySetting['auth']['pass'] || "");
@@ -35,9 +38,22 @@ function loadProxyData() {
       }
 
       if (proxySetting['internal'] == 'china') {
-          $('#use-china-list').attr('checked', true);
+          $('#china-list').attr('checked', true);
       }
 
+      if (proxySetting['rules_mode'] == 'Whitelist') {
+          $('#bypasslist').prop('disabled', false);
+          $('#proxylist').prop('disabled', true);
+          $('#china-list').prop('disabled', false);
+          $('#blacklist').hide();
+          $('#whitelist').show();
+      } else {
+          $('#bypasslist').prop('disabled', true);
+          $('#proxylist').prop('disabled', false);
+          $('#china-list').prop('disabled', true);
+          $('#blacklist').show();
+          $('#whitelist').hide();
+      }
   });
 
 }
@@ -66,6 +82,8 @@ function loadOldInfo() {
                 proxyRule = 'proxyForHttps'
             } else if (rules.hasOwnProperty('proxyForFtp')) {
                 proxyRule = 'proxyForFtp';
+            } else if (rules.hasOwnProperty('fallbackProxy')) {
+                proxyRule = 'fallbackProxy';
             }
 
             $('#proxy-rule').val(proxyRule);
@@ -111,6 +129,9 @@ function loadOldInfo() {
             } else if (type == 'https') {
                 $('#https-host').val(host);
                 $('#https-port').val(port);
+            } else if (type == 'quic') {
+                $('#quic-host').val(host);
+                $('#quic-port').val(port);
             } else {
                 if (type == 'socks5') {
                     $('#socks5').attr('checked', true);
@@ -137,7 +158,7 @@ function loadOldInfo() {
  * and display on the options page
  *
  */
-function getProxyInfo(callback) {
+function getProxyInfo() {
 
     var proxyInfo;
     var proxySetting = JSON.parse(localStorage.proxySetting);
@@ -145,7 +166,6 @@ function getProxyInfo(callback) {
 
     chrome.proxy.settings.get({'incognito': false},
     function(config) {
-        // console.log(JSON.stringify(config));
         mode = config['value']['mode'];
         rules = config['value']['rules'];
 
@@ -158,6 +178,8 @@ function getProxyInfo(callback) {
                 proxyRule = 'proxyForHttps'
             } else if (rules.hasOwnProperty('proxyForFtp')) {
                 proxyRule = 'proxyForFtp';
+            } else if (rules.hasOwnProperty('fallbackProxy')) {
+                proxyRule = 'fallbackProxy';
             }
 
         }
@@ -176,7 +198,6 @@ function getProxyInfo(callback) {
             proxyInfo = rules[proxyRule]['scheme'];
 
         localStorage.proxyInfo = proxyInfo;
-        callback(proxyInfo);
     });
 }
 
@@ -210,77 +231,83 @@ function reloadProxy() {
     };
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
+    //console.log('proxySetting: ', proxySetting);
+    var info = localStorage.proxyInfo;
 
-    getProxyInfo(function(info) {
+    if (typeof info === 'undefined' ||
+       info == 'direct' || info == 'system' ) {
+        return;
+    }
 
-        if (typeof info === 'undefined' ||
-           info == 'direct' || info == 'system' ) {
-            return;
+    if (info == 'pac_url') {
+        var pacType = proxySetting['pac_type'];
+        var proto = pacType.split(':')[0];
+
+        config.mode = 'pac_script';
+        config["pacScript"]["url"] = pacType +
+            proxySetting['pac_script_url'][proto];
+        //console.log(pacType +  proxySetting['pac_script_url'][proto]);
+
+    } else {
+
+        switch(info) {
+
+        case 'http':
+            proxy.type = 'http';
+            proxy.host = proxySetting['http_host'];
+            proxy.port = parseInt(proxySetting['http_port']);
+            break;
+
+        case 'https':
+            proxy.type = 'https';
+            proxy.host = proxySetting['https_host'];
+            proxy.port = parseInt(proxySetting['https_port']);
+            break;
+
+        case 'socks4':
+            proxy.type = 'socks4';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
+            break;
+
+        case 'socks5':
+            proxy.type = 'socks5';
+            proxy.host = proxySetting['socks_host'];
+            proxy.port = parseInt(proxySetting['socks_port']);
+            break;
+
+        case 'quic':
+            proxy.type = 'quic';
+            proxy.host = proxySetting['quic_host'];
+            proxy.port = parseInt(proxySetting['quic_port']);
+            break;
         }
 
-        if (info == 'pac_url') {
-            var pacType = proxySetting['pac_type'];
-            var proto = pacType.split(':')[0];
+        var rule = proxySetting['proxy_rule'];
+        if (proxy.type == 'http' && rule == 'fallbackProxy')
+            rule = 'singleProxy';
+        var chinaList = JSON.parse(localStorage.chinaList);
+        var bypasslist = proxySetting['bypasslist'];
 
-            config.mode = 'pac_script';
-            config["pacScript"]["url"] = pacType +
-                proxySetting['pac_script_url'][proto];
-
+        if (proxySetting['internal'] == 'china') {
+            bypasslist = chinaList.concat(bypasslist.split(','));
         } else {
-
-            switch(info) {
-
-            case 'http':
-                proxy.type = 'http';
-                proxy.host = proxySetting['http_host'];
-                proxy.port = parseInt(proxySetting['http_port']);
-                break;
-
-            case 'https':
-                proxy.type = 'https';
-                proxy.host = proxySetting['https_host'];
-                proxy.port = parseInt(proxySetting['https_port']);
-                break;
-
-            case 'socks4':
-                proxy.type = 'socks4';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
-                break;
-
-            case 'socks5':
-                proxy.type = 'socks5';
-                proxy.host = proxySetting['socks_host'];
-                proxy.port = parseInt(proxySetting['socks_port']);
-                break;
-            }
-
-            var rule = proxySetting['proxy_rule'];
-            var chinaList = JSON.parse(localStorage.chinaList);
-            var bypasslist = proxySetting['bypasslist'];
-
-            if (proxySetting['internal'] == 'china') {
-                bypasslist = chinaList.concat(bypasslist.split(','));
-            } else {
-                bypasslist = 
-                  bypasslist ? bypasslist.split(',') : ['<local>'];
-            }
-
-            config.mode = "fixed_servers";
-            config.rules.bypassList = uniqueArray(bypasslist);
-            config["rules"][rule] = {
-                scheme: proxy.type,
-                host: proxy.host,
-                port: parseInt(proxy.port)
-            };
+            bypasslist = bypasslist ? bypasslist.split(',') : ['<local>'];
         }
 
-        //console.log(JSON.stringify(config));
+        config.mode = "fixed_servers";
+        config.rules.bypassList = uniqueArray(bypasslist);
+        config["rules"][rule] = {
+            scheme: proxy.type,
+            host: proxy.host,
+            port: parseInt(proxy.port)
+        };
+    }
 
-        chrome.proxy.settings.set({
-            value: config,
-            scope: 'regular'}, function() {})
-    });
+    //console.log(JSON.stringify(config));
+    chrome.proxy.settings.set({
+        value: config,
+        scope: 'regular'}, function() {})
 
 }
 
@@ -315,11 +342,14 @@ function save() {
   proxySetting['http_port'] = $('#http-port').val() || "";
   proxySetting['https_host'] = $('#https-host').val() || "";
   proxySetting['https_port'] = $('#https-port').val() || "";
+  proxySetting['quic_host'] = $('#quic-host').val() || "";
+  proxySetting['quic_port'] = $('#quic-port').val() || "";
   proxySetting['socks_host'] = $('#socks-host').val() || "";
   proxySetting['socks_port'] = $('#socks-port').val() || "";
   proxySetting['pac_type'] = $('#pac-type').val() || "";
   proxySetting['bypasslist'] = $('#bypasslist').val() || "";
   proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
+  proxySetting['rules_mode'] = $('#rules-mode').val() || "";
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
@@ -334,7 +364,7 @@ function save() {
   else
       proxySetting['auth']['enable'] = '';
 
-  if ($('#use-china-list').is(':checked')) {
+  if ($('#china-list').is(':checked')) {
       proxySetting['internal'] = "china";
   }
   else {
@@ -446,13 +476,9 @@ function getPac() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    $('#btn-save').click(function() {
-        save();
-    });
+    $('#btn-save').click(function() { save(); });
 
-    $('#btn-cancel').click(function() {
-        location.reload();
-    });
+    $('#btn-cancel').click(function() { location.reload(); });
 
     $('#socks4').change(function() {
         $('#socks5').attr('checked', false);
@@ -466,19 +492,25 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.tabs.create({url: 'chrome://net-internals/#proxy'});
     });
 
-    $('input').change(
-        function() { save(); });
+    $('input').change(function() { save(); });
 
-    $('textarea').change(
-        function() { save(); });
+    $('textarea').change(function() { save(); });
 
-    $('#proxy-rule').change(
-        function() { save(); });
+    $('#proxy-rule').change(function() { save(); });
+
+    $('#rules-mode').change(function() { save(); });
+
+    $('#chinalist').change(function() { save(); });
 
     var proxySetting = JSON.parse(localStorage.proxySetting);
     $('#pac-type').change(function() {
         var type = $('#pac-type').val().split(':')[0];
+        //console.log(type);
         $('#pac-script-url').val(proxySetting['pac_script_url'][type]);
+        save();
+    });
+
+    $('#pac-script-url').change(function() {
         save();
     });
 
@@ -491,4 +523,4 @@ if (!localStorage.firstime)
 else
     loadProxyData();
 
-getProxyInfo(function(info) {});
+getProxyInfo();

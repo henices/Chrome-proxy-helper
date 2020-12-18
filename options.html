@@ -21,13 +21,16 @@
                     <a href="#general" data-i18n-content="General">General</a>
                 </li>
                 <li>
+                    <a href="#pac-config" data-i18n-content="PAC">PAC</a>
+                </li>
+                <li>
                     <a href="#rules" data-i18n-content="Rules">Rules</a>
+                </li>
+                <li>
+                    <a href="#auth-config" data-i18n-content="authConfig">Authentication</a>
                 </li>
             </ul>
             <ul class="menu">
-                <li>
-                    <a href="#help" data-i18n-content="Help">Help</a>
-                </li>
                 <li>
                     <a href="#about" data-i18n-content="About">About</a>
                 </li>
@@ -35,32 +38,8 @@
         </div>
         <div class="mainview view">
         <div id="general" class="selected">
-            <header><h1 data-i18n-content="General">General</h1></header>
+            <header><h1></h1></header>
             <div class="content">
-                <h3 data-i18n-content="pac_script">Pac script</h3>
-                <section>
-                <div class="section">
-                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
-                    <select id="pac-type">
-                        <option>file://</option>
-                        <option>http://</option>
-                        <option>https://</option>
-                    </select>
-                    <input type="text" size="22" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                    <a href='#' class='tooltip'>
-                        <img src="images/help.gif">
-                        <span>
-                            <img class="callout" src="images/callout.gif"/>
-                            <strong>Local pac script:</strong><br/>
-                            file:///c:/proxy.pac
-                            <br>
-                            <strong>Remote pac script:</strong><br/>
-                            http://127.0.0.1/proxy.pac
-                            https://127.0.0.1/proxy.pac
-                        </span>
-                    </a>
-                </div>
-                </section>
                 <h3 data-i18n-content="proxy_servers">Proxy servers</h3>
                 <section>
                     <div>
@@ -87,16 +66,11 @@
                         <input type="radio" id="socks5"/>
                         <span style="font-size:80%;">SOCKS5</span>
                     </div>
-                </section>
-                <h3 data-i18n-content="authentication">Authentication</h3>
-                <section>
                     <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
-                        <input type="text" id="username" size="15"></input>
-                    </div>
-                    <div>
-                        <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
-                        <input type="password" id="password" size="15"></input>
+                        <span class="ip_label" data-i18n-content="quic_proxy">QUIC PROXY:</span>
+                        <input type="text" id="quic-host" size="15"/>
+                        <span class="port_label" data-i18n-content="port">PORT:</span>
+                        <input type="text" size="6" id="quic-port"/>
                     </div>
                 </section>
                 <h3 data-i18n-content="advanced_settings">Advanced settings</h3>
@@ -108,26 +82,29 @@
                             <option value="proxyForHttp">proxyForHttp</option>
                             <option value="proxyForHttps">proxyForHttps</option>
                             <option value="proxyForFtp">proxyForFtp</option>
+                            <option value="fallbackProxy">fallbackProxy</option>
                         </select>
                     </div>
                 </section>
             </div>
         </div>
         <div id="rules">
-            <header><h1 data-i18n-content="Rules">Rules</h1></header>
+            <header><h1></h1></header>
             <div class="content">
                 <section>
                     <h3 data-i18n-content="rules_mode">Rules Mode</h3>
-                    <select>
+                    <select id='rules-mode'>
                         <option data-i18n-content="Whitelist" value="Whitelist">Whitelist</option>
+                        <!--
                         <option data-i18n-content="Blacklist" value="Blacklist">Blacklist</option>
+                        -->
                     </select>
                 </section>
-                <section>
+                <section id='whitelist'>
                     <h3 data-i18n-content="config_bypasslist">Bypass List</h3>
                     <p data-i18n-content="domain_in_bypasslist">Domains in bypass list will Never use a proxy</p>
                     <div class="section">
-                        <textarea id="bypasslist" cols="50" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
+                        <textarea id="bypasslist" cols="40" rows="10" placeholder="192.168.1.1/16,*.foobar.com,*foobar.com:99,https://x.*.y.com:99"></textarea>
                         <a href='#' class='tooltip'>
                             <img src="images/help.gif">
                             <span>
@@ -141,35 +118,69 @@
                     </div>
                     <h4 data-i18n-content="use_predefine_list">Use internal proxy bypass list</h3>
                     <div class="checkbox">
-                        <input type="checkbox" id="use-china-list"/>
+                        <input id='china-list' type="checkbox" id="use-china-list"/>
                         <span data-i18n-content="china_list">China List</span>
                     </div>
                 </section>
-                <section>
+                <section id='blacklist'>
                     <h3 data-i18n-content="config_proxylist">Proxy List</h3>
                     <p data-i18n-content="domain_in_proxy">Domains in list will use a proxy</p>
                     <div class="section">
-                        <textarea id="proxylist" cols="50" rows="10" placeholder=""></textarea>
+                        <textarea id="proxylist" cols="40" rows="10" placeholder=""></textarea>
                     </div>
                 </section>
             </div>
         </div>
-        <div id="help">
-            <header><h1 data-i18n-content="Help">Help</h1></header>
+        <div id="auth-config">
+           <header><h1></h1></header>
+           <div class="content">
+           <h3 data-i18n-content="authentication">Authentication</h3>
+           <section>
+                <div>
+                    <span class="field_label" style="width: 100px;" data-i18n-content="user">Username:</span>
+                    <input type="text" id="username" size="15"></input>
+                <a href='#' class='tooltip'>
+                    <img src="images/help.gif">
+                    <span>
+                        <img class="callout" src="images/callout.gif"/>
+                        <strong>chrome api doesn't support socks authentication</strong><br/>
+                    </span>
+                </a>
+                    </div>
+                <div>
+                    <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
+                    <input type="password" id="password" size="15"></input>
+                </div>
+            </section>
+            </div>
+        </div>
+        <div id="pac-config">
+            <header><h1></h1></header>
             <div class="content">
-                <h3>FAQ</h3>
-                <section>
-                    <div class="section">
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ"><img src="images/GitHub-Mark-32px.png" alt="FAQ" /></a>
-                        <a href="https://github.com/henices/Chrome-proxy-helper/wiki/FAQ" target="_blank">https://github.com/henices/Chrome-proxy-helper/wiki/FAQ</a>
-                    </div>
-                </section>
-                <h3>Diagnosis</h3>
-                <section>
-                    <div>
-                        <a href="chrome://net-internals/#proxy" target="_blank" id="diagnosis">chrome://net-internals/#proxy</a>
-                    </div>
-                </section>
+            <h3 data-i18n-content="pac_script">Pac script</h3>
+            <section>
+                <div class="section">
+                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
+                    <select id="pac-type">
+                        <!--
+                        <option>file://</option>
+                        -->
+                        <option>http://</option>
+                        <option>https://</option>
+                    </select>
+                    <input type="text" size="40" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
+                    <a href='#' class='tooltip'>
+                        <img src="images/help.gif">
+                        <span>
+                            <img class="callout" src="images/callout.gif"/>
+                            <strong>Remote pac script:</strong><br/>
+                            http://127.0.0.1/proxy.pac
+                            <br>
+                            https://127.0.0.1/proxy.pac
+                        </span>
+                    </a>
+                </div>
+            </section>
             </div>
         </div>
         <div id="about">
@@ -180,24 +191,7 @@
                 <img src="images/chrome_web_store.png"></img>
                 <a href="https://chrome.google.com/webstore/detail/proxy-helper/mnloefcpaepkpmhaoipjkpikbnkmbnic">Proxy Helper</a>
             </section>
-            <h3>Homepage</h3>
-            <section>
-                <div class="section">
-                    <img src="images/GitHub-Mark-32px.png"></img>
-                    <a href="https://github.com/henices/Chrome-proxy-helper" target="_blank">https://github.com/henices/Chrome-proxy-helper</a>
-                </div>
-            </section>
-            <h3>Author</h3>
-            <section>
-                <div>
-                <ul>
-                    <li>Email  : <a href="mailto:zhouzhenster@gmail.com">zhouzhenster@gmail.com</a></li>
-                    <li>Github : <a href="https://github.com/henices" target="_blank">@henices</a></li>
-                    <li>Twitter: <a href="https://twitter.com/henices" target="_blank">@henices</a></li>
-                </ul>
-                </div>
-            </section>
-            <h3>Open Source</h3>
+            <h3>Open Source Licenses</h3>
             <section>
                 <div>
                     <table class="simpletable">
