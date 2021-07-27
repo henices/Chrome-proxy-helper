@@ -19,6 +19,7 @@ var httpPort = proxySetting['http_port'];
 var httpsHost = proxySetting['https_host'];
 var httpsPort = proxySetting['https_port'];
 var pacType = proxySetting['pac_type'];
+var pacData = proxySetting['pac_data'];
 var pacScriptUrl = proxySetting['pac_script_url'];
 var quicHost = proxySetting['quic_host'];
 var quicPort = proxySetting['quic_port'];
@@ -40,21 +41,19 @@ function add_li_title() {
     if (httpHost && httpPort) {
         _http = 'http://' + httpHost + ':' + httpPort;
         $('#http-proxy').attr('title', _http);
-    }
-    if (pacScriptUrl) {
+    } else if (pacData) {
+        $('#pac-script').attr('title', "pac data");
+    } else if (pacType) {
         var type = pacType.split(':')[0];
         _pac = pacType + pacScriptUrl[type];
         $('#pac-script').attr('title', _pac);
-    }
-    if (httpsHost && httpsPort) {
+    } else if (httpsHost && httpsPort) {
         _https = 'https://' + httpsHost + ':' + httpsPort;
         $('#https-proxy').attr('title', _https);
-    }
-    if (socksHost && socksPort) {
+    } else if (socksHost && socksPort) {
         _socks = socksType + '://' + socksHost + ':' + socksPort;
         $('#socks5-proxy').attr('title', _socks);
-    }
-    if (quicHost && quicPort) {
+    } else if (quicHost && quicPort) {
         _quic = 'quic://' + quicHost + ':' + quicPort;
     }
 }
@@ -146,8 +145,14 @@ function pacProxy() {
         },
     };
 
-    var type = pacType.split(':')[0];
-    config['pacScript']['url'] = pacType + pacScriptUrl[type];
+    if (pacData) {
+        config['pacScript']['data'] = pacData;
+        localStorage.proxyInfo = 'pac_data';
+    } else {
+        var type = pacType.split(':')[0];
+        config['pacScript']['url'] = pacType + pacScriptUrl[type];
+        localStorage.proxyInfo = 'pac_url';
+    }
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
@@ -155,7 +160,6 @@ function pacProxy() {
 
     iconSet('on');
     proxySelected('pac-script');
-    localStorage.proxyInfo = 'pac_url';
 }
 
 /**
@@ -368,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#https-proxy').hide();
     }
 
-    if (!pacScriptUrl) {
+    if (!pacType && !pacData) {
         $('#pac-script').hide();
     }
 

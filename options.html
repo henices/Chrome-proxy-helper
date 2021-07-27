@@ -1,11 +1,10 @@
-﻿<meta name="google" value="notranslate" />
-<html>
+﻿<html>
 <head>
     <title>Options</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="stylesheets/chrome-bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
-    <script type="text/javascript" src="javascripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="javascripts/options-ui.js"></script>
     <script type="text/javascript" src="javascripts/options.js"></script>
 </head>
@@ -157,14 +156,12 @@
         <div id="pac-config">
             <header><h1></h1></header>
             <div class="content">
+            <!--
             <h3 data-i18n-content="pac_script">Pac script</h3>
             <section>
                 <div class="section">
                     <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
                     <select id="pac-type">
-                        <!--
-                        <option>file://</option>
-                        -->
                         <option>http://</option>
                         <option>https://</option>
                     </select>
@@ -180,6 +177,12 @@
                         </span>
                     </a>
                 </div>
+            </section>
+            -->
+            <h3 data-i18n-content="pac_data">Pac Script</h3>
+            <section>
+                <input type="file" id="pac-file" />
+                <textarea id="pac-data" cols="50" rows="10" style="margin-top:.5em; overflow-x:hidden"></textarea>
             </section>
             </div>
         </div>
