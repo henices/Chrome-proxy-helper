@@ -131,8 +131,8 @@ chrome.proxy.onProxyError.addListener(function(details) {
 setProxyIcon();
 
 // sync bypass list from github.com
-getBypass();
-var interval = 1000 * 60 * 60;
-setInterval(function() { getBypass(); }, interval);
+//getBypass();
+//setInterval(function() { getBypass(); }, interval);
+//var interval = 1000 * 60 * 60;
 
 
