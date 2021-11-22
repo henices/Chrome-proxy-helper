@@ -47,9 +47,6 @@
     "proxy": {
         "message" : "Проски"
     },
-    "pac_script" : {
-        "message" : "PAC-скрипт"
-    },
     "http_proxy" : {
         "message" : "HTTP-прокси:"
     },

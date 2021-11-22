@@ -149,9 +149,6 @@
     "proxy_servers" : {
         "message" : "代理服务器"
     },
-    "pac_script" : {
-        "message" : "Pac 脚本"
-    },
     "config_proxylist": {
         "message": "设置代理黑名单"
     },
