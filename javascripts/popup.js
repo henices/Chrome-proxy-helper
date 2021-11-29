@@ -103,7 +103,10 @@ function color_proxy_item() {
         } else if (mode == 'direct') {
             $('#direct-proxy').addClass('selected');
         } else if (mode == 'pac_script') {
-            $('#pac-script').addClass('selected');
+            if (localStorage.proxyInfo == 'pac_url')
+                $('#pac-url-proxy').addClass('selected');
+            else
+                $('#pac-data-proxy').addClass('selected');
         } else if (mode == 'auto_detect') {
             $('#auto-detect').addClass('selected');
         }else {
