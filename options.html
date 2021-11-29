@@ -145,7 +145,7 @@
                         <strong>chrome api doesn't support socks authentication</strong><br/>
                     </span>
                 </a>
-                    </div>
+                </div>
                 <div>
                     <span class="field_label" style="width: 100px;" data-i18n-content="pass">Password:</span>
                     <input type="password" id="password" size="15"></input>
@@ -156,33 +156,31 @@
         <div id="pac-config">
             <header><h1></h1></header>
             <div class="content">
-            <!--
-            <h3 data-i18n-content="pac_script">Pac script</h3>
+            <h3>Pac URL</h3>
             <section>
-                <div class="section">
-                    <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span>
-                    <select id="pac-type">
-                        <option>http://</option>
-                        <option>https://</option>
-                    </select>
-                    <input type="text" size="40" id="pac-script-url" placeholder="/c:/proxy.pac"></input>
-                    <a href='#' class='tooltip'>
-                        <img src="images/help.gif">
-                        <span>
-                            <img class="callout" src="images/callout.gif"/>
-                            <strong>Remote pac script:</strong><br/>
-                            http://127.0.0.1/proxy.pac
-                            <br>
-                            https://127.0.0.1/proxy.pac
-                        </span>
-                    </a>
-                </div>
+                <!-- <span class="field_label" style="width: 100px;" data-i18n-content="pac_path">PAC PATH:</span> -->
+                <div>
+                <select id="pac-type">
+                    <option>http://</option>
+                    <option>https://</option>
+                </select>
+                <input type="text" size="30" id="pac-script-url" placeholder="127.0.0.1/proxy.pac"></input>
+                <a href='#' class='tooltip'>
+                    <img src="images/help.gif">
+                    <span>
+                        <img class="callout" src="images/callout.gif"/>
+                        <strong>Remote pac script:</strong><br/>
+                        http://127.0.0.1/proxy.pac
+                        <br>
+                        https://127.0.0.1/proxy.pac
+                    </span>
+                </a>
+                <div>
             </section>
-            -->
             <h3 data-i18n-content="pac_data">Pac Script</h3>
             <section>
                 <input type="file" id="pac-file" />
-                <textarea id="pac-data" cols="50" rows="10" style="margin-top:.5em; overflow-x:hidden"></textarea>
+                <textarea id="pac-data" cols="55" rows="10" style="margin-top:.5em; overflow-x:hidden"></textarea>
             </section>
             </div>
         </div>

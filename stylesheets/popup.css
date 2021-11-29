@@ -1,5 +1,6 @@
 body { width: 120px; font-family: 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', sans-serif; font-size:14px; color: #333; font-weight: 500; padding: 3px; margin: 0; }
 .menu { line-height: 26px; white-space: nowrap; background-repeat: no-repeat no-repeat; background-position: 6px 5px; background: transparent; display: block; }
+.menu .text {margin-left: .5em;}
 ul { list-style: none; text-align:center; margin: 0px; padding: 0px; }
 li { cursor: pointer; margin: 0px; padding: 0px; clear: both; overflow: hidden; text-align: center; border: 1px solid white; }
 ul li:hover {border-radius: 3px 3px;border: solid 1px #c5cdd3;}

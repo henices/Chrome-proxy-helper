@@ -18,8 +18,8 @@ var httpHost = proxySetting['http_host'];
 var httpPort = proxySetting['http_port'];
 var httpsHost = proxySetting['https_host'];
 var httpsPort = proxySetting['https_port'];
-var pacType = proxySetting['pac_type'];
 var pacData = proxySetting['pac_data'];
+var pacUrlType = proxySetting['pac_type'].split(':')[0];
 var pacScriptUrl = proxySetting['pac_script_url'];
 var quicHost = proxySetting['quic_host'];
 var quicPort = proxySetting['quic_port'];
@@ -41,21 +41,33 @@ function add_li_title() {
     if (httpHost && httpPort) {
         _http = 'http://' + httpHost + ':' + httpPort;
         $('#http-proxy').attr('title', _http);
-    } else if (pacData) {
-        $('#pac-script').attr('title', "pac data");
-    } else if (pacType) {
-        var type = pacType.split(':')[0];
-        _pac = pacType + pacScriptUrl[type];
-        $('#pac-script').attr('title', _pac);
-    } else if (httpsHost && httpsPort) {
+    }
+
+    if (pacData) {
+        $('#pac-data-proxy').attr('title', "pac data");
+    }
+
+    if (pacUrlType) {
+        if (pacScriptUrl[pacUrlType]) {
+            _pac = proxySetting['pac_type'] + pacScriptUrl[pacUrlType]
+            $('#pac-url-proxy').attr('title', _pac);
+        }
+    }
+
+    if (httpsHost && httpsPort) {
         _https = 'https://' + httpsHost + ':' + httpsPort;
         $('#https-proxy').attr('title', _https);
-    } else if (socksHost && socksPort) {
+    }
+
+    if (socksHost && socksPort) {
         _socks = socksType + '://' + socksHost + ':' + socksPort;
         $('#socks5-proxy').attr('title', _socks);
-    } else if (quicHost && quicPort) {
+    }
+
+    if (quicHost && quicPort) {
         _quic = 'quic://' + quicHost + ':' + quicPort;
     }
+
 }
 
 /**
@@ -137,7 +149,7 @@ function proxySelected(str) {
  * set pac script proxy
  *
  */
-function pacProxy() {
+function pacDatatProxy() {
 
     var config = {
         mode: 'pac_script',
@@ -145,21 +157,38 @@ function pacProxy() {
         },
     };
 
-    if (pacData) {
-        config['pacScript']['data'] = pacData;
-        localStorage.proxyInfo = 'pac_data';
-    } else {
-        var type = pacType.split(':')[0];
-        config['pacScript']['url'] = pacType + pacScriptUrl[type];
-        localStorage.proxyInfo = 'pac_url';
-    }
+    config['pacScript']['data'] = pacData;
+    localStorage.proxyInfo = 'pac_data';
 
     chrome.proxy.settings.set(
             {value: config, scope: 'regular'},
             function() {});
 
     iconSet('on');
-    proxySelected('pac-script');
+    proxySelected('pac-data-proxy');
+}
+
+/**
+ * set pac url proxy
+ *
+ */
+function pacUrlProxy() {
+
+    var config = {
+        mode: 'pac_script',
+        pacScript: {
+        },
+    };
+
+    config['pacScript']['url'] = proxySetting['pac_type'] + pacScriptUrl[pacUrlType];
+    localStorage.proxyInfo = 'pac_url';
+
+    chrome.proxy.settings.set(
+            {value: config, scope: 'regular'},
+            function() {});
+
+    iconSet('on');
+    proxySelected('pac-url-proxy');
 }
 
 /**
@@ -345,7 +374,8 @@ chrome.proxy.onProxyError.addListener(function(details) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('#pac-script').addEventListener('click', pacProxy);
+    document.querySelector('#pac-data-proxy').addEventListener('click', pacDatatProxy);
+    document.querySelector('#pac-url-proxy').addEventListener('click', pacUrlProxy);
     document.querySelector('#socks5-proxy').addEventListener('click', socks5Proxy);
     document.querySelector('#http-proxy').addEventListener('click', httpProxy);
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
@@ -372,8 +402,12 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#https-proxy').hide();
     }
 
-    if (!pacType && !pacData) {
-        $('#pac-script').hide();
+    if (!pacData) {
+        $('#pac-data-proxy').hide();
+    }
+
+    if (!pacScriptUrl[pacUrlType]) {
+        $('#pac-url-proxy').hide();
     }
 
     if (!quicHost) {

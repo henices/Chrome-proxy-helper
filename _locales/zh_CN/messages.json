@@ -113,8 +113,11 @@
     "password_authentication": {
         "message" : "使用密码认证"
     },
-    "pac_script_set" : {
-        "message" : "PAC代理"
+    "pac_data_set" : {
+        "message" : "PAC Data"
+    },
+    "pac_url_set" : {
+        "message" : "PAC Url"
     },
     "socks_proxy_set" : {
         "message" : "SOCKS代理"
