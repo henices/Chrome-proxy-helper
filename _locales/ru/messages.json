@@ -9,7 +9,7 @@
         "message" : "Помощник прокси"
     },
     "proxy_helper_options" : {
-        "message" : "Настройки Помощника прокси"
+        "message" : "Настройки «Помощника прокси»"
     },
     "proxy_information" : {
         "message" : "Настройки прокси"
@@ -45,7 +45,10 @@
         "message" : "Отмена"
     },
     "proxy": {
-        "message" : "Проски"
+        "message" : "Прокси"
+    },
+    "pac_script" : {
+        "message" : "PAC-скрипт"
     },
     "http_proxy" : {
         "message" : "HTTP-прокси:"
@@ -104,11 +107,17 @@
     "authConfig" : {
         "message" : "Аутентификация"
     },
+    "pac_data" : {
+        "message" : "PAC-скрипт"
+    },
     "password_authentication": {
         "message" : "Использовать пароль"
     },
-    "pac_script_set" : {
+    "pac_data_set" : {
         "message" : "PAC-скрипт"
+    },
+    "pac_url_set" : {
+        "message" : "URL PAC-файла"
     },
     "socks_proxy_set" : {
         "message" : "SOCKS-прокси"
@@ -142,9 +151,6 @@
     },
     "proxy_servers" : {
         "message" : "Прокси"
-    },
-    "pac_script" : {
-        "message" : "PAC-скрипт"
     },
     "config_proxylist": {
         "message": "Чёрный список для прокси"
