@@ -106,9 +106,11 @@ chrome.runtime.onInstalled.addListener(function(details){
         localStorage.proxySetting = JSON.stringify(proxySetting);
         gotoPage('options.html');
     }
+/*
     else if(details.reason == "update") {
         gotoPage('CHANGELOG');
     }
+*/
 });
 
 
