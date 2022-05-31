@@ -51,12 +51,7 @@ function callbackFn(details) {
         proxySetting['auth']['pass'] == '')
         return {};
 
-    return details.isProxy === !0 ? {
-        authCredentials: {
-            username: username,
-            password: password
-        }
-    } : {}
+    return { authCredentials: {username: username, password: password} };
 }
 
 chrome.webRequest.onAuthRequired.addListener(
