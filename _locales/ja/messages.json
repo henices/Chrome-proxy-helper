@@ -1,0 +1,110 @@
+{
+    "appName": {
+        "message" : "プロキシーヘルパー"
+    },
+    "appDesc": {
+        "message" : "Google Chromeのプロキシーサーバーを設定します"
+    },
+    "title" : {
+        "message" : "プロキシーヘルパー"
+    },
+    "advanced_settings" : {
+        "message" : "詳細設定"
+    },
+    "pac_script" : {
+        "message" : "PACスクリプト:"
+    },
+    "http_proxy" : {
+        "message" : "HTTPプロキシー:"
+    },
+    "https_proxy" : {
+        "message" : "HTTPSプロキシー:"
+    },
+    "quic_proxy" : {
+        "message" : "QUICプロキシー:"
+    },
+    "socks_proxy" : {
+        "message" : "SOCKSプロキシー:"
+    },
+    "system_proxy" : {
+        "message" : "システムプロキシー"
+    },
+    "direct_proxy" : {
+        "message" : "プロキシーなし"
+    },
+    "port" : {
+        "message" : "ポート:"
+    },
+    "proxy_rules" : {
+        "message" : "プロキシールール: "
+    },
+    "use_predefine_list" : {
+        "message" : "既定のプロキシーを経由しない接続先リストを利用する"
+    },
+    "config_bypasslist" : {
+        "message" : "プロキシーを経由しない接続先リスト"
+    },
+    "domain_in_bypasslist" : {
+        "message" : "プロキシーを経由しないホスト名のリスト"
+    },
+    "user" : {
+        "message" : "ユーザー:"
+    },
+    "pass" : {
+        "message" : "パスワード:"
+    },
+    "authentication" : {
+        "message" : "認証情報"
+    },
+    "authConfig" : {
+        "message" : "認証"
+    },
+    "pac_data" : {
+        "message" : "PACファイル"
+    },
+    "pac_data_set" : {
+        "message" : "PACスクリプト"
+    },
+    "pac_url_set" : {
+        "message" : "PAC URL"
+    },
+    "socks_proxy_set" : {
+        "message" : "SOCKSプロキシー"
+    },
+    "http_proxy_set" : {
+        "message" : "HTTPプロキシー"
+    },
+    "https_proxy_set" : {
+        "message" : "HTTPSプロキシー"
+    },
+    "quic_proxy_set" : {
+        "message" : "QUICプロキシー"
+    },
+    "auto_detect_set" : {
+        "message" : "自動検出"
+    },
+    "General": {
+        "message" : "全般"
+    },
+    "Rules" : {
+        "message" : "ルール"
+    },
+    "Help" : {
+        "message" : "ヘルプ"
+    },
+    "About" : {
+        "message" : "プロキシーヘルパーについて"
+    },
+    "Options" : {
+        "message" : "オプション"
+    },
+    "proxy_servers" : {
+        "message" : "プロキシーサーバー"
+    },
+    "rules_mode": {
+        "message": "ルールのモード"
+    },
+    "Whitelist": {
+        "message": "ホワイトリスト"
+    }
+}
