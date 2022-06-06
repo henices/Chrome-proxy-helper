@@ -38,6 +38,6 @@ a.tooltip span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radi
 .section img {margin-right:.2em;}
 .chrome-bootstrap a {text-decoration:none;font-size:110%;}
 .chrome-bootstrap a:hover {text-decoration:underline;}
-.socks {display:block;margin-top:.6em;margin-left:1em;}
-.ip_label {display:inline-block;width:110px; margin-right:.2em;}
-.port_label {display:inline-block;width:44px; margin-left:.5em;}
+.socks {display:block;margin-top:.6em;margin-left:1em; border-style: none;}
+.ip_label {display:inline-block;width:120px; margin-right:.2em;}
+.port_label {display:inline-block;width:60px; margin-left:.5em;}
