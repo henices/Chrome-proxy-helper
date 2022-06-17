@@ -221,7 +221,11 @@ function socks5Proxy() {
 
     iconSet('on');
     proxySelected('socks5-proxy');
-    localStorage.proxyInfo = 'socks5';
+
+    if (socksType == 'socks5')
+        localStorage.proxyInfo = 'socks5';
+    else
+        localStorage.proxyInfo = 'socks4';
 }
 
 /**

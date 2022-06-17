@@ -496,6 +496,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $('#btn-cancel').click(function() { location.reload(); });
 
+/*
     $('#socks4').change(function() {
         $('#socks5').attr('checked', false);
     });
@@ -503,6 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#socks5').change(function() {
         $('#socks4').attr('checked', false);
     });
+*/
 
     $('#diagnosis').click(function() {
         chrome.tabs.create({url: 'chrome://net-internals/#proxy'});
