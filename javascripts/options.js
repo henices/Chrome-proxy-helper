@@ -362,7 +362,7 @@ function save() {
   proxySetting['pac_data'] = $('#pac-data').val() || "";
   proxySetting['bypasslist'] = $('#bypasslist').val() || "";
   proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
-  proxySetting['rules_mode'] = $('#rules-mode').val() || "";
+  //proxySetting['rules_mode'] = $('#rules-mode').val() || "";
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
