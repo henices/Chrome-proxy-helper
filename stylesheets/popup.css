@@ -1,4 +1,4 @@
-body { width: 120px; font-family: 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', sans-serif; font-size: 0.8em; color: #333; font-weight: 500; padding: 2px; margin: 0; overflow: hidden; }
+body { width: 140px; font-family: Helvetica, 'Source Han Sans CN', 'PingFang SC', 'Chrome Droid Sans', 'Droid Sans Fallback', 'Lucida Grande', 'Microsoft YaHei', Arial, sans-serif; font-size: 13px; color: #333; font-weight: 500; padding: 2px; margin: 0; overflow: hidden; }
 .menu { line-height: 26px; white-space: nowrap; background-repeat: no-repeat no-repeat; background-position: 6px 5px; background: transparent; display: block; }
 .menu .text {margin-left: .5em;}
 ul { list-style: none; text-align:center; margin: 0px; padding: 0px; }
