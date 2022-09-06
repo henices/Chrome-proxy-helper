@@ -115,12 +115,10 @@ chrome.commands.onCommand.addListener(function(command) {
 });
 
 // sync extension settings from google cloud
-/*
 chrome.storage.sync.get('proxySetting', function(val) {
     if (typeof val.proxySetting !== "undefined")
         localStorage.proxySetting = val.proxySetting;
 });
-*/
 
 chrome.proxy.onProxyError.addListener(function(details) {
     console.log("fatal: ", details.fatal);

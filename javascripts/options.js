@@ -406,7 +406,7 @@ try {
   loadProxyData();
 
   // sync settings to google cloud
-  //chrome.storage.sync.set({'proxySetting' : settings}, function() {});
+  chrome.storage.sync.set({'proxySetting' : settings}, function() {});
 }
 
 
