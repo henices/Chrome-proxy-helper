@@ -5,10 +5,10 @@ helper extension use Chrome native proxy API to set proxy, support  socks5, sock
 and https protocol and pac script, Fast And Simple.
 
 # Features
-* support socks4, socks5, http, https proxy settings
+* support socks4, socks5, http, https, and quic proxy settings
 * support pac proxy settings
 * support bypass list
-* support online pac script
+* support online/offline pac script
 * support customer proxy rules
 * support proxy authentication
 * support extension settings synchronize
