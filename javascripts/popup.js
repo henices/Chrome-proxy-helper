@@ -139,7 +139,7 @@ function iconSet(str) {
     if (str == 'off') {
         icon['path'] = 'images/off.png';
     }
-    chrome.browserAction.setIcon(icon);
+    chrome.action.setIcon(icon);
 }
 
 function proxySelected(str) {

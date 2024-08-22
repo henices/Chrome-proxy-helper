@@ -1,6 +1,6 @@
 {
-    "version": "1.4.6",
-    "manifest_version": 2,
+    "version": "2.0.0",
+    "manifest_version": 3,
     "default_locale": "en",
     "description": "__MSG_appDesc__",
     "name": "__MSG_appName__",
@@ -10,17 +10,17 @@
         "16":  "images/on16.png"
     },
     "permissions": [
-        "file://*/*",
         "proxy",
         "tabs",
         "storage",
-        "unlimitedStorage",
-        "<all_urls>",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestAuthProvider"
+    ],
+    "host_permissions": [
+        "*://*/*"
     ],
     "background": {
-        "scripts": ["background.js"]
+        "service_worker": "background.js"
     },
     "commands": {
         "open-option": {
@@ -30,7 +30,7 @@
         }
     },
     "options_page": "options.html",
-    "browser_action": {
+    "action": {
         "default_icon": "images/off.png",
         "default_title": "__MSG_title__",
         "default_popup": "popup.html"
