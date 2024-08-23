@@ -340,7 +340,7 @@ function sysProxy() {
             {value: config, scope: 'regular'},
             function() {});
 
-    chrome.browserAction.setIcon(icon);
+    chrome.action.setIcon(icon);
 }
 
 /**
@@ -363,6 +363,10 @@ function save() {
   proxySetting['bypasslist'] = $('#bypasslist').val() || "";
   proxySetting['proxy_rule'] = $('#proxy-rule').val() || "";
   //proxySetting['rules_mode'] = $('#rules-mode').val() || "";
+
+  var authInfo = {};
+  authInfo.user = proxySetting['auth']['user'];
+  authInfo.pass = proxySetting['auth']['pass'];
   proxySetting['auth']['user'] = $('#username').val() || "";
   proxySetting['auth']['pass'] = $('#password').val() || "";
 
@@ -404,6 +408,11 @@ try {
   localStorage.proxySetting = settings;
   reloadProxy();
   loadProxyData();
+
+  if (authInfo['user'] != proxySetting['auth']['user'] ||
+      authInfo['pass'] != proxySetting['auth']['pass']) {
+      chrome.runtime.sendMessage({ action: 'authUpdate', data: proxySetting['auth'] });
+  }
 
   // sync settings to google cloud
   //chrome.storage.sync.set({'proxySetting' : settings}, function() {});
@@ -549,9 +558,19 @@ function readSingleFile(e) {
       reader.readAsText(file);
 }
 
-if (!localStorage.firstime)
+if (!localStorage.firstime) {
     loadOldInfo();
-else
-    loadProxyData();
 
-getProxyInfo();
+    var clone = obj => JSON.parse(JSON.stringify(obj));
+    chrome.storage.local.get(null).then((result) => {
+        localStorage.chinaList = result.chinaList;
+        localStorage.proxySetting = result.proxySetting;
+        console.log("Setting localStorage from service worker storage");
+        console.log("%s localStorage:", new Date(Date.now()).toISOString(), clone(localStorage));
+
+        getProxyInfo();
+    });
+} else {
+    loadProxyData();
+    getProxyInfo();
+}

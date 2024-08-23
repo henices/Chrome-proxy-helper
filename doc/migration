@@ -1,0 +1,87 @@
+Migration from Manifest v2 (MV2) to v3 (MV3)
+
+In MV2, the scripts included from options.html and popup.html and the
+background script all share the same persistent storage,
+window.localStorage, which is initialized when the JS pages are
+loaded.  Changes to the localStorage object are persisted automatically.
+
+In MV3, the background script is migrated to service worker, and it
+does not share the localStorage with the other scripts.  Instead,
+persistent data storage is managed separately by the chrome.storage
+API, which must be loaded and saved explicitly via the async API
+calls.  Additionally, the service worker lifecycle is managed by the
+browser with the browser terminating the instance after some amount of
+inactivity, and re-creating when needed.
+
+
+Extension storage design
+
+In order to make the migration simple, for understanding and reviewing
+the changes, the persistent storage strategy is chosen for minimal
+changes from the existing design.
+
+In MV2, the extension's main logic and data storage is handled by
+options.html and popup.html, and the background script only deals with
+supplying the Proxy Authorization credentials when asked by the
+browser.  In MV3, this is still the case, and so the service worker
+must be notified of changes to the credential information that is
+managed by the user via options.html.  This credential information
+must be persisted, and used by the service worker when the browser
+needs to access a proxy that requires authorization.
+
+As a matter of fact, this information is all that is needed to be
+managed by the service worker with the chrome.storage API.  However,
+since this information is part of the proxySetting object, the service
+worker will save the whole object.  The only data that is relevant for
+actual usage, thus, is the 'auth' property.
+
+When the extension is first installed, the background.js in MV2
+creates a proxySetting object from its template and store in the
+shared localStorage.  The options.js and popup.js use this initialized
+object for their operations.  In MV3, the service worker still
+initializes this object from its template, but this object is not
+shared automatically with options.js and popup.js.  Instead, it
+persists this template into chrome.storage.  When options.js first
+runs, it retrieves this initial object from chrome.storage and loads
+it into the shared localStorage.  This is the only time where the
+non-service workers JS scripts interacts with the chrome.storage API.
+This is another reason of persisting the whole proxySetting object into
+chrome.storage.
+
+
+Storage usage scenario
+
+When the extension is first installed:
+  -  both chrome.storage and localStorage are empty
+  -  service worker initializes, creates, and persists the default
+     proxySetting into chrome.storage
+  -  options.js starts, retrieves the initial proxySetting from
+     chrome.storage, and populates to localStorage
+  -  options.js and other JS scripts use localStorage as normal
+
+When the extension restarts (due to browser restarts) or reloads
+(extension update):
+  -  both chrome.storage and localStorage are populated.  No special
+     handling needed
+
+During normal operation:
+  -  options.js notifies the service worker of any changes to the
+     proxy authorization credentials by message passing.  Service worker
+     persists this into chrome.storage
+  -  When asked by the browser, service worker provides the
+     credentials to access the proxy in use
+  -  Service worker comes and goes, and credential information is
+     lazy-loaded only when needed
+
+After migration of installed MV2 extension to MV3, on the first run:
+  -  localStorage is populated with valid data
+  -  chrome.storage is empty, and the service worker populates the
+     template proxySetting into chrome.storage, but this does not have
+     valid proxy authorization credentials
+  -  proxy authorization will fail, and the browser presents a popup
+     dialog to prompt user to enter proxy credentials
+  -  the option page still displays the correct credentials
+  -  this migration issue can be fixed by deleting and re-entering the
+     credential information (both the username and password) in the
+     options page to force the service worker receive and persist the
+     correct data for its use
