@@ -60,18 +60,25 @@ chrome.webRequest.onAuthRequired.addListener(
             {urls: ["<all_urls>"]},
             ['asyncBlocking'] );
 
-chrome.runtime.onMessage.addListener(async function(msg, sender, res) {
+chrome.runtime.onMessage.addListener((msg, sender, res) => {
     if (msg.action != "authUpdate")
         return;
 
-    console.log("%s onMessage listener", new Date(Date.now()).toISOString());
-    if (localStorage.proxySetting == undefined)
-        await getLocalStorage();
+    (async () => {
+        console.log("%s receive authUpdate", new Date(Date.now()).toISOString());
+        if (localStorage.proxySetting == undefined)
+            await getLocalStorage();
 
-    var proxySetting = JSON.parse(localStorage.proxySetting);
-    proxySetting['auth'] = msg.data;
-    localStorage.proxySetting = JSON.stringify(proxySetting);
-    chrome.storage.local.set(localStorage);
+        var proxySetting = JSON.parse(localStorage.proxySetting);
+        proxySetting['auth'] = msg.data;
+        localStorage.proxySetting = JSON.stringify(proxySetting);
+        await chrome.storage.local.set(localStorage);
+
+        console.log("%s sending authUpdate response", new Date(Date.now()).toISOString());
+        res('done');
+    })();
+
+    return true;
 });
 
 var proxySetting = {
@@ -116,6 +123,23 @@ chrome.runtime.onInstalled.addListener(async details => {
     if (store.proxySetting == undefined) {
         localStorage.proxySetting = JSON.stringify(proxySetting);
         await chrome.storage.local.set(localStorage);
+
+        if (details.reason == "update") {
+            chrome.runtime.onMessage.addListener((msg, sender, res) => {
+                if (msg.action != "migrationDone")
+                    return;
+
+                console.log("%s data migration done", new Date(Date.now()).toISOString());
+                chrome.offscreen.closeDocument();
+            });
+
+            console.log("%s starting data migration", new Date(Date.now()).toISOString());
+            chrome.offscreen.createDocument({
+                url: 'migration.html',
+                reasons: ['LOCAL_STORAGE'],
+                justification: 'Migrate storage data for MV2 to MV3',
+            });
+        }
     }
     if(details.reason == "install") {
         gotoPage('options.html');

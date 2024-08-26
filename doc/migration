@@ -73,15 +73,14 @@ During normal operation:
   -  Service worker comes and goes, and credential information is
      lazy-loaded only when needed
 
-After migration of installed MV2 extension to MV3, on the first run:
+During update migration of installed MV2 extension to MV3:
   -  localStorage is populated with valid data
   -  chrome.storage is empty, and the service worker populates the
      template proxySetting into chrome.storage, but this does not have
      valid proxy authorization credentials
-  -  proxy authorization will fail, and the browser presents a popup
-     dialog to prompt user to enter proxy credentials
-  -  the option page still displays the correct credentials
-  -  this migration issue can be fixed by deleting and re-entering the
-     credential information (both the username and password) in the
-     options page to force the service worker receive and persist the
-     correct data for its use
+  -  the onInstall handler sees a reason of "update", which means this
+     is the MV2 to MV3 migration, and it kicks off the migration
+     offscreen page
+  -  the offscreen page JS code checks localStorage to see if it has
+     non-empty credentials, and sends a message to the service worker
+     to update the credentials in chrome.storage
