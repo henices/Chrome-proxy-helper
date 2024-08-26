@@ -14,7 +14,8 @@
         "tabs",
         "storage",
         "webRequest",
-        "webRequestAuthProvider"
+        "webRequestAuthProvider",
+        "offscreen"
     ],
     "host_permissions": [
         "*://*/*"
