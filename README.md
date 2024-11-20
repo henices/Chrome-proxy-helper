@@ -21,10 +21,14 @@ and https protocol and pac script, Fast And Simple.
     git clone https://github.com/henices/Chrome-proxy-helper.git
 ```
 
-# Document
+# FAQ
 
-* [Help](https://github.com/henices/Chrome-proxy-helper/wiki)
 * [FAQ](https://github.com/henices/Chrome-proxy-helper/wiki/FAQ)
+
+## How to pac script in this extension
+
+Here is an example PAC script: https://raw.githubusercontent.com/henices/Chrome-proxy-helper/refs/heads/master/example.pac
+
 
 # LICENSE
 This program is free software: you can redistribute it and/or modify
