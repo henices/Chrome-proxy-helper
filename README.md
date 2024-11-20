@@ -25,10 +25,12 @@ and https protocol and pac script, Fast And Simple.
 
 * [FAQ](https://github.com/henices/Chrome-proxy-helper/wiki/FAQ)
 
-## How to pac script in this extension
+## How to use pac script in this extension
 
 Here is an example PAC script: [example.pac](https://raw.githubusercontent.com/henices/Chrome-proxy-helper/refs/heads/master/example.pac)
 
+1. options page -> PAC -> PAC script, select the example.pac
+2. popup page -> PAC Script
 
 # LICENSE
 This program is free software: you can redistribute it and/or modify
