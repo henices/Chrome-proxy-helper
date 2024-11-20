@@ -27,7 +27,7 @@ and https protocol and pac script, Fast And Simple.
 
 ## How to pac script in this extension
 
-Here is an example PAC script: https://raw.githubusercontent.com/henices/Chrome-proxy-helper/refs/heads/master/example.pac
+Here is an example PAC script: [example.pac](https://raw.githubusercontent.com/henices/Chrome-proxy-helper/refs/heads/master/example.pac)
 
 
 # LICENSE
