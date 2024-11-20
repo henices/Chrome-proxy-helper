@@ -1,6 +1,7 @@
 
 const domains = {
   "google.com": 1,
+  "x.com": 1
 };
 
 const proxy = "SOCKS5 127.0.0.1:9999"; // 'PROXY' or 'SOCKS5' or 'HTTPS'
