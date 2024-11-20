@@ -1,30 +1,22 @@
 
-var domains = {
+const domains = {
   "google.com": 1,
 };
 
-var proxy = "SOCKS5 127.0.0.1:9999"; // 'PROXY' or 'SOCKS5' or 'HTTPS'
+const proxy = "SOCKS5 127.0.0.1:9999"; // 'PROXY' or 'SOCKS5' or 'HTTPS'
 
-var direct = 'DIRECT;';
+const direct = 'DIRECT;';
 
-var hasOwnProperty = Object.hasOwnProperty;
 
 function FindProxyForURL(url, host) {
-    var suffix;
-    var pos = host.lastIndexOf('.');
-    pos = host.lastIndexOf('.', pos - 1);
-    while(1) {
-        if (pos == -1) {
-            if (hasOwnProperty.call(domains, host)) {
-                return proxy;
-            } else {
-                return direct;
-            }
-        }
-        suffix = host.substring(pos + 1);
-        if (hasOwnProperty.call(domains, suffix)) {
-            return proxy;
-        }
-        pos = host.lastIndexOf('.', pos - 1);
+  const suffixes = host.match(/[^\.]+\.[^\.]+$/g) || [];
+
+  // Check each suffix against the domains object
+  for (const suffix of suffixes) {
+    if (Object.prototype.hasOwnProperty.call(domains, suffix)) {
+      return proxy;
     }
+  }
+
+  return direct;
 }
