@@ -374,6 +374,17 @@ function autoProxy() {
     localStorage.proxyInfo = 'auto_detect';
 }
 
+/**
+ * go to options.html
+ *
+ */
+function configProxy() {
+    if (chrome.runtime.openOptionsPage) {
+        chrome.runtime.openOptionsPage();
+    } else {
+        window.open(chrome.runtime.getURL('options.html'));
+    }
+}
 
 chrome.proxy.onProxyError.addListener(function(details) {
     console.log(details.error);
@@ -390,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
     document.querySelector('#auto-detect').addEventListener('click', autoProxy);
+    document.querySelector('#config-proxy').addEventListener('click', configProxy);
 
     $('[data-i18n-content]').each(function() {
         var message = chrome.i18n.getMessage(this.getAttribute('data-i18n-content'));

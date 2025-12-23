@@ -134,6 +134,9 @@
     "auto_detect_set" : {
         "message" : "自动检测"
     },
+    "config_proxy" : {
+        "message" : "代理配置"
+    },
     "General": {
         "message" : "常规"
     },
