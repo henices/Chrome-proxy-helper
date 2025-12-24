@@ -6,4 +6,4 @@ li { cursor: pointer; margin: 0px; padding: 0px; clear: both; overflow: hidden; 
 ul li:hover {border-radius: 3px 3px;border: solid 1px #c5cdd3;}
 .separator { display: none; width: 100%; border-top: 1px solid #ddd; }
 .selected { color: #15C; font-weight: bolder; background-image: url(/images/checked.gif); background-repeat: no-repeat; background-position: 0.2em; }
-hr { background-color: #E5E4E2; border-style: groove; border-width: 1px; }
+hr { border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #E5E4E2, rgba(0, 0, 0, 0)); }
