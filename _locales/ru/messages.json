@@ -68,6 +68,9 @@
     "direct_proxy" : {
         "message" : "Без прокси"
     },
+    "config_proxy" : {
+        "message" : "Настройка прокси"
+    },
     "port" : {
         "message" : "Порт:"
     },

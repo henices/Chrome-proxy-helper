@@ -32,6 +32,9 @@
     "direct_proxy" : {
         "message" : "プロキシーなし"
     },
+    "config_proxy" : {
+        "message" : "プロキシー設定"
+    },
     "port" : {
         "message" : "ポート:"
     },
