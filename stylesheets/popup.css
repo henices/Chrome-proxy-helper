@@ -21,17 +21,19 @@ body {
 
 /* ---- Header ---- */
 .popup-header {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 10px 8px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
 }
 .popup-header .logo {
-  width: 20px; height: 20px; border-radius: 6px;
+  width: 16px; height: 16px; border-radius: 4px;
   background: linear-gradient(135deg, #0ea5e9, #0369a1);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.popup-header .logo svg { width: 12px; height: 12px; }
-.popup-header h1 { font-size: 13px; font-weight: 700; }
+.popup-header .logo svg { width: 10px; height: 10px; }
+.popup-header h1 { font-size: 11px; font-weight: 600; color: #94a3b8; letter-spacing: 0.02em; }
 
 /* ---- List ---- */
 ul { list-style: none; }
