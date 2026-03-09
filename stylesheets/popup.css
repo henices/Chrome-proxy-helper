@@ -5,6 +5,7 @@
   --accent-bg: #f0f9ff;
   --text: #1e293b;
   --dim: #64748b;
+  --muted: #94a3b8;
   --hover: #f1f5f9;
   --border: #e2e8f0;
 }
@@ -22,8 +23,8 @@ body {
 /* ---- Header ---- */
 .popup-header {
   display: flex; align-items: center; gap: 6px;
-  padding: 8px 10px;
-  margin-bottom: 4px;
+  padding: 10px 10px 9px;
+  margin: 0 4px 6px;
   border-bottom: 1px solid var(--border);
 }
 .popup-header .logo {
@@ -33,10 +34,10 @@ body {
   flex-shrink: 0;
 }
 .popup-header .logo svg { width: 10px; height: 10px; }
-.popup-header h1 { font-size: 11px; font-weight: 600; color: #94a3b8; letter-spacing: 0.02em; }
+.popup-header h1 { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
 
 /* ---- List ---- */
-ul { list-style: none; }
+ul { list-style: none; padding: 0 2px; }
 
 li {
   border-radius: 6px;
@@ -74,5 +75,11 @@ li.selected .menu .icon { background: rgba(14,165,233,.15); }
 li.selected .menu .icon svg { stroke: var(--accent); }
 li.selected .menu .text { color: var(--accent); font-weight: 600; }
 
+/* ---- Settings (last item) ---- */
+#config-proxy .menu .icon { background: transparent; }
+#config-proxy .menu .icon svg { stroke: var(--dim); stroke-width: 1.5; }
+#config-proxy .menu .text { font-size: 12px; }
+#config-proxy:hover .menu .icon { background: var(--hover); }
+
 /* ---- Divider ---- */
-hr { border: none; height: 1px; background: var(--border); margin: 4px 10px; }
+hr { border: none; height: 1px; background: var(--border); margin: 4px 14px; }
