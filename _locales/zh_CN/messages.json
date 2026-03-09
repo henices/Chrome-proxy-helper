@@ -11,6 +11,12 @@
     "proxy_helper_options" : {
         "message" : "代理助手选项"
     },
+    "configure": {
+        "message" : "配置"
+    },
+    "info": {
+        "message" : "信息"
+    },
     "proxy_information" : {
         "message" : "浏览器代理设置"
     },
@@ -95,6 +101,9 @@
     "domain_in_bypasslist" : {
         "message" : "在白名单里的域名将不使用代理"
     },
+    "china_list" : {
+        "message" : "中国网站列表"
+    },
     "user" : {
         "message" : "用户:"
     },
@@ -169,6 +178,11 @@
     },
     "Blacklist": {
         "message": "黑名单"
+    },
+    "chrome_web_store": {
+        "message": "Chrome 网上应用店"
+    },
+    "open_source_licenses": {
+        "message": "开源许可证"
     }
 }
-

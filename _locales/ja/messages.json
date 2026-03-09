@@ -8,6 +8,12 @@
     "title" : {
         "message" : "プロキシーヘルパー"
     },
+    "configure": {
+        "message" : "設定"
+    },
+    "info": {
+        "message" : "情報"
+    },
     "advanced_settings" : {
         "message" : "詳細設定"
     },
@@ -49,6 +55,9 @@
     },
     "domain_in_bypasslist" : {
         "message" : "プロキシーを経由しないホスト名のリスト"
+    },
+    "china_list" : {
+        "message" : "中国サイトリスト"
     },
     "user" : {
         "message" : "ユーザー:"
@@ -109,5 +118,11 @@
     },
     "Whitelist": {
         "message": "ホワイトリスト"
+    },
+    "chrome_web_store": {
+        "message": "Chrome ウェブストア"
+    },
+    "open_source_licenses": {
+        "message": "オープンソースライセンス"
     }
 }

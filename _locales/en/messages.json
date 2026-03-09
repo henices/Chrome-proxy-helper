@@ -8,7 +8,109 @@
     "title": {
         "message": "Proxy Helper"
     },
-    "proxy_helper_options" : {
+    "proxy_helper_options": {
         "message": "Proxy Helper Options"
+    },
+    "configure": {
+        "message": "Configure"
+    },
+    "info": {
+        "message": "Info"
+    },
+    "General": {
+        "message": "General"
+    },
+    "Rules": {
+        "message": "Rules"
+    },
+    "About": {
+        "message": "About"
+    },
+    "authConfig": {
+        "message": "Authentication"
+    },
+    "proxy_servers": {
+        "message": "Proxy Servers"
+    },
+    "http_proxy": {
+        "message": "HTTP Proxy:"
+    },
+    "https_proxy": {
+        "message": "HTTPS Proxy:"
+    },
+    "socks_proxy": {
+        "message": "SOCKS Proxy:"
+    },
+    "quic_proxy": {
+        "message": "QUIC Proxy:"
+    },
+    "port": {
+        "message": "Port:"
+    },
+    "advanced_settings": {
+        "message": "Advanced Settings"
+    },
+    "proxy_rules": {
+        "message": "Proxy Mode:"
+    },
+    "pac_data": {
+        "message": "PAC Script"
+    },
+    "config_bypasslist": {
+        "message": "Bypass List"
+    },
+    "domain_in_bypasslist": {
+        "message": "Domains in the bypass list will never use a proxy."
+    },
+    "use_predefine_list": {
+        "message": "Use built-in bypass list"
+    },
+    "china_list": {
+        "message": "China List"
+    },
+    "user": {
+        "message": "Username:"
+    },
+    "pass": {
+        "message": "Password:"
+    },
+    "authentication": {
+        "message": "Authentication"
+    },
+    "pac_data_set": {
+        "message": "PAC Script"
+    },
+    "pac_url_set": {
+        "message": "PAC URL"
+    },
+    "socks_proxy_set": {
+        "message": "SOCKS Proxy"
+    },
+    "http_proxy_set": {
+        "message": "HTTP Proxy"
+    },
+    "https_proxy_set": {
+        "message": "HTTPS Proxy"
+    },
+    "quic_proxy_set": {
+        "message": "QUIC Proxy"
+    },
+    "auto_detect_set": {
+        "message": "Auto Detect"
+    },
+    "system_proxy": {
+        "message": "System"
+    },
+    "direct_proxy": {
+        "message": "Direct"
+    },
+    "config_proxy": {
+        "message": "Settings"
+    },
+    "chrome_web_store": {
+        "message": "Chrome Web Store"
+    },
+    "open_source_licenses": {
+        "message": "Open Source Licenses"
     }
 }
