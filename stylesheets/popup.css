@@ -36,6 +36,15 @@ body {
 .popup-header .logo svg { width: 10px; height: 10px; }
 .popup-header h1 { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
 
+.popup-header h1:lang(zh),
+.popup-header h1:lang(ja) { letter-spacing: 0; font-size: 12px; }
+
+.popup-header .version {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: .6;
+}
+
 /* ---- List ---- */
 ul { list-style: none; padding: 0 2px; }
 

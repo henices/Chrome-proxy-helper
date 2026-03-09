@@ -30,6 +30,7 @@ if (proxySetting['internal'] == 'china') {
 } else
     bypasslist = bypasslist ? bypasslist.split(',') : ['<local>'];
 
+document.documentElement.lang = chrome.i18n.getUILanguage();
 
 /**
  * set help message for popup page
@@ -438,4 +439,5 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function() {
     color_proxy_item();
     add_li_title();
+    document.querySelector('.version').textContent = chrome.runtime.getManifest().version;
 });
