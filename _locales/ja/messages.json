@@ -124,5 +124,8 @@
     },
     "open_source_licenses": {
         "message": "オープンソースライセンス"
+    },
+    "proxy_helper_options": {
+        "message": "プロキシーヘルパー オプション"
     }
 }
