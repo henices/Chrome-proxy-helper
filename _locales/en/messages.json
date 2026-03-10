@@ -53,6 +53,9 @@
     "proxy_rules": {
         "message": "Proxy Mode:"
     },
+    "pac_configuration": {
+        "message": "PAC Configuration"
+    },
     "pac_data": {
         "message": "PAC Script"
     },

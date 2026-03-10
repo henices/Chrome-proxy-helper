@@ -119,6 +119,9 @@
     "authConfig" : {
         "message" : "Аутентификация"
     },
+    "pac_configuration" : {
+        "message" : "Настройка PAC"
+    },
     "pac_data" : {
         "message" : "PAC-скрипт"
     },

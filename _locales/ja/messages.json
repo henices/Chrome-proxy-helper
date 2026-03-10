@@ -71,6 +71,9 @@
     "authConfig" : {
         "message" : "認証"
     },
+    "pac_configuration" : {
+        "message" : "PAC設定"
+    },
     "pac_data" : {
         "message" : "PACファイル"
     },
