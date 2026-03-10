@@ -8,9 +8,9 @@
   --surface: #f7f7f8;
   --surface-hover: #f0f0f2;
   --surface-active: #eaeaed;
-  --accent: #5e6ad2;
-  --accent-soft: rgba(94, 106, 210, 0.08);
-  --accent-medium: rgba(94, 106, 210, 0.14);
+  --accent: #475569;
+  --accent-soft: rgba(71, 85, 105, 0.08);
+  --accent-medium: rgba(71, 85, 105, 0.14);
   --text-primary: #1a1a2e;
   --text-secondary: #6b6f80;
   --text-tertiary: #9ca0b0;
@@ -80,7 +80,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(94, 106, 210, 0.3);
+  box-shadow: 0 1px 3px rgba(71, 85, 105, 0.3);
 }
 
 .popup-header .logo svg {
@@ -185,7 +185,7 @@ li.selected:hover {
 
 li.selected .menu .icon {
   background: var(--accent-soft);
-  border-color: rgba(94, 106, 210, 0.12);
+  border-color: rgba(71, 85, 105, 0.12);
 }
 
 li.selected .menu .icon svg {
@@ -208,7 +208,7 @@ li.selected::after {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 2px rgba(94, 106, 210, 0.15);
+  box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.15);
 }
 
 /* ---- Settings row ---- */

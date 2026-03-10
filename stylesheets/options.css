@@ -12,14 +12,14 @@
   --sidebar-text: rgba(255, 255, 255, 0.45);
   --sidebar-text-hover: rgba(255, 255, 255, 0.7);
   --sidebar-active: #ffffff;
-  --sidebar-accent-bar: #5e6ad2;
+  --sidebar-accent-bar: #475569;
 
   /* Accent */
-  --accent: #5e6ad2;
-  --accent-soft: rgba(94, 106, 210, 0.08);
-  --accent-medium: rgba(94, 106, 210, 0.14);
-  --accent-hover: #4f5bc4;
-  --accent-focus: rgba(94, 106, 210, 0.12);
+  --accent: #475569;
+  --accent-soft: rgba(71, 85, 105, 0.08);
+  --accent-medium: rgba(71, 85, 105, 0.14);
+  --accent-hover: #364152;
+  --accent-focus: rgba(71, 85, 105, 0.12);
 
   /* Text */
   --text-primary: #18181b;
@@ -138,7 +138,7 @@ body {
   border-radius: 7px;
   background: var(--accent);
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(94, 106, 210, 0.35);
+  box-shadow: 0 2px 8px rgba(71, 85, 105, 0.35);
 }
 
 /* ---- Section labels ---- */
@@ -526,12 +526,12 @@ button, .btn {
 #btn-save {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 1px 3px rgba(94, 106, 210, 0.25);
+  box-shadow: 0 1px 3px rgba(71, 85, 105, 0.25);
 }
 
 #btn-save:hover {
   background: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(94, 106, 210, 0.3);
+  box-shadow: 0 2px 8px rgba(71, 85, 105, 0.3);
   transform: translateY(-0.5px);
 }
 
