@@ -1,94 +1,296 @@
-/* Proxy Helper — Popup (Light) */
+/* =============================================
+   Proxy Helper — Popup
+   Minimal · Precise · Linear-inspired
+   ============================================= */
 
 :root {
-  --accent: #0ea5e9;
-  --accent-bg: #f0f9ff;
-  --text: #1e293b;
-  --dim: #64748b;
-  --muted: #94a3b8;
-  --hover: #f1f5f9;
-  --border: #e2e8f0;
+  --bg: #ffffff;
+  --surface: #f7f7f8;
+  --surface-hover: #f0f0f2;
+  --surface-active: #eaeaed;
+  --accent: #5e6ad2;
+  --accent-soft: rgba(94, 106, 210, 0.08);
+  --accent-medium: rgba(94, 106, 210, 0.14);
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b6f80;
+  --text-tertiary: #9ca0b0;
+  --border: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.1);
+  --divider: rgba(0, 0, 0, 0.05);
+  --radius: 8px;
+  --radius-sm: 6px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* System font stack: Latin/Cyrillic → CJK fallbacks → generic
+     macOS:   SF Pro Text, PingFang SC, Hiragino Sans
+     Windows: Segoe UI, Microsoft YaHei, Yu Gothic UI, Meiryo
+     Linux:   Noto Sans (covers Latin/Cyrillic/CJK) */
+  --font:
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans",
+    "Helvetica Neue",
+    "PingFang SC", "Hiragino Sans",
+    "Microsoft YaHei", "Yu Gothic UI", "Meiryo",
+    "Noto Sans SC", "Noto Sans JP",
+    sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
 
 body {
-  width: 200px;
-  font: 13px/1 -apple-system, 'Segoe UI', system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  color: var(--text);
-  padding: 6px;
+  width: 220px;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg);
+  padding: 4px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ---- Header ---- */
 .popup-header {
-  display: flex; align-items: center; gap: 6px;
-  padding: 10px 10px 9px;
-  margin: 0 4px 6px;
-  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 11px;
+  margin-bottom: 2px;
+  position: relative;
 }
-.popup-header .logo {
-  width: 16px; height: 16px; border-radius: 4px;
-  background: linear-gradient(135deg, #0ea5e9, #0369a1);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.popup-header .logo svg { width: 10px; height: 10px; }
-.popup-header h1 { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
 
-.popup-header h1:lang(zh),
-.popup-header h1:lang(ja) { letter-spacing: 0; font-size: 12px; }
+.popup-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: var(--divider);
+}
+
+.popup-header .logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(94, 106, 210, 0.3);
+}
+
+.popup-header .logo svg {
+  width: 12px;
+  height: 12px;
+}
+
+.popup-header h1 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
 
 .popup-header .version {
   font-size: 10px;
-  font-weight: 400;
-  opacity: .6;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  line-height: 1;
 }
 
 /* ---- List ---- */
-ul { list-style: none; padding: 0 2px; }
+ul {
+  list-style: none;
+  padding: 4px;
+}
 
 li {
-  border-radius: 6px;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: background .15s;
+  transition: background 160ms var(--ease);
+  position: relative;
 }
-li:hover { background: var(--hover); }
-li:active { opacity: .8; }
+
+li:hover {
+  background: var(--surface);
+}
+
+li:active {
+  background: var(--surface-active);
+  transition-duration: 60ms;
+}
 
 li .menu {
-  display: flex; align-items: center; gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 7px 10px;
 }
+
 li .menu .icon {
-  width: 26px; height: 26px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--hover); flex-shrink: 0;
-  transition: background .15s;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  flex-shrink: 0;
+  transition: background 160ms var(--ease), transform 160ms var(--ease);
+  border: 1px solid var(--border);
 }
-li:hover .menu .icon { background: var(--border); }
+
+li:hover .menu .icon {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+}
+
 li .menu .icon svg {
-  width: 14px; height: 14px;
-  stroke: var(--dim); fill: none;
-  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  width: 14px;
+  height: 14px;
+  stroke: var(--text-secondary);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 160ms var(--ease);
 }
+
 li .menu .text {
-  font-size: 12.5px; font-weight: 500; color: var(--dim);
-  transition: color .15s;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 160ms var(--ease);
+  letter-spacing: -0.005em;
 }
-li:hover .menu .text { color: var(--text); }
 
-/* ---- Selected ---- */
-li.selected { background: var(--accent-bg); }
-li.selected .menu .icon { background: rgba(14,165,233,.15); }
-li.selected .menu .icon svg { stroke: var(--accent); }
-li.selected .menu .text { color: var(--accent); font-weight: 600; }
+li:hover .menu .text {
+  color: var(--text-primary);
+}
 
-/* ---- Settings (last item) ---- */
-#config-proxy .menu .icon { background: transparent; }
-#config-proxy .menu .icon svg { stroke: var(--dim); stroke-width: 1.5; }
-#config-proxy .menu .text { font-size: 12px; }
-#config-proxy:hover .menu .icon { background: var(--hover); }
+/* ---- Selected state ---- */
+li.selected {
+  background: var(--accent-soft);
+}
+
+li.selected:hover {
+  background: var(--accent-medium);
+}
+
+li.selected .menu .icon {
+  background: var(--accent-soft);
+  border-color: rgba(94, 106, 210, 0.12);
+}
+
+li.selected .menu .icon svg {
+  stroke: var(--accent);
+}
+
+li.selected .menu .text {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---- Status dot for selected ---- */
+li.selected::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px rgba(94, 106, 210, 0.15);
+}
+
+/* ---- Settings row ---- */
+#config-proxy .menu .icon {
+  background: transparent;
+  border-color: transparent;
+}
+
+#config-proxy:hover .menu .icon {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+#config-proxy .menu .icon svg {
+  stroke: var(--text-tertiary);
+  stroke-width: 1.6;
+  transition: stroke 160ms var(--ease), transform 300ms var(--ease);
+}
+
+#config-proxy:hover .menu .icon svg {
+  stroke: var(--text-secondary);
+  transform: rotate(45deg);
+}
+
+#config-proxy .menu .text {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
 
 /* ---- Divider ---- */
-hr { border: none; height: 1px; background: var(--border); margin: 4px 14px; }
+hr {
+  border: none;
+  height: 1px;
+  background: var(--divider);
+  margin: 3px 14px;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 4px; }
+
+/* ---- Entrance animation ---- */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+li {
+  animation: slideUp 200ms var(--ease) both;
+}
+
+li:nth-child(1)  { animation-delay: 20ms; }
+li:nth-child(2)  { animation-delay: 40ms; }
+li:nth-child(3)  { animation-delay: 60ms; }
+li:nth-child(4)  { animation-delay: 80ms; }
+li:nth-child(5)  { animation-delay: 100ms; }
+li:nth-child(6)  { animation-delay: 120ms; }
+li:nth-child(7)  { animation-delay: 140ms; }
+li:nth-child(8)  { animation-delay: 160ms; }
+li:nth-child(9)  { animation-delay: 180ms; }
+li:nth-child(10) { animation-delay: 200ms; }
+li:nth-child(11) { animation-delay: 220ms; }
+li:nth-child(12) { animation-delay: 240ms; }
+
+/* ---- CJK / Cyrillic refinements ---- */
+:lang(zh), :lang(ja) {
+  letter-spacing: 0;
+  word-break: keep-all;
+}
+
+:lang(zh) { font-feature-settings: "palt"; }
+
+/* CJK text needs slightly more line-height for readability */
+li .menu .text:lang(zh),
+li .menu .text:lang(ja) {
+  line-height: 1.35;
+}
+
+/* Popup header: reset letter-spacing for CJK titles */
+.popup-header h1:lang(zh),
+.popup-header h1:lang(ja),
+.popup-header h1:lang(ru) {
+  letter-spacing: 0;
+}
