@@ -21,8 +21,6 @@ var httpsPort = proxySetting['https_port'];
 var pacData = proxySetting['pac_data'];
 var pacUrlType = proxySetting['pac_type'].split(':')[0];
 var pacScriptUrl = proxySetting['pac_script_url'];
-var quicHost = proxySetting['quic_host'];
-var quicPort = proxySetting['quic_port'];
 var chinaList = JSON.parse(localStorage.chinaList);
 
 if (proxySetting['internal'] == 'china') {
@@ -37,7 +35,7 @@ document.documentElement.lang = chrome.i18n.getUILanguage();
  *
  */
 function add_li_title() {
-    var _http, _https, _socks, _pac, _quic;
+    var _http, _https, _socks, _pac;
 
     if (httpHost && httpPort) {
         _http = 'http://' + httpHost + ':' + httpPort;
@@ -64,11 +62,6 @@ function add_li_title() {
         _socks = socksType + '://' + socksHost + ':' + socksPort;
         $('#socks5-proxy').attr('title', _socks);
     }
-
-    if (quicHost && quicPort) {
-        _quic = 'quic://' + quicHost + ':' + quicPort;
-    }
-
 }
 
 /**
@@ -121,8 +114,6 @@ function color_proxy_item() {
                 $('#socks5-proxy').addClass('selected');
             } else if (scheme == 'socks4') {
                 $('#socks5-proxy').addClass('selected');
-            } else if (scheme == 'quic') {
-                $('#quic-proxy').addClass('selected');
             }
         }
     });
@@ -292,32 +283,6 @@ function httpsProxy() {
     localStorage.proxyInfo = 'https';
 }
 
-function quicProxy() {
-
-    var config = {
-        mode: 'fixed_servers',
-        rules: {
-            bypassList:bypasslist
-        }
-    };
-
-    if (!quicHost) return;
-
-    config['rules'][proxyRule] = {
-                             scheme: 'quic',
-                             host: quicHost,
-                             port: parseInt(quicPort)
-                         };
-
-    chrome.proxy.settings.set(
-            {value: config, scope: 'regular'},
-            function() {});
-
-    iconSet('on');
-    proxySelected('quic-proxy');
-    localStorage.proxyInfo = 'quic';
-}
-
 /**
  * set direct proxy
  *
@@ -398,7 +363,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('#socks5-proxy').addEventListener('click', socks5Proxy);
     document.querySelector('#http-proxy').addEventListener('click', httpProxy);
     document.querySelector('#https-proxy').addEventListener('click', httpsProxy);
-    document.querySelector('#quic-proxy').addEventListener('click', quicProxy);
     document.querySelector('#sys-proxy').addEventListener('click', sysProxy);
     document.querySelector('#direct-proxy').addEventListener('click', directProxy);
     document.querySelector('#auto-detect').addEventListener('click', autoProxy);
@@ -429,11 +393,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!pacScriptUrl[pacUrlType]) {
         $('#pac-url-proxy').hide();
     }
-
-    if (!quicHost) {
-        $('#quic-proxy').hide();
-    }
-
 });
 
 $(document).ready(function() {

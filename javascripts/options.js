@@ -11,8 +11,6 @@ function loadProxyData() {
 
       $('#socks-host').val(proxySetting['socks_host'] || "");
       $('#socks-port').val(proxySetting['socks_port'] || "");
-      $('#quic-host').val(proxySetting['quic_host'] || "");
-      $('#quic-port').val(proxySetting['quic_port'] || "");
       $('#http-host').val(proxySetting['http_host'] || "");
       $('#http-port').val(proxySetting['http_port'] || "");
       $('#https-host').val(proxySetting['https_host'] || "");
@@ -137,9 +135,6 @@ function loadOldInfo() {
             } else if (type == 'https') {
                 $('#https-host').val(host);
                 $('#https-port').val(port);
-            } else if (type == 'quic') {
-                $('#quic-host').val(host);
-                $('#quic-port').val(port);
             } else {
                 if (type == 'socks5') {
                     $('#socks5').attr('checked', true);
@@ -288,11 +283,6 @@ function reloadProxy() {
             proxy.port = parseInt(proxySetting['socks_port']);
             break;
 
-        case 'quic':
-            proxy.type = 'quic';
-            proxy.host = proxySetting['quic_host'];
-            proxy.port = parseInt(proxySetting['quic_port']);
-            break;
         }
 
         var rule = proxySetting['proxy_rule'];
@@ -354,8 +344,6 @@ function save() {
   proxySetting['http_port'] = $('#http-port').val() || "";
   proxySetting['https_host'] = $('#https-host').val() || "";
   proxySetting['https_port'] = $('#https-port').val() || "";
-  proxySetting['quic_host'] = $('#quic-host').val() || "";
-  proxySetting['quic_port'] = $('#quic-port').val() || "";
   proxySetting['socks_host'] = $('#socks-host').val() || "";
   proxySetting['socks_port'] = $('#socks-port').val() || "";
   proxySetting['pac_type'] = $('#pac-type').val() || "";
