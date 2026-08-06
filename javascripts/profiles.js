@@ -3,10 +3,20 @@
 
 var PROFILES_SCHEMA_VERSION = 2;
 
+// Chrome's PAC fetcher only accepts http://, https:// and data: URLs
+// (net::PacFileFetcherImpl::IsUrlSchemeAllowed); file:// was removed in
+// Chrome 69 and no flag or policy brings it back. Older profiles may still
+// carry pac_type 'file://', so every read goes through normalizePacType().
+var DEFAULT_PAC_TYPE = 'http://';
+
+function normalizePacType(type) {
+    return type === 'https://' ? 'https://' : DEFAULT_PAC_TYPE;
+}
+
 var DEFAULT_PROFILE_FIELDS = {
     mode: 'direct',
-    pac_script_url: { http: '', https: '', file: '' },
-    pac_type: 'file://',
+    pac_script_url: { http: '', https: '' },
+    pac_type: DEFAULT_PAC_TYPE,
     pac_data: '',
     http_host: '', http_port: '',
     https_host: '', https_port: '',
@@ -62,7 +72,7 @@ function configuredModes(p) {
     if (p.http_host && p.http_port) modes.push('http');
     if (p.https_host && p.https_port) modes.push('https');
     if (p.socks_host && p.socks_port) modes.push('socks');
-    var pacProto = (p.pac_type || '').split(':')[0];
+    var pacProto = normalizePacType(p.pac_type).split(':')[0];
     if (p.pac_script_url && p.pac_script_url[pacProto]) modes.push('pac_url');
     if (p.pac_data) modes.push('pac_data');
     return modes;
@@ -260,11 +270,12 @@ function _profileBuildConfig(p, chinaList) {
         case 'pac_data':
             return { mode: 'pac_script', pacScript: { data: p.pac_data || '' } };
         case 'pac_url':
-            var proto = (p.pac_type || 'http://').split(':')[0];
-            return {
-                mode: 'pac_script',
-                pacScript: { url: (p.pac_type || '') + ((p.pac_script_url && p.pac_script_url[proto]) || '') }
-            };
+            var pacType = normalizePacType(p.pac_type);
+            var pacHost = (p.pac_script_url && p.pac_script_url[pacType.split(':')[0]]) || '';
+            // An empty host would yield a bare "http://", which Chrome accepts
+            // and then silently fails to fetch. Stay explicit instead.
+            if (!pacHost) return { mode: 'direct' };
+            return { mode: 'pac_script', pacScript: { url: pacType + pacHost } };
         default:
             if (p.rules_mode === 'Blacklist') {
                 return _profileBuildBlacklistPac(p);
@@ -366,7 +377,11 @@ function _applyProfileObj(p, chinaList, cb) {
     if (!p) { cb && cb(); return; }
     var config = _profileBuildConfig(p, chinaList || []);
     chrome.proxy.settings.set({ value: config, scope: 'regular' }, function() {
-        _profileSetIcon(p.mode);
+        // Icon follows the config we actually applied, not the profile's
+        // requested mode - an unconfigured pac_url degrades to direct, and the
+        // badge must not claim "proxied". This also matches setProxyIcon() in
+        // background.js, which derives the icon from the live setting.
+        _profileSetIcon(config.mode);
         cb && cb();
     });
 }

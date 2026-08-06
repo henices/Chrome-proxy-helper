@@ -32,7 +32,7 @@ function loadProxyDataFor(id) {
     $('#http-port').val(p.http_port || '');
     $('#https-host').val(p.https_host || '');
     $('#https-port').val(p.https_port || '');
-    $('#pac-type').val(p.pac_type || 'file://');
+    $('#pac-type').val(normalizePacType(p.pac_type));
     $('#pac-data').val(p.pac_data || '');
     $('#bypasslist').val(p.bypasslist || '');
     $('#proxylist').val(p.proxylist || '');
@@ -41,7 +41,7 @@ function loadProxyDataFor(id) {
     $('#password').val((p.auth && p.auth.pass) || '');
 
     try {
-        var type = (p.pac_type || 'file://').split(':')[0];
+        var type = normalizePacType(p.pac_type).split(':')[0];
         $('#pac-script-url').val((p.pac_script_url && p.pac_script_url[type]) || '');
     } catch (e) {}
 
@@ -66,7 +66,7 @@ function readFormIntoProfile(p) {
     p.https_port = $('#https-port').val() || '';
     p.socks_host = $('#socks-host').val() || '';
     p.socks_port = $('#socks-port').val() || '';
-    p.pac_type = $('#pac-type').val() || 'file://';
+    p.pac_type = normalizePacType($('#pac-type').val());
     p.pac_data = $('#pac-data').val() || '';
     p.bypasslist = $('#bypasslist').val() || '';
     p.proxylist = $('#proxylist').val() || '';
@@ -83,8 +83,8 @@ function readFormIntoProfile(p) {
     p.rules_mode = $('#rules-mode').val() || 'Whitelist';
 
     try {
-        var pacType = (p.pac_type || 'file://').split(':')[0];
-        if (!p.pac_script_url) p.pac_script_url = { http: '', https: '', file: '' };
+        var pacType = p.pac_type.split(':')[0];
+        if (!p.pac_script_url) p.pac_script_url = { http: '', https: '' };
         p.pac_script_url[pacType] = $('#pac-script-url').val() || '';
     } catch (e) {}
 
