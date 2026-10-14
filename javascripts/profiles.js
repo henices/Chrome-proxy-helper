@@ -3,6 +3,12 @@
 
 var PROFILES_SCHEMA_VERSION = 2;
 
+// Built-in bypass lists
+var INTERNAL_LISTS = {
+    china: ['*.cn'],
+    iran:  ['*.ir']
+};
+
 var DEFAULT_PROFILE_FIELDS = {
     mode: 'direct',
     pac_script_url: { http: '', https: '', file: '' },
@@ -138,8 +144,8 @@ function ensureMigrated(cb) {
             activeProfileId: 'default',
             profiles: { 'default': profile }
         };
-        if (!result.chinaList) {
-            update.chinaList = JSON.stringify(['*.cn']);
+        if (!result.internalLists) {
+            update.internalLists = JSON.parse(JSON.stringify(INTERNAL_LISTS));
         }
 
         chrome.storage.local.set(update, function() {
@@ -232,14 +238,31 @@ function _profileEndpoint(profile) {
 
 var _PAC_SCHEME_TOKEN = { http: 'PROXY', https: 'HTTPS', socks4: 'SOCKS', socks5: 'SOCKS5' };
 
-function _profileBuildFixedServers(profile, chinaList) {
+
+function _internalPatterns(profile, stored) {
+    var names = (profile.internal || '').split(',');
+    var out = [];
+    for (var i = 0; i < names.length; i++) {
+        var name = (names[i] || '').trim();
+        if (!name) continue;
+        var patterns = (stored && stored[name]) || INTERNAL_LISTS[name];
+        if (!patterns) continue;
+        for (var j = 0; j < patterns.length; j++) {
+            if (out.indexOf(patterns[j]) === -1) out.push(patterns[j]);
+        }
+    }
+    return out;
+}
+
+function _profileBuildFixedServers(profile, internalLists) {
     var rule = profile.proxy_rule;
     var proxy = _profileEndpoint(profile) || { type: '', host: '', port: 0 };
     if (proxy.type === 'http' && rule === 'fallbackProxy') rule = 'singleProxy';
 
     var bypass;
-    if (profile.internal === 'china' && chinaList && chinaList.length) {
-        bypass = chinaList.concat((profile.bypasslist || '').split(','));
+    var internal = _internalPatterns(profile, internalLists);
+    if (internal.length) {
+        bypass = internal.concat((profile.bypasslist || '').split(','));
     } else {
         bypass = profile.bypasslist ? profile.bypasslist.split(',') : ['<local>'];
     }
@@ -252,7 +275,7 @@ function _profileBuildFixedServers(profile, chinaList) {
     return config;
 }
 
-function _profileBuildConfig(p, chinaList) {
+function _profileBuildConfig(p, internalLists) {
     switch (p.mode) {
         case 'direct':      return { mode: 'direct' };
         case 'system':      return { mode: 'system' };
@@ -269,7 +292,7 @@ function _profileBuildConfig(p, chinaList) {
             if (p.rules_mode === 'Blacklist') {
                 return _profileBuildBlacklistPac(p);
             }
-            return _profileBuildFixedServers(p, chinaList);
+            return _profileBuildFixedServers(p, internalLists);
     }
 }
 
@@ -362,9 +385,20 @@ function _profileBlacklistPacScript(proxy, patterns) {
     ].join('\n');
 }
 
-function _applyProfileObj(p, chinaList, cb) {
+
+function _withInternalLists(cb) {
+    chrome.storage.local.get(['internalLists'], function(r) {
+        var lists = r.internalLists;
+        if (typeof lists === 'string') {
+            try { lists = JSON.parse(lists); } catch (e) { lists = null; }
+        }
+        cb((lists && typeof lists === 'object') ? lists : null);
+    });
+}
+
+function _applyProfileObj(p, internalLists, cb) {
     if (!p) { cb && cb(); return; }
-    var config = _profileBuildConfig(p, chinaList || []);
+    var config = _profileBuildConfig(p, internalLists);
     chrome.proxy.settings.set({ value: config, scope: 'regular' }, function() {
         _profileSetIcon(p.mode);
         cb && cb();
@@ -372,23 +406,23 @@ function _applyProfileObj(p, chinaList, cb) {
 }
 
 function applyProfile(id, cb) {
-    chrome.storage.local.get(['profiles', 'chinaList'], function(r) {
+    chrome.storage.local.get(['profiles'], function(r) {
         var p = r.profiles && r.profiles[id];
-        var chinaList = [];
-        try { chinaList = r.chinaList ? JSON.parse(r.chinaList) : []; } catch (e) {}
-        _applyProfileObj(p, chinaList, cb);
+        _withInternalLists(function(internalLists) {
+            _applyProfileObj(p, internalLists, cb);
+        });
     });
 }
 
 function applyMode(id, mode, cb) {
-    chrome.storage.local.get(['profiles', 'chinaList'], function(r) {
+    chrome.storage.local.get(['profiles'], function(r) {
         var profiles = r.profiles || {};
         if (!profiles[id]) { cb && cb(); return; }
         profiles[id].mode = mode;
-        var chinaList = [];
-        try { chinaList = r.chinaList ? JSON.parse(r.chinaList) : []; } catch (e) {}
         chrome.storage.local.set({ profiles: profiles }, function() {
-            _applyProfileObj(profiles[id], chinaList, cb);
+            _withInternalLists(function(internalLists) {
+                _applyProfileObj(profiles[id], internalLists, cb);
+            });
         });
     });
 }

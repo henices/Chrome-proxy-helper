@@ -101,6 +101,9 @@
     "china_list" : {
         "message" : "中国网站列表"
     },
+    "iran_list": {
+        "message" : "伊朗网站列表"
+    },
     "user" : {
         "message" : "用户:"
     },

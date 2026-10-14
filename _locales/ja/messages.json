@@ -62,6 +62,9 @@
     "china_list" : {
         "message" : "中国サイトリスト"
     },
+    "iran_list": {
+        "message" : "イランサイトリスト"
+    },
     "user" : {
         "message" : "ユーザー:"
     },
