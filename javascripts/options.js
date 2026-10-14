@@ -22,6 +22,22 @@ function updateActiveBadge() {
     $('#active-indicator').toggle(currentEditingId === activeProfileId);
 }
 
+// `internal` is a comma-separated list of built-in bypass-list names.
+function _internalSelected(p, name) {
+    var names = (p.internal || '').split(',');
+    for (var i = 0; i < names.length; i++) {
+        if ((names[i] || '').trim() === name) return true;
+    }
+    return false;
+}
+
+function _readInternal() {
+    var names = [];
+    if ($('#china-list').is(':checked')) names.push('china');
+    if ($('#iran-list').is(':checked')) names.push('iran');
+    return names.join(',');
+}
+
 function loadProxyDataFor(id) {
     var p = allProfiles[id];
     if (!p) return;
@@ -47,7 +63,8 @@ function loadProxyDataFor(id) {
 
     $('#socks5').prop('checked', p.socks_type === 'socks5');
     $('#socks4').prop('checked', p.socks_type === 'socks4');
-    $('#china-list').prop('checked', p.internal === 'china');
+    $('#china-list').prop('checked', _internalSelected(p, 'china'));
+    $('#iran-list').prop('checked', _internalSelected(p, 'iran'));
 
     var rulesMode = p.rules_mode || 'Whitelist';
     $('#rules-mode').val(rulesMode);
@@ -79,7 +96,7 @@ function readFormIntoProfile(p) {
     if ($('#socks5').is(':checked')) p.socks_type = 'socks5';
     if ($('#socks4').is(':checked')) p.socks_type = 'socks4';
 
-    p.internal = $('#china-list').is(':checked') ? 'china' : '';
+    p.internal = _readInternal();
     p.rules_mode = $('#rules-mode').val() || 'Whitelist';
 
     try {

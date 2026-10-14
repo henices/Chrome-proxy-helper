@@ -1,6 +1,15 @@
 ChangeLog
 ===================================================
 
+2026-05-15 (2.1.4)
+    1. Add an Iran built-in bypass list, exposed as a second checkbox under
+       Rules -> Built-in bypass list (*.ir).
+    2. Generalize the built-in lists: a profile's `internal` setting is now a
+       comma-separated list of list names ("china", "iran", "china,iran") and
+       the lists themselves live in one `internalLists` storage key, so adding
+       another country is a config change rather than new branches in
+       _profileBuildFixedServers(). Existing profiles keep working unchanged.
+
 2026-05-14 (2.1.3)
     1. Fix popup mode highlight getting out of sync when the options page was
        open at the time the popup applied a different mode (e.g. PAC -> SOCKS

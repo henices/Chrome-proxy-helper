@@ -86,6 +86,9 @@
     "china_list": {
         "message": "China List"
     },
+    "iran_list": {
+        "message": "Iran List"
+    },
     "user": {
         "message": "Username:"
     },
