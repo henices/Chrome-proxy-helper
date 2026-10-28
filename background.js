@@ -118,4 +118,5 @@ chrome.proxy.onProxyError.addListener(function(details) {
 });
 
 console.log('%s service worker initialized', new Date(Date.now()).toISOString());
+chrome.proxy.settings.onChange.addListener(setProxyIcon);
 setProxyIcon();
