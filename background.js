@@ -119,4 +119,8 @@ chrome.proxy.onProxyError.addListener(function(details) {
 
 console.log('%s service worker initialized', new Date(Date.now()).toISOString());
 chrome.proxy.settings.onChange.addListener(setProxyIcon);
+// setIcon does not survive a browser restart and none of the listeners above
+// fire on a plain startup, so without this the worker never runs and the
+// toolbar keeps the grey default_icon even though the persisted proxy is on.
+chrome.runtime.onStartup.addListener(setProxyIcon);
 setProxyIcon();
