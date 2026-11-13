@@ -24,6 +24,12 @@ function gotoPage(url) {
 }
 
 async function callbackFn(details, cb) {
+    // Origin-server authentication must not receive proxy credentials.
+    if (!details.isProxy) {
+        cb({});
+        return;
+    }
+
     console.log('%s onAuthRequiredCB', new Date(Date.now()).toISOString());
     var r = await chrome.storage.local.get(['profiles', 'activeProfileId']);
     var p = r.profiles && r.profiles[r.activeProfileId];
