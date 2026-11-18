@@ -1,6 +1,10 @@
 ChangeLog
 ===================================================
 
+2026-11-18 (2.1.5)
+    1. Fix proxy credentials leaking to websites: only supply stored
+       credentials for proxy-authentication challenges, not origin servers.
+
 2026-10-30 (2.1.4)
     1. Fix the toolbar icon staying gray after the proxy was changed: the
        service worker painted the icon only once at start-up and did not
